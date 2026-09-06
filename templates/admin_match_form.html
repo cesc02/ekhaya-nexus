@@ -1,0 +1,46 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ 'Edit' if match else 'Add' }} Match - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="form-section">
+  <h1 class="page-title" style="margin-bottom:24px">{{ 'Edit' if match else 'Add' }} Match</h1>
+  <form method="POST" class="app-form">
+    <div class="form-group">
+      <label>Team</label>
+      <select name="team_id" required>
+        {% for t in teams %}
+        <option value="{{ t['id'] }}" {% if match and match['team_id'] == t['id'] %}selected{% endif %}>{{ t['name'] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% if not match %}
+    <div class="form-group">
+      <label>Competition</label>
+      <select name="competition_id">
+        <option value="">-- None --</option>
+        {% for c in competitions %}
+        <option value="{{ c['id'] }}" {% if match and match['competition_id'] == c['id'] %}selected{% endif %}>{{ c['team_name'] }} - {{ c['name'] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+    <div class="form-grid">
+      <div class="form-group"><label>Date</label><input type="text" name="match_date" value="{{ match['match_date'] if match else '' }}" placeholder="YYYY-MM-DD" required></div>
+      <div class="form-group"><label>Opponent</label><input type="text" name="opponent" value="{{ match['opponent'] if match else '' }}" required></div>
+      <div class="form-group"><label>Venue</label><input type="text" name="venue" value="{{ match['venue'] if match else 'Home' }}"></div>
+      <div class="form-group"><label>Result</label>
+        <select name="result">
+          <option value="W" {% if match and match['result'] == 'W' %}selected{% endif %}>Win</option>
+          <option value="D" {% if match and match['result'] == 'D' %}selected{% endif %}>Draw</option>
+          <option value="L" {% if match and match['result'] == 'L' %}selected{% endif %}>Loss</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Team Score</label><input type="number" name="team_score" value="{{ match['team_score'] if match else 0 }}"></div>
+      <div class="form-group"><label>Opponent Score</label><input type="number" name="opponent_score" value="{{ match['opponent_score'] if match else 0 }}"></div>
+    </div>
+    <div>
+      <button class="btn btn-gold" type="submit">Save</button>
+      <a class="btn btn-outline" href="{{ url_for('admin_matches') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

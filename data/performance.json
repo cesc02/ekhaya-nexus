@@ -1,0 +1,4132 @@
+[
+  {
+    "file": "Blue Eagles Catapult report 26 April 2026.pdf",
+    "date": "2026-04-26",
+    "competition": "FDH Premiership",
+    "opponent": "Blue Eagles",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "265",
+          "Distance (m)": "5741",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "4.4",
+          "Player Load": "655",
+          "Overall (%)": "30",
+          "Sprint Distance (m)": "95",
+          "Accel & Decel Efforts": "115"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "721",
+          "Distance (m)": "11769",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "6.0",
+          "Player Load": "1436",
+          "Overall (%)": "2675",
+          "Sprint Distance (m)": "110",
+          "Accel & Decel Efforts": "282"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CM",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "438",
+          "Distance (m)": "6004",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "4.6",
+          "Player Load": "717",
+          "Overall (%)": "72",
+          "Sprint Distance (m)": "17",
+          "Accel & Decel Efforts": "140"
+        }
+      },
+      {
+        "name_raw": "James, Hadji",
+        "position": "CM",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1090",
+          "Max Acceleration": "2.2",
+          "Max Deceleration": "2.5",
+          "Player Load": "136",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CM",
+        "row_y": 630,
+        "values": {
+          "High Speed Distance (m)": "252",
+          "Distance (m)": "4458",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "6.6",
+          "Player Load": "514",
+          "Overall (%)": "45",
+          "Sprint Distance (m)": "58",
+          "Accel & Decel Efforts": "80"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CM",
+        "row_y": 728,
+        "values": {
+          "High Speed Distance (m)": "531",
+          "Distance (m)": "10103",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.1",
+          "Player Load": "1037",
+          "Overall (%)": "162",
+          "Sprint Distance (m)": "158",
+          "Accel & Decel Efforts": "190"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 805,
+        "values": {
+          "High Speed Distance (m)": "299",
+          "Distance (m)": "6866",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "5.1",
+          "Player Load": "802",
+          "Overall (%)": "52",
+          "Sprint Distance (m)": "34",
+          "Accel & Decel Efforts": "134"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 883,
+        "values": {
+          "High Speed Distance (m)": "691",
+          "Distance (m)": "12795",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "4.6",
+          "Player Load": "1603",
+          "Overall (%)": "278",
+          "Sprint Distance (m)": "76",
+          "Accel & Decel Efforts": "255"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 979,
+        "values": {
+          "High Speed Distance (m)": "819",
+          "Distance (m)": "10336",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.3",
+          "Player Load": "1100",
+          "Overall (%)": "195",
+          "Sprint Distance (m)": "152",
+          "Accel & Decel Efforts": "213"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1076,
+        "values": {
+          "High Speed Distance (m)": "555",
+          "Distance (m)": "10045",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "5.1",
+          "Player Load": "1086",
+          "Overall (%)": "355",
+          "Sprint Distance (m)": "86",
+          "Accel & Decel Efforts": "234"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "CB",
+        "row_y": 1172,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "932",
+          "Max Acceleration": "2.2",
+          "Max Deceleration": "3.9",
+          "Player Load": "154",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 1269,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1742",
+          "Max Acceleration": "3.3",
+          "Max Deceleration": "4.7",
+          "Player Load": "270",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "11"
+        }
+      },
+      {
+        "name_raw": "Mwansambo, Fanizo",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "261",
+          "Distance (m)": "4394",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": null,
+          "Player Load": "515",
+          "Overall (%)": "104",
+          "Sprint Distance (m)": "33",
+          "Accel & Decel Efforts": "98"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CM",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "622",
+          "Distance (m)": "10288",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "5.7",
+          "Player Load": "1242",
+          "Overall (%)": "2426",
+          "Sprint Distance (m)": "96",
+          "Accel & Decel Efforts": "223"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "CM",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "11",
+          "Distance (m)": "2331",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "3.8",
+          "Player Load": "350",
+          "Overall (%)": "10",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "44"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CM",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "320",
+          "Distance (m)": "6335",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "4.7",
+          "Player Load": "813",
+          "Overall (%)": "632",
+          "Sprint Distance (m)": "46",
+          "Accel & Decel Efforts": "121"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CM",
+        "row_y": 724,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": null,
+          "Max Acceleration": "0.0",
+          "Max Deceleration": "0.0",
+          "Player Load": null,
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "FB",
+        "row_y": 802,
+        "values": {
+          "High Speed Distance (m)": "336",
+          "Distance (m)": "9855",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "5.3",
+          "Player Load": "1294",
+          "Overall (%)": "180",
+          "Sprint Distance (m)": "48",
+          "Accel & Decel Efforts": "169"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 879,
+        "values": {
+          "High Speed Distance (m)": "24",
+          "Distance (m)": "6346",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.9",
+          "Player Load": "635",
+          "Overall (%)": "3869",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "110"
+        }
+      },
+      {
+        "name_raw": "Waka, Joshua",
+        "position": "GK",
+        "row_y": 938,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1336",
+          "Max Acceleration": "2.8",
+          "Max Deceleration": "2.6",
+          "Player Load": "191",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:11:50",
+      "venue": "CIVO STADIUM",
+      "Distance (m)": "0%",
+      "High Speed Dist (m)": "0%",
+      "Accel+Decel (#)": "0%",
+      "Athletes": "0:03:03",
+      "Duration": "0:03:03",
+      "Start": "2:18 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_blueeagles.png"
+  },
+  {
+    "file": "Catapult report vs Bullets Airtel Cup 13 June 26-1.pdf",
+    "date": "2026-06-13",
+    "competition": "Airtel Cup",
+    "opponent": "FCB Nyasa Big Bullets",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "109",
+          "Distance (m)": "4893",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.2",
+          "Player Load": "619",
+          "Overall (%)": "10",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "76"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CM",
+        "row_y": 397,
+        "values": {
+          "High Speed Distance (m)": "992",
+          "Distance (m)": "11781",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": null,
+          "Player Load": "1533",
+          "Overall (%)": "3480",
+          "Sprint Distance (m)": "220",
+          "Accel & Decel Efforts": "341"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "CM",
+        "row_y": 456,
+        "values": {
+          "High Speed Distance (m)": "256",
+          "Distance (m)": "1825",
+          "Max Acceleration": "3.2",
+          "Max Deceleration": "2.9",
+          "Player Load": "258",
+          "Overall (%)": "1013",
+          "Sprint Distance (m)": "52",
+          "Accel & Decel Efforts": "15"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CM",
+        "row_y": 534,
+        "values": {
+          "High Speed Distance (m)": "565",
+          "Distance (m)": "9484",
+          "Max Acceleration": "5.0",
+          "Max Deceleration": "5.8",
+          "Player Load": "1322",
+          "Overall (%)": "122",
+          "Sprint Distance (m)": "122",
+          "Accel & Decel Efforts": "191"
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CB",
+        "row_y": 630,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "2567",
+          "Max Acceleration": "3.5",
+          "Max Deceleration": "3.3",
+          "Player Load": "316",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "15"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 728,
+        "values": {
+          "High Speed Distance (m)": "632",
+          "Distance (m)": "10803",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "6.5",
+          "Player Load": "1170",
+          "Overall (%)": "167",
+          "Sprint Distance (m)": "131",
+          "Accel & Decel Efforts": "191"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 805,
+        "values": {
+          "High Speed Distance (m)": "926",
+          "Distance (m)": "11702",
+          "Max Acceleration": null,
+          "Max Deceleration": "7.5",
+          "Player Load": "1344",
+          "Overall (%)": "226",
+          "Sprint Distance (m)": "198",
+          "Accel & Decel Efforts": "275"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 864,
+        "values": {
+          "High Speed Distance (m)": "322",
+          "Distance (m)": "6297",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "6.5",
+          "Player Load": "794",
+          "Overall (%)": "60",
+          "Sprint Distance (m)": "70",
+          "Accel & Decel Efforts": "118"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 942,
+        "values": {
+          "High Speed Distance (m)": "721",
+          "Distance (m)": "11006",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.8",
+          "Player Load": "1408",
+          "Overall (%)": "212",
+          "Sprint Distance (m)": "148",
+          "Accel & Decel Efforts": "233"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1039,
+        "values": {
+          "High Speed Distance (m)": "741",
+          "Distance (m)": "12037",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.2",
+          "Player Load": "1304",
+          "Overall (%)": "181",
+          "Sprint Distance (m)": "79",
+          "Accel & Decel Efforts": "246"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1136,
+        "values": {
+          "High Speed Distance (m)": "24",
+          "Distance (m)": "7080",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.3",
+          "Player Load": "641",
+          "Overall (%)": "144",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "91"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 1232,
+        "values": {
+          "High Speed Distance (m)": "584",
+          "Distance (m)": "6916",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "6.2",
+          "Player Load": "838",
+          "Overall (%)": "50",
+          "Sprint Distance (m)": "90",
+          "Accel & Decel Efforts": "208"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 354,
+        "values": {
+          "High Speed Distance (m)": "244",
+          "Distance (m)": "6228",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.3",
+          "Player Load": "723",
+          "Overall (%)": "56",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "128"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CM",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "685",
+          "Distance (m)": "13702",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.6",
+          "Player Load": "1581",
+          "Overall (%)": "3076",
+          "Sprint Distance (m)": "71",
+          "Accel & Decel Efforts": "285"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "6042",
+          "Distance (m)": "11680",
+          "Max Acceleration": "9.7",
+          "Max Deceleration": "9.8",
+          "Player Load": "652",
+          "Overall (%)": "6783",
+          "Sprint Distance (m)": "5381",
+          "Accel & Decel Efforts": "221"
+        }
+      },
+      {
+        "name_raw": "Saiwa, Joseph",
+        "position": "CB",
+        "row_y": 627,
+        "values": {
+          "High Speed Distance (m)": "250",
+          "Distance (m)": "2020",
+          "Max Acceleration": "3.4",
+          "Max Deceleration": "3.2",
+          "Player Load": "278",
+          "Overall (%)": "138",
+          "Sprint Distance (m)": "26",
+          "Accel & Decel Efforts": "20"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CM",
+        "row_y": 704,
+        "values": {
+          "High Speed Distance (m)": "198",
+          "Distance (m)": "11805",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "6.0",
+          "Player Load": "1454",
+          "Overall (%)": "709",
+          "Sprint Distance (m)": "66",
+          "Accel & Decel Efforts": "193"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 782,
+        "values": {
+          "High Speed Distance (m)": "382",
+          "Distance (m)": "7328",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.0",
+          "Player Load": "830",
+          "Overall (%)": "457",
+          "Sprint Distance (m)": "73",
+          "Accel & Decel Efforts": "161"
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 860,
+        "values": {
+          "High Speed Distance (m)": "196",
+          "Distance (m)": "3086",
+          "Max Acceleration": "3.1",
+          "Max Deceleration": "2.9",
+          "Player Load": "488",
+          "Overall (%)": "17",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "13"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 938,
+        "values": {
+          "High Speed Distance (m)": "242",
+          "Distance (m)": "2205",
+          "Max Acceleration": "2.8",
+          "Max Deceleration": "4.0",
+          "Player Load": "257",
+          "Overall (%)": "5160",
+          "Sprint Distance (m)": "38",
+          "Accel & Decel Efforts": "24"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:26:33",
+      "venue": "BINGU NATIONAL STADIUM",
+      "Distance (m)": "7722",
+      "High Speed Dist (m)": "707",
+      "Accel+Decel (#)": "152",
+      "Athletes": "20",
+      "Duration": "4:48 PM",
+      "Start": "4:48 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_bullets.png"
+  },
+  {
+    "file": "Catapult report vs Chitipa United 25 July 2026.pdf",
+    "date": "2026-07-25",
+    "competition": "FDH Premiership",
+    "opponent": "Chitipa United",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "WM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "234",
+          "Distance (m)": "9800",
+          "Max Acceleration": "4.8",
+          "Max Deceleration": "4.9",
+          "Player Load": "1090",
+          "Overall (%)": "59",
+          "Sprint Distance (m)": "23",
+          "Accel & Decel Efforts": "214"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "WM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "226",
+          "Distance (m)": "5651",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.5",
+          "Player Load": "760",
+          "Overall (%)": "253",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "166"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "WM",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "603",
+          "Distance (m)": "11881",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "5.5",
+          "Player Load": "1443",
+          "Overall (%)": "275",
+          "Sprint Distance (m)": "96",
+          "Accel & Decel Efforts": "286"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "WM",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": "539",
+          "Distance (m)": "5586",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.5",
+          "Player Load": "583",
+          "Overall (%)": "102",
+          "Sprint Distance (m)": "159",
+          "Accel & Decel Efforts": "105"
+        }
+      },
+      {
+        "name_raw": "George, Mateyu",
+        "position": "WM",
+        "row_y": 613,
+        "values": {
+          "High Speed Distance (m)": "329",
+          "Distance (m)": "6638",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.8",
+          "Player Load": "856",
+          "Overall (%)": "146",
+          "Sprint Distance (m)": "68",
+          "Accel & Decel Efforts": "175"
+        }
+      },
+      {
+        "name_raw": "James, Hadji",
+        "position": "WM",
+        "row_y": 671,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1127",
+          "Max Acceleration": "2.7",
+          "Max Deceleration": "2.7",
+          "Player Load": "184",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "34"
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CB",
+        "row_y": 748,
+        "values": {
+          "High Speed Distance (m)": "46",
+          "Distance (m)": "2523",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.5",
+          "Player Load": "287",
+          "Overall (%)": "11",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "56"
+        }
+      },
+      {
+        "name_raw": "Juao, Davie",
+        "position": "CB",
+        "row_y": 827,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "604",
+          "Max Acceleration": "1.6",
+          "Max Deceleration": "1.7",
+          "Player Load": "93",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CB",
+        "row_y": 888,
+        "values": {
+          "High Speed Distance (m)": "350",
+          "Distance (m)": "5687",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.0",
+          "Player Load": "653",
+          "Overall (%)": "42",
+          "Sprint Distance (m)": "103",
+          "Accel & Decel Efforts": "109"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 946,
+        "values": {
+          "High Speed Distance (m)": "253",
+          "Distance (m)": "9382",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "6.6",
+          "Player Load": "1105",
+          "Overall (%)": "91",
+          "Sprint Distance (m)": "31",
+          "Accel & Decel Efforts": "165"
+        }
+      },
+      {
+        "name_raw": "Magola, Gift",
+        "position": "CB",
+        "row_y": 1006,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "783",
+          "Max Acceleration": "1.6",
+          "Max Deceleration": "1.5",
+          "Player Load": "125",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1084,
+        "values": {
+          "High Speed Distance (m)": "258",
+          "Distance (m)": "10378",
+          "Max Acceleration": "3.6",
+          "Max Deceleration": "4.1",
+          "Player Load": "1072",
+          "Overall (%)": "237",
+          "Sprint Distance (m)": "26",
+          "Accel & Decel Efforts": "207"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 354,
+        "values": {
+          "High Speed Distance (m)": "22",
+          "Distance (m)": "5224",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "4.5",
+          "Player Load": "386",
+          "Overall (%)": "70",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "49"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "891",
+          "Distance (m)": "10601",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "7.2",
+          "Player Load": "1174",
+          "Overall (%)": "126",
+          "Sprint Distance (m)": "119",
+          "Accel & Decel Efforts": "321"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "345",
+          "Distance (m)": "9787",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.5",
+          "Player Load": "1006",
+          "Overall (%)": "146",
+          "Sprint Distance (m)": "92",
+          "Accel & Decel Efforts": "180"
+        }
+      },
+      {
+        "name_raw": "Mwansambo, Fanizo",
+        "position": "CB",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "725",
+          "Max Acceleration": "1.7",
+          "Max Deceleration": "1.6",
+          "Player Load": "106",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Saiwa, Joseph",
+        "position": "CB",
+        "row_y": 723,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1128",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "2.9",
+          "Player Load": "171",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "17"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CM",
+        "row_y": 801,
+        "values": {
+          "High Speed Distance (m)": "191",
+          "Distance (m)": "9754",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "4.8",
+          "Player Load": "1239",
+          "Overall (%)": "626",
+          "Sprint Distance (m)": "23",
+          "Accel & Decel Efforts": "168"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 879,
+        "values": {
+          "High Speed Distance (m)": "418",
+          "Distance (m)": "10571",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.1",
+          "Player Load": "1098",
+          "Overall (%)": "1133",
+          "Sprint Distance (m)": "60",
+          "Accel & Decel Efforts": "287"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 937,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "966",
+          "Max Acceleration": "2.5",
+          "Max Deceleration": "1.5",
+          "Player Load": "128",
+          "Overall (%)": "17",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:07:20",
+      "venue": "DEFAULT",
+      "Distance (m)": "5940",
+      "High Speed Dist (m)": "235",
+      "Accel+Decel (#)": "127",
+      "Athletes": "20",
+      "Duration": "2:20 PM",
+      "Start": "2:20 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_chitipaunited.png"
+  },
+  {
+    "file": "Catapult report vs Dedza Dynamos 08 Aug 2026.pdf",
+    "date": "2026-08-08",
+    "competition": "FDH Premiership",
+    "opponent": "Dedza Dynamos",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CB",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "151",
+          "Distance (m)": "4250",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "4.5",
+          "Player Load": "555",
+          "Overall (%)": "12",
+          "Sprint Distance (m)": "10",
+          "Accel & Decel Efforts": "70"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CB",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "606",
+          "Distance (m)": "9151",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.9",
+          "Player Load": "1095",
+          "Overall (%)": "899",
+          "Sprint Distance (m)": "92",
+          "Accel & Decel Efforts": "260"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CB",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "837",
+          "Distance (m)": "12142",
+          "Max Acceleration": "4.9",
+          "Max Deceleration": "5.0",
+          "Player Load": "1454",
+          "Overall (%)": "336",
+          "Sprint Distance (m)": "219",
+          "Accel & Decel Efforts": "280"
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CB",
+        "row_y": 571,
+        "values": {
+          "High Speed Distance (m)": "271",
+          "Distance (m)": "4392",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "6.1",
+          "Player Load": "472",
+          "Overall (%)": "48",
+          "Sprint Distance (m)": "69",
+          "Accel & Decel Efforts": "81"
+        }
+      },
+      {
+        "name_raw": "Juao, Davie",
+        "position": "CB",
+        "row_y": 648,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "494",
+          "Max Acceleration": "1.0",
+          "Max Deceleration": "1.1",
+          "Player Load": "82",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 727,
+        "values": {
+          "High Speed Distance (m)": "322",
+          "Distance (m)": "9504",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "5.2",
+          "Player Load": "994",
+          "Overall (%)": "90",
+          "Sprint Distance (m)": "58",
+          "Accel & Decel Efforts": "154"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 805,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "707",
+          "Max Acceleration": "2.7",
+          "Max Deceleration": "2.5",
+          "Player Load": "122",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Magola, Gift",
+        "position": "CB",
+        "row_y": 864,
+        "values": {
+          "High Speed Distance (m)": "78",
+          "Distance (m)": "1846",
+          "Max Acceleration": "3.6",
+          "Max Deceleration": "4.8",
+          "Player Load": "262",
+          "Overall (%)": "18",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "45"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 942,
+        "values": {
+          "High Speed Distance (m)": "631",
+          "Distance (m)": "11852",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "4.6",
+          "Player Load": "1419",
+          "Overall (%)": "218",
+          "Sprint Distance (m)": "131",
+          "Accel & Decel Efforts": "242"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1040,
+        "values": {
+          "High Speed Distance (m)": "926",
+          "Distance (m)": "12089",
+          "Max Acceleration": null,
+          "Max Deceleration": "6.2",
+          "Player Load": "1243",
+          "Overall (%)": "233",
+          "Sprint Distance (m)": "183",
+          "Accel & Decel Efforts": "257"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1135,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "503",
+          "Max Acceleration": "2.5",
+          "Max Deceleration": "2.8",
+          "Player Load": "87",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "CB",
+        "row_y": 1232,
+        "values": {
+          "High Speed Distance (m)": "1032",
+          "Distance (m)": "8331",
+          "Max Acceleration": "5.0",
+          "Max Deceleration": "6.6",
+          "Player Load": "923",
+          "Overall (%)": "105",
+          "Sprint Distance (m)": "233",
+          "Accel & Decel Efforts": "280"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "417",
+          "Distance (m)": "10580",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.3",
+          "Player Load": "1083",
+          "Overall (%)": "181",
+          "Sprint Distance (m)": "49",
+          "Accel & Decel Efforts": "191"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "372",
+          "Distance (m)": "10243",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.4",
+          "Player Load": "1182",
+          "Overall (%)": "961",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "237"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "826",
+          "Distance (m)": "11600",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "5.1",
+          "Player Load": "1209",
+          "Overall (%)": "520",
+          "Sprint Distance (m)": "188",
+          "Accel & Decel Efforts": "278"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CM",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "183",
+          "Distance (m)": "10375",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "5.0",
+          "Player Load": "1265",
+          "Overall (%)": "608",
+          "Sprint Distance (m)": "11",
+          "Accel & Decel Efforts": "161"
+        }
+      },
+      {
+        "name_raw": "Sande, Amos",
+        "position": "GK",
+        "row_y": 724,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "855",
+          "Max Acceleration": "1.7",
+          "Max Deceleration": "2.0",
+          "Player Load": "134",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 782,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "589",
+          "Max Acceleration": "1.8",
+          "Max Deceleration": "1.8",
+          "Player Load": "104",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 860,
+        "values": {
+          "High Speed Distance (m)": "82",
+          "Distance (m)": "3530",
+          "Max Acceleration": "3.5",
+          "Max Deceleration": "4.3",
+          "Player Load": "500",
+          "Overall (%)": "16",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "47"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 938,
+        "values": {
+          "High Speed Distance (m)": "10",
+          "Distance (m)": "5741",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "4.8",
+          "Player Load": "540",
+          "Overall (%)": "2355",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "88"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:09:10",
+      "venue": "DEFAULT",
+      "Distance (m)": "6439",
+      "High Speed Dist (m)": "337",
+      "Accel+Decel (#)": "134",
+      "Athletes": "20",
+      "Duration": "2:21 PM",
+      "Start": "2:21 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_dedzadynamos.png"
+  },
+  {
+    "file": "Catapult report vs FCB Nyasa Big Bullets Airtel 11 July 26.pdf",
+    "date": "2026-07-11",
+    "competition": "Airtel Cup",
+    "opponent": "FCB Nyasa Big Bullets",
+    "players": [
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "957",
+          "Distance (m)": "10347",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "5.2",
+          "Player Load": "1300",
+          "Overall (%)": "1342",
+          "Sprint Distance (m)": "147",
+          "Accel & Decel Efforts": "297"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "CM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "45",
+          "Distance (m)": "3057",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.1",
+          "Player Load": "456",
+          "Overall (%)": "242",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "26"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CM",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "994",
+          "Distance (m)": "12418",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "6.0",
+          "Player Load": "1494",
+          "Overall (%)": "341",
+          "Sprint Distance (m)": "186",
+          "Accel & Decel Efforts": "290"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "CM",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": "70",
+          "Distance (m)": "1012",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "2.7",
+          "Player Load": "178",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "38",
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CB",
+        "row_y": 629,
+        "values": {
+          "High Speed Distance (m)": "46",
+          "Distance (m)": "1494",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "2.9",
+          "Player Load": "204",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "15",
+          "Accel & Decel Efforts": "12"
+        }
+      },
+      {
+        "name_raw": "Juao, Davie",
+        "position": "CB",
+        "row_y": 708,
+        "values": {
+          "High Speed Distance (m)": "51",
+          "Distance (m)": "1072",
+          "Max Acceleration": "3.0",
+          "Max Deceleration": "2.2",
+          "Player Load": "150",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 787,
+        "values": {
+          "High Speed Distance (m)": "287",
+          "Distance (m)": "8421",
+          "Max Acceleration": "5.0",
+          "Max Deceleration": "4.5",
+          "Player Load": "1058",
+          "Overall (%)": "67",
+          "Sprint Distance (m)": "69",
+          "Accel & Decel Efforts": "153"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CB",
+        "row_y": 864,
+        "values": {
+          "High Speed Distance (m)": "872",
+          "Distance (m)": "11709",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.8",
+          "Player Load": "1304",
+          "Overall (%)": "206",
+          "Sprint Distance (m)": "127",
+          "Accel & Decel Efforts": "293"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 924,
+        "values": {
+          "High Speed Distance (m)": "103",
+          "Distance (m)": "3592",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.8",
+          "Player Load": "488",
+          "Overall (%)": "10",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "54"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CB",
+        "row_y": 1002,
+        "values": {
+          "High Speed Distance (m)": "844",
+          "Distance (m)": "12887",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "6.4",
+          "Player Load": "1591",
+          "Overall (%)": "257",
+          "Sprint Distance (m)": "69",
+          "Accel & Decel Efforts": "253"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1098,
+        "values": {
+          "High Speed Distance (m)": "575",
+          "Distance (m)": "10290",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "5.7",
+          "Player Load": "1102",
+          "Overall (%)": "119",
+          "Sprint Distance (m)": "74",
+          "Accel & Decel Efforts": "225"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1195,
+        "values": {
+          "High Speed Distance (m)": "62",
+          "Distance (m)": "1173",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.9",
+          "Player Load": "187",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "12"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 354,
+        "values": {
+          "High Speed Distance (m)": "33",
+          "Distance (m)": "6505",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "6.5",
+          "Player Load": "480",
+          "Overall (%)": "96",
+          "Sprint Distance (m)": "15",
+          "Accel & Decel Efforts": "59"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "73",
+          "Distance (m)": "1159",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "3.3",
+          "Player Load": "203",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "31",
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "501",
+          "Distance (m)": "8857",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.4",
+          "Player Load": "941",
+          "Overall (%)": "158",
+          "Sprint Distance (m)": "148",
+          "Accel & Decel Efforts": "181"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CM",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "614",
+          "Distance (m)": "13289",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.0",
+          "Player Load": "1474",
+          "Overall (%)": "1531",
+          "Sprint Distance (m)": "18",
+          "Accel & Decel Efforts": "278"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 742,
+        "values": {
+          "High Speed Distance (m)": "649",
+          "Distance (m)": "10728",
+          "Max Acceleration": "4.9",
+          "Max Deceleration": "6.4",
+          "Player Load": "1173",
+          "Overall (%)": "353",
+          "Sprint Distance (m)": "162",
+          "Accel & Decel Efforts": "265"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CM",
+        "row_y": 839,
+        "values": {
+          "High Speed Distance (m)": "397",
+          "Distance (m)": "10588",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.9",
+          "Player Load": "1295",
+          "Overall (%)": "937",
+          "Sprint Distance (m)": "88",
+          "Accel & Decel Efforts": "149"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 916,
+        "values": {
+          "High Speed Distance (m)": "12",
+          "Distance (m)": "2767",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "4.4",
+          "Player Load": "347",
+          "Overall (%)": "18",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "30"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 975,
+        "values": {
+          "High Speed Distance (m)": "46",
+          "Distance (m)": "1559",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "2.6",
+          "Player Load": "214",
+          "Overall (%)": "553",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "27"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:30:11",
+      "venue": "MPIRA STADIUM",
+      "Distance (m)": "6646",
+      "High Speed Dist (m)": "362",
+      "Accel+Decel (#)": "131",
+      "Athletes": "20",
+      "Duration": "2:19 PM",
+      "Start": "2:19 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_fcbnyasabigbullets.png"
+  },
+  {
+    "file": "Catapult report vs Karonga airtel semifinal 1 August 2026.pdf",
+    "date": "2026-08-01",
+    "competition": "Airtel Cup",
+    "opponent": "Karonga United",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CB",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "3321",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "3.7",
+          "Player Load": "413",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "35"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CB",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "587",
+          "Distance (m)": "9664",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "6.1",
+          "Player Load": "1182",
+          "Overall (%)": "834",
+          "Sprint Distance (m)": "142",
+          "Accel & Decel Efforts": "266"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CB",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "1030",
+          "Distance (m)": "12292",
+          "Max Acceleration": "4.9",
+          "Max Deceleration": "6.9",
+          "Player Load": "1479",
+          "Overall (%)": "377",
+          "Sprint Distance (m)": "292",
+          "Accel & Decel Efforts": "298"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "CB",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": "45",
+          "Distance (m)": "1329",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "2.9",
+          "Player Load": "183",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "30",
+          "Accel & Decel Efforts": "12"
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CB",
+        "row_y": 630,
+        "values": {
+          "High Speed Distance (m)": "31",
+          "Distance (m)": "1397",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.2",
+          "Player Load": "172",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 728,
+        "values": {
+          "High Speed Distance (m)": "249",
+          "Distance (m)": "9737",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.1",
+          "Player Load": "1058",
+          "Overall (%)": "81",
+          "Sprint Distance (m)": "45",
+          "Accel & Decel Efforts": "185"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 805,
+        "values": {
+          "High Speed Distance (m)": "562",
+          "Distance (m)": "9707",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "6.1",
+          "Player Load": "1070",
+          "Overall (%)": "112",
+          "Sprint Distance (m)": "155",
+          "Accel & Decel Efforts": "209"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 864,
+        "values": {
+          "High Speed Distance (m)": "36",
+          "Distance (m)": "1656",
+          "Max Acceleration": "3.4",
+          "Max Deceleration": "3.8",
+          "Player Load": "222",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "14"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 942,
+        "values": {
+          "High Speed Distance (m)": "739",
+          "Distance (m)": "12678",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "4.8",
+          "Player Load": "1603",
+          "Overall (%)": "235",
+          "Sprint Distance (m)": "98",
+          "Accel & Decel Efforts": "245"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1040,
+        "values": {
+          "High Speed Distance (m)": "589",
+          "Distance (m)": "11713",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "6.0",
+          "Player Load": "1217",
+          "Overall (%)": "148",
+          "Sprint Distance (m)": "141",
+          "Accel & Decel Efforts": "240"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1135,
+        "values": {
+          "High Speed Distance (m)": "28",
+          "Distance (m)": "1565",
+          "Max Acceleration": "3.0",
+          "Max Deceleration": "2.0",
+          "Player Load": "201",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1232,
+        "values": {
+          "High Speed Distance (m)": "55",
+          "Distance (m)": "6058",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "6.2",
+          "Player Load": "495",
+          "Overall (%)": "121",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "60"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "190",
+          "Distance (m)": "3667",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "4.6",
+          "Player Load": "423",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "32",
+          "Accel & Decel Efforts": "60"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "346",
+          "Distance (m)": "10522",
+          "Max Acceleration": null,
+          "Max Deceleration": "4.9",
+          "Player Load": "1115",
+          "Overall (%)": "147",
+          "Sprint Distance (m)": "47",
+          "Accel & Decel Efforts": "199"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "371",
+          "Distance (m)": "11373",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "4.6",
+          "Player Load": "1317",
+          "Overall (%)": "901",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "226"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "592",
+          "Distance (m)": "10783",
+          "Max Acceleration": "4.9",
+          "Max Deceleration": "5.9",
+          "Player Load": "1190",
+          "Overall (%)": "351",
+          "Sprint Distance (m)": "111",
+          "Accel & Decel Efforts": "267"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "FB",
+        "row_y": 742,
+        "values": {
+          "High Speed Distance (m)": "198",
+          "Distance (m)": "10701",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.7",
+          "Player Load": "1301",
+          "Overall (%)": "719",
+          "Sprint Distance (m)": "28",
+          "Accel & Decel Efforts": "210"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 819,
+        "values": {
+          "High Speed Distance (m)": "15",
+          "Distance (m)": "1217",
+          "Max Acceleration": "3.2",
+          "Max Deceleration": "2.6",
+          "Player Load": "168",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 898,
+        "values": {
+          "High Speed Distance (m)": "118",
+          "Distance (m)": "2971",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "4.8",
+          "Player Load": "442",
+          "Overall (%)": "13",
+          "Sprint Distance (m)": "20",
+          "Accel & Decel Efforts": "30"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 975,
+        "values": {
+          "High Speed Distance (m)": "23",
+          "Distance (m)": "1645",
+          "Max Acceleration": "3.5",
+          "Max Deceleration": "2.6",
+          "Player Load": "202",
+          "Overall (%)": "204",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "13"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:22:58",
+      "venue": "DEFAULT",
+      "Distance (m)": "6700",
+      "High Speed Dist (m)": "291",
+      "Accel+Decel (#)": "95%",
+      "Athletes": "20",
+      "Duration": "2:18 PM",
+      "Start": "2:18 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_karongasemifinal.png"
+  },
+  {
+    "file": "Catapult report vs Mafco Fc 28 June 26.pdf",
+    "date": "2026-06-28",
+    "competition": "FDH Premiership",
+    "opponent": "MAFCO",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "336",
+          "Distance (m)": "2339",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.0",
+          "Player Load": "335",
+          "Overall (%)": "12",
+          "Sprint Distance (m)": "114",
+          "Accel & Decel Efforts": "22"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "CM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "325",
+          "Distance (m)": "2136",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.4",
+          "Player Load": "331",
+          "Overall (%)": "577",
+          "Sprint Distance (m)": "110",
+          "Accel & Decel Efforts": "18"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CM",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "931",
+          "Distance (m)": "11751",
+          "Max Acceleration": "5.0",
+          "Max Deceleration": "6.8",
+          "Player Load": "1405",
+          "Overall (%)": "392",
+          "Sprint Distance (m)": "193",
+          "Accel & Decel Efforts": "318"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "CM",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": "569",
+          "Distance (m)": "4743",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.1",
+          "Player Load": "580",
+          "Overall (%)": "74",
+          "Sprint Distance (m)": "102",
+          "Accel & Decel Efforts": "85"
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CB",
+        "row_y": 630,
+        "values": {
+          "High Speed Distance (m)": "294",
+          "Distance (m)": "2836",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "4.2",
+          "Player Load": "314",
+          "Overall (%)": "18",
+          "Sprint Distance (m)": "91",
+          "Accel & Decel Efforts": "27"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 728,
+        "values": {
+          "High Speed Distance (m)": "401",
+          "Distance (m)": "9283",
+          "Max Acceleration": null,
+          "Max Deceleration": "4.7",
+          "Player Load": "1012",
+          "Overall (%)": "107",
+          "Sprint Distance (m)": "58",
+          "Accel & Decel Efforts": "157"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 805,
+        "values": {
+          "High Speed Distance (m)": "743",
+          "Distance (m)": "10585",
+          "Max Acceleration": null,
+          "Max Deceleration": "6.1",
+          "Player Load": "1164",
+          "Overall (%)": "198",
+          "Sprint Distance (m)": "137",
+          "Accel & Decel Efforts": "284"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 864,
+        "values": {
+          "High Speed Distance (m)": "271",
+          "Distance (m)": "2245",
+          "Max Acceleration": "3.3",
+          "Max Deceleration": "3.8",
+          "Player Load": "318",
+          "Overall (%)": "12",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "18"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 942,
+        "values": {
+          "High Speed Distance (m)": "577",
+          "Distance (m)": "11221",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.9",
+          "Player Load": "1327",
+          "Overall (%)": "188",
+          "Sprint Distance (m)": "96",
+          "Accel & Decel Efforts": "219"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1039,
+        "values": {
+          "High Speed Distance (m)": "1059",
+          "Distance (m)": "10936",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "6.7",
+          "Player Load": "1113",
+          "Overall (%)": "223",
+          "Sprint Distance (m)": "225",
+          "Accel & Decel Efforts": "216"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1136,
+        "values": {
+          "High Speed Distance (m)": "22",
+          "Distance (m)": "5602",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.1",
+          "Player Load": "396",
+          "Overall (%)": "68",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "39"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 1232,
+        "values": {
+          "High Speed Distance (m)": "337",
+          "Distance (m)": "2152",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.3",
+          "Player Load": "282",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "122",
+          "Accel & Decel Efforts": "23"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "363",
+          "Distance (m)": "9946",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "5.0",
+          "Player Load": "1035",
+          "Overall (%)": "151",
+          "Sprint Distance (m)": "80",
+          "Accel & Decel Efforts": "175"
+        }
+      },
+      {
+        "name_raw": "Mwansambo, Fanizo",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "301",
+          "Distance (m)": "1803",
+          "Max Acceleration": null,
+          "Max Deceleration": "4.3",
+          "Player Load": "277",
+          "Overall (%)": "38",
+          "Sprint Distance (m)": "92",
+          "Accel & Decel Efforts": "16"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "701",
+          "Distance (m)": "12878",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.8",
+          "Player Load": "1411",
+          "Overall (%)": "1912",
+          "Sprint Distance (m)": "48",
+          "Accel & Decel Efforts": "267"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "909",
+          "Distance (m)": "10526",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.4",
+          "Player Load": "1124",
+          "Overall (%)": "565",
+          "Sprint Distance (m)": "265",
+          "Accel & Decel Efforts": "299"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "FB",
+        "row_y": 742,
+        "values": {
+          "High Speed Distance (m)": "219",
+          "Distance (m)": "9894",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "6.0",
+          "Player Load": "1226",
+          "Overall (%)": "701",
+          "Sprint Distance (m)": "41",
+          "Accel & Decel Efforts": "172"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 819,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "2014",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "4.3",
+          "Player Load": "240",
+          "Overall (%)": "64",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "17"
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 897,
+        "values": {
+          "High Speed Distance (m)": "319",
+          "Distance (m)": "8778",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "4.7",
+          "Player Load": "1230",
+          "Overall (%)": "155",
+          "Sprint Distance (m)": "59",
+          "Accel & Decel Efforts": "154"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 975,
+        "values": {
+          "High Speed Distance (m)": "314",
+          "Distance (m)": "2439",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "4.5",
+          "Player Load": "293",
+          "Overall (%)": "7231",
+          "Sprint Distance (m)": "91",
+          "Accel & Decel Efforts": "18"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:13:02",
+      "venue": "DEFAULT",
+      "Distance (m)": "2523",
+      "High Speed Dist (m)": "339",
+      "Accel+Decel (#)": "18%",
+      "Athletes": "2:36:30",
+      "Duration": "2:36:30",
+      "Start": "2:18 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_mafcofc.png"
+  },
+  {
+    "file": "Catapult report vs Masters 30 May.pdf",
+    "date": "2026-05-30",
+    "competition": "FDH Premiership",
+    "opponent": "Masters FC",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CB",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "288",
+          "Distance (m)": "3271",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "3.8",
+          "Player Load": "505",
+          "Overall (%)": "13",
+          "Sprint Distance (m)": "160",
+          "Accel & Decel Efforts": "46"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CB",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "1082",
+          "Distance (m)": "11024",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "6.8",
+          "Player Load": "1284",
+          "Overall (%)": "3828",
+          "Sprint Distance (m)": "294",
+          "Accel & Decel Efforts": "300"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "CB",
+        "row_y": 456,
+        "values": {
+          "High Speed Distance (m)": "275",
+          "Distance (m)": "2084",
+          "Max Acceleration": "3.6",
+          "Max Deceleration": "4.1",
+          "Player Load": "314",
+          "Overall (%)": "1170",
+          "Sprint Distance (m)": "192",
+          "Accel & Decel Efforts": "18"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CB",
+        "row_y": 534,
+        "values": {
+          "High Speed Distance (m)": "516",
+          "Distance (m)": "6289",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "4.6",
+          "Player Load": "847",
+          "Overall (%)": "66",
+          "Sprint Distance (m)": "238",
+          "Accel & Decel Efforts": "130"
+        }
+      },
+      {
+        "name_raw": "George, Mateyu",
+        "position": "CB",
+        "row_y": 612,
+        "values": {
+          "High Speed Distance (m)": "307",
+          "Distance (m)": "3186",
+          "Max Acceleration": null,
+          "Max Deceleration": "4.6",
+          "Player Load": "486",
+          "Overall (%)": "32",
+          "Sprint Distance (m)": "186",
+          "Accel & Decel Efforts": "32"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 690,
+        "values": {
+          "High Speed Distance (m)": "290",
+          "Distance (m)": "11196",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.0",
+          "Player Load": "1164",
+          "Overall (%)": "114",
+          "Sprint Distance (m)": "10",
+          "Accel & Decel Efforts": "207"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 768,
+        "values": {
+          "High Speed Distance (m)": "649",
+          "Distance (m)": "8472",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.9",
+          "Player Load": "970",
+          "Overall (%)": "122",
+          "Sprint Distance (m)": "173",
+          "Accel & Decel Efforts": "185"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 827,
+        "values": {
+          "High Speed Distance (m)": "379",
+          "Distance (m)": "10927",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "4.7",
+          "Player Load": "1322",
+          "Overall (%)": "93",
+          "Sprint Distance (m)": "45",
+          "Accel & Decel Efforts": "174"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 906,
+        "values": {
+          "High Speed Distance (m)": "689",
+          "Distance (m)": "9288",
+          "Max Acceleration": "5.1",
+          "Max Deceleration": "5.8",
+          "Player Load": "1133",
+          "Overall (%)": "173",
+          "Sprint Distance (m)": "168",
+          "Accel & Decel Efforts": "177"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1003,
+        "values": {
+          "High Speed Distance (m)": "619",
+          "Distance (m)": "10636",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": null,
+          "Player Load": "1133",
+          "Overall (%)": "156",
+          "Sprint Distance (m)": "137",
+          "Accel & Decel Efforts": "230"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1098,
+        "values": {
+          "High Speed Distance (m)": "42",
+          "Distance (m)": "6500",
+          "Max Acceleration": "4.9",
+          "Max Deceleration": "6.1",
+          "Player Load": "504",
+          "Overall (%)": "143",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "69"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 1196,
+        "values": {
+          "High Speed Distance (m)": "1276",
+          "Distance (m)": "11593",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "6.8",
+          "Player Load": "1284",
+          "Overall (%)": "173",
+          "Sprint Distance (m)": "312",
+          "Accel & Decel Efforts": "322"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "80",
+          "Distance (m)": "3807",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "4.7",
+          "Player Load": "452",
+          "Overall (%)": "15",
+          "Sprint Distance (m)": "14",
+          "Accel & Decel Efforts": "73"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "806",
+          "Distance (m)": "13577",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.9",
+          "Player Load": "1521",
+          "Overall (%)": "3788",
+          "Sprint Distance (m)": "67",
+          "Accel & Decel Efforts": "279"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "942",
+          "Distance (m)": "11398",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "6.2",
+          "Player Load": "1262",
+          "Overall (%)": "755",
+          "Sprint Distance (m)": "283",
+          "Accel & Decel Efforts": "276"
+        }
+      },
+      {
+        "name_raw": "Saiwa, Joseph",
+        "position": "CB",
+        "row_y": 627,
+        "values": {
+          "High Speed Distance (m)": "293",
+          "Distance (m)": "2271",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "4.2",
+          "Player Load": "345",
+          "Overall (%)": "184",
+          "Sprint Distance (m)": "175",
+          "Accel & Decel Efforts": "27"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CB",
+        "row_y": 705,
+        "values": {
+          "High Speed Distance (m)": "281",
+          "Distance (m)": "10627",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "5.3",
+          "Player Load": "1269",
+          "Overall (%)": "842",
+          "Sprint Distance (m)": "41",
+          "Accel & Decel Efforts": "171"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 782,
+        "values": {
+          "High Speed Distance (m)": "310",
+          "Distance (m)": "2963",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.0",
+          "Player Load": "399",
+          "Overall (%)": "112",
+          "Sprint Distance (m)": "134",
+          "Accel & Decel Efforts": "48"
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 861,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1944",
+          "Max Acceleration": "3.3",
+          "Max Deceleration": "2.9",
+          "Player Load": "338",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "13"
+        }
+      },
+      {
+        "name_raw": "Waka, Joshua",
+        "position": "GK",
+        "row_y": 938,
+        "values": {
+          "High Speed Distance (m)": "269",
+          "Distance (m)": "2250",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.2",
+          "Player Load": "344",
+          "Overall (%)": "1517",
+          "Sprint Distance (m)": "162",
+          "Accel & Decel Efforts": "26"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:20:21",
+      "venue": "DEFAULT",
+      "Distance (m)": "3188",
+      "High Speed Dist (m)": "323",
+      "Accel+Decel (#)": "32%",
+      "Athletes": "2:32:44",
+      "Duration": "2:32:44",
+      "Start": "2:18 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_mastersmay.png"
+  },
+  {
+    "file": "Catapult report vs Mitundu Luanar 5 July 2026.pdf",
+    "date": "2026-07-05",
+    "competition": "FDH Premiership",
+    "opponent": "Mitundu Baptist",
+    "players": [
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "WM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "143",
+          "Distance (m)": "6062",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "6.8",
+          "Player Load": "827",
+          "Overall (%)": "3507",
+          "Sprint Distance (m)": "22",
+          "Accel & Decel Efforts": "141"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "WM",
+        "row_y": 415,
+        "values": {
+          "High Speed Distance (m)": "479",
+          "Distance (m)": "6472",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.7",
+          "Player Load": "765",
+          "Overall (%)": "212",
+          "Sprint Distance (m)": "112",
+          "Accel & Decel Efforts": "165"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "WM",
+        "row_y": 494,
+        "values": {
+          "High Speed Distance (m)": "360",
+          "Distance (m)": "5417",
+          "Max Acceleration": "5.1",
+          "Max Deceleration": "4.4",
+          "Player Load": "577",
+          "Overall (%)": "153",
+          "Sprint Distance (m)": "135",
+          "Accel & Decel Efforts": "112"
+        }
+      },
+      {
+        "name_raw": "George, Mateyu",
+        "position": "WM",
+        "row_y": 551,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1882",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "3.7",
+          "Player Load": "291",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "18"
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "WM",
+        "row_y": 630,
+        "values": {
+          "High Speed Distance (m)": "174",
+          "Distance (m)": "4134",
+          "Max Acceleration": "5.1",
+          "Max Deceleration": "5.2",
+          "Player Load": "458",
+          "Overall (%)": "34",
+          "Sprint Distance (m)": "20",
+          "Accel & Decel Efforts": "84"
+        }
+      },
+      {
+        "name_raw": "Juao, Davie",
+        "position": "CM",
+        "row_y": 707,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "2581",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "3.5",
+          "Player Load": "333",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "33"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 768,
+        "values": {
+          "High Speed Distance (m)": "42",
+          "Distance (m)": "4035",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "4.5",
+          "Player Load": "582",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "76"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 827,
+        "values": {
+          "High Speed Distance (m)": "177",
+          "Distance (m)": "4732",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "4.4",
+          "Player Load": "576",
+          "Overall (%)": "59",
+          "Sprint Distance (m)": "28",
+          "Accel & Decel Efforts": "89"
+        }
+      },
+      {
+        "name_raw": "Magola, Gift",
+        "position": "CB",
+        "row_y": 888,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "922",
+          "Max Acceleration": "1.3",
+          "Max Deceleration": "1.1",
+          "Player Load": "162",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 964,
+        "values": {
+          "High Speed Distance (m)": "288",
+          "Distance (m)": "5951",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "4.3",
+          "Player Load": "690",
+          "Overall (%)": "102",
+          "Sprint Distance (m)": "62",
+          "Accel & Decel Efforts": "122"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1060,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1517",
+          "Max Acceleration": "2.3",
+          "Max Deceleration": "2.1",
+          "Player Load": "230",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1158,
+        "values": {
+          "High Speed Distance (m)": "16",
+          "Distance (m)": "2809",
+          "Max Acceleration": null,
+          "Max Deceleration": "6.4",
+          "Player Load": "227",
+          "Overall (%)": "57",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "37"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "WM",
+        "row_y": 354,
+        "values": {
+          "High Speed Distance (m)": "589",
+          "Distance (m)": "5416",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.4",
+          "Player Load": "581",
+          "Overall (%)": "71",
+          "Sprint Distance (m)": "142",
+          "Accel & Decel Efforts": "137"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "285",
+          "Distance (m)": "5109",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.2",
+          "Player Load": "570",
+          "Overall (%)": "140",
+          "Sprint Distance (m)": "91",
+          "Accel & Decel Efforts": "127"
+        }
+      },
+      {
+        "name_raw": "Mwansambo, Fanizo",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1058",
+          "Max Acceleration": "1.8",
+          "Max Deceleration": "2.1",
+          "Player Load": "164",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CM",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "487",
+          "Distance (m)": "6139",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.4",
+          "Player Load": "714",
+          "Overall (%)": "1301",
+          "Sprint Distance (m)": "30",
+          "Accel & Decel Efforts": "147"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 742,
+        "values": {
+          "High Speed Distance (m)": "305",
+          "Distance (m)": "5498",
+          "Max Acceleration": "5.0",
+          "Max Deceleration": "4.8",
+          "Player Load": "620",
+          "Overall (%)": "218",
+          "Sprint Distance (m)": "94",
+          "Accel & Decel Efforts": "143"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "FB",
+        "row_y": 838,
+        "values": {
+          "High Speed Distance (m)": "57",
+          "Distance (m)": "5087",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.0",
+          "Player Load": "622",
+          "Overall (%)": "211",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "70"
+        }
+      },
+      {
+        "name_raw": "Sande, Amos",
+        "position": "GK",
+        "row_y": 916,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "1014",
+          "Max Acceleration": "2.6",
+          "Max Deceleration": "1.7",
+          "Player Load": "160",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 975,
+        "values": {
+          "High Speed Distance (m)": "213",
+          "Distance (m)": "5594",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.4",
+          "Player Load": "596",
+          "Overall (%)": "618",
+          "Sprint Distance (m)": "11",
+          "Accel & Decel Efforts": "155"
+        }
+      }
+    ],
+    "summary": {
+      "venue": "DEDZA STADIUM",
+      "total_time": "1:08:00",
+      "Distance (m)": "2578",
+      "High Speed Dist (m)": "40",
+      "Accel+Decel (#)": "40",
+      "Athletes": "2:20:57",
+      "Duration": "2:20:57",
+      "Start": "2:15 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_mitunduluanar.png"
+  },
+  {
+    "file": "Civil Service United Catapult Report 9 May 2026.pdf",
+    "date": "2026-05-09",
+    "competition": "FDH Premiership",
+    "opponent": "Civo Utd",
+    "players": [
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "WM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "431",
+          "Distance (m)": "8422",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.0",
+          "Player Load": "1016",
+          "Overall (%)": "1133",
+          "Sprint Distance (m)": "71",
+          "Accel & Decel Efforts": "201"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "WM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "87",
+          "Distance (m)": "3774",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "4.6",
+          "Player Load": "593",
+          "Overall (%)": "1337",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "54"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "WM",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "208",
+          "Distance (m)": "5420",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "4.6",
+          "Player Load": "755",
+          "Overall (%)": "38",
+          "Sprint Distance (m)": "14",
+          "Accel & Decel Efforts": "119"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "WM",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": "638",
+          "Distance (m)": "10782",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.5",
+          "Player Load": "1103",
+          "Overall (%)": "280",
+          "Sprint Distance (m)": "159",
+          "Accel & Decel Efforts": "248"
+        }
+      },
+      {
+        "name_raw": "George, Mateyu",
+        "position": "WM",
+        "row_y": 613,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "952",
+          "Max Acceleration": "2.0",
+          "Max Deceleration": "2.4",
+          "Player Load": "163",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "WM",
+        "row_y": 690,
+        "values": {
+          "High Speed Distance (m)": "112",
+          "Distance (m)": "3389",
+          "Max Acceleration": null,
+          "Max Deceleration": "4.9",
+          "Player Load": "389",
+          "Overall (%)": "16",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "43"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "WM",
+        "row_y": 786,
+        "values": {
+          "High Speed Distance (m)": "393",
+          "Distance (m)": "9648",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.5",
+          "Player Load": "993",
+          "Overall (%)": "121",
+          "Sprint Distance (m)": "53",
+          "Accel & Decel Efforts": "189"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "FB",
+        "row_y": 864,
+        "values": {
+          "High Speed Distance (m)": "754",
+          "Distance (m)": "9982",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.4",
+          "Player Load": "1146",
+          "Overall (%)": "179",
+          "Sprint Distance (m)": "134",
+          "Accel & Decel Efforts": "229"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "FB",
+        "row_y": 924,
+        "values": {
+          "High Speed Distance (m)": "450",
+          "Distance (m)": "10094",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "5.2",
+          "Player Load": "1215",
+          "Overall (%)": "109",
+          "Sprint Distance (m)": "22",
+          "Accel & Decel Efforts": "194"
+        }
+      },
+      {
+        "name_raw": "Magola, Gift",
+        "position": "FB",
+        "row_y": 983,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "2015",
+          "Max Acceleration": "3.0",
+          "Max Deceleration": "2.7",
+          "Player Load": "328",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 1061,
+        "values": {
+          "High Speed Distance (m)": "573",
+          "Distance (m)": "12197",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.9",
+          "Player Load": "1462",
+          "Overall (%)": "222",
+          "Sprint Distance (m)": "53",
+          "Accel & Decel Efforts": "240"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1158,
+        "values": {
+          "High Speed Distance (m)": "748",
+          "Distance (m)": "10799",
+          "Max Acceleration": null,
+          "Max Deceleration": "6.4",
+          "Player Load": "1140",
+          "Overall (%)": "185",
+          "Sprint Distance (m)": "186",
+          "Accel & Decel Efforts": "213"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "593",
+          "Max Acceleration": "1.8",
+          "Max Deceleration": "1.5",
+          "Player Load": "107",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "11",
+          "Distance (m)": "6147",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "4.0",
+          "Player Load": "504",
+          "Overall (%)": "96",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "64"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "675",
+          "Max Acceleration": "1.0",
+          "Max Deceleration": "1.0",
+          "Player Load": "106",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CM",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "513",
+          "Distance (m)": "13324",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "4.9",
+          "Player Load": "1628",
+          "Overall (%)": "2579",
+          "Sprint Distance (m)": "41",
+          "Accel & Decel Efforts": "255"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "CM",
+        "row_y": 742,
+        "values": {
+          "High Speed Distance (m)": "554",
+          "Distance (m)": "9862",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.4",
+          "Player Load": "1056",
+          "Overall (%)": "434",
+          "Sprint Distance (m)": "186",
+          "Accel & Decel Efforts": "233"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "GK",
+        "row_y": 839,
+        "values": {
+          "High Speed Distance (m)": "195",
+          "Distance (m)": "10834",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.2",
+          "Player Load": "1358",
+          "Overall (%)": "709",
+          "Sprint Distance (m)": "18",
+          "Accel & Decel Efforts": "175"
+        }
+      },
+      {
+        "name_raw": "Sande, Amos",
+        "position": "GK",
+        "row_y": 916,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "736",
+          "Max Acceleration": "2.3",
+          "Max Deceleration": "1.4",
+          "Player Load": "130",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "WM",
+        "row_y": 975,
+        "values": {
+          "High Speed Distance (m)": "23",
+          "Distance (m)": "734",
+          "Max Acceleration": "3.6",
+          "Max Deceleration": "3.1",
+          "Player Load": "120",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "10"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:07:26",
+      "venue": "CIVO STADIUM",
+      "Distance (m)": "6519",
+      "High Speed Dist (m)": "285",
+      "Accel+Decel (#)": "124",
+      "Athletes": "20",
+      "Duration": "2:15 PM",
+      "Start": "2:15 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_civilserviceunited.png"
+  },
+  {
+    "file": "Kamuzu Barracks Catapult report 23 May 2026.pdf",
+    "date": "2026-05-23",
+    "competition": "FDH Premiership",
+    "opponent": "Kamuzu Barracks",
+    "players": [
+      {
+        "name_raw": "Banda, Moses",
+        "position": "CM",
+        "row_y": 336,
+        "values": {
+          "High Speed Distance (m)": "237",
+          "Distance (m)": "1947",
+          "Max Acceleration": null,
+          "Max Deceleration": "3.1",
+          "Player Load": "255",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "21"
+        }
+      },
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "806",
+          "Distance (m)": "9720",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "5.5",
+          "Player Load": "1187",
+          "Overall (%)": "2351",
+          "Sprint Distance (m)": "166",
+          "Accel & Decel Efforts": "266"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "CM",
+        "row_y": 455,
+        "values": {
+          "High Speed Distance (m)": "246",
+          "Distance (m)": "2109",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "3.2",
+          "Player Load": "272",
+          "Overall (%)": "1224",
+          "Sprint Distance (m)": "84",
+          "Accel & Decel Efforts": "23"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CM",
+        "row_y": 534,
+        "values": {
+          "High Speed Distance (m)": "193",
+          "Distance (m)": "5569",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "4.9",
+          "Player Load": "795",
+          "Overall (%)": "32",
+          "Sprint Distance (m)": "25",
+          "Accel & Decel Efforts": "112"
+        }
+      },
+      {
+        "name_raw": "George, Mateyu",
+        "position": "WM",
+        "row_y": 612,
+        "values": {
+          "High Speed Distance (m)": "237",
+          "Distance (m)": "2330",
+          "Max Acceleration": "3.4",
+          "Max Deceleration": "3.5",
+          "Player Load": "325",
+          "Overall (%)": "20",
+          "Sprint Distance (m)": "26",
+          "Accel & Decel Efforts": "23"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 690,
+        "values": {
+          "High Speed Distance (m)": "376",
+          "Distance (m)": "11276",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.5",
+          "Player Load": "1207",
+          "Overall (%)": "135",
+          "Sprint Distance (m)": "72",
+          "Accel & Decel Efforts": "227"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 768,
+        "values": {
+          "High Speed Distance (m)": "600",
+          "Distance (m)": "8989",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.3",
+          "Player Load": "1030",
+          "Overall (%)": "133",
+          "Sprint Distance (m)": "61",
+          "Accel & Decel Efforts": "243"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 827,
+        "values": {
+          "High Speed Distance (m)": "482",
+          "Distance (m)": "10647",
+          "Max Acceleration": "3.8",
+          "Max Deceleration": "6.0",
+          "Player Load": "1256",
+          "Overall (%)": "100",
+          "Sprint Distance (m)": "54",
+          "Accel & Decel Efforts": "177"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 905,
+        "values": {
+          "High Speed Distance (m)": "229",
+          "Distance (m)": "5207",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.1",
+          "Player Load": "650",
+          "Overall (%)": "35",
+          "Sprint Distance (m)": "68",
+          "Accel & Decel Efforts": "102"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1002,
+        "values": {
+          "High Speed Distance (m)": "453",
+          "Distance (m)": "8454",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.2",
+          "Player Load": "891",
+          "Overall (%)": "90",
+          "Sprint Distance (m)": "132",
+          "Accel & Decel Efforts": "178"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1098,
+        "values": {
+          "High Speed Distance (m)": "29",
+          "Distance (m)": "6489",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "3.9",
+          "Player Load": "487",
+          "Overall (%)": "113",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "67"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 1196,
+        "values": {
+          "High Speed Distance (m)": "1099",
+          "Distance (m)": "11783",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.8",
+          "Player Load": "1344",
+          "Overall (%)": "169",
+          "Sprint Distance (m)": "230",
+          "Accel & Decel Efforts": "379"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "99",
+          "Distance (m)": "4229",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "4.4",
+          "Player Load": "524",
+          "Overall (%)": "18",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "76"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "460",
+          "Distance (m)": "13624",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "6.1",
+          "Player Load": "1644",
+          "Overall (%)": "2492",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "298"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "585",
+          "Distance (m)": "11345",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.8",
+          "Player Load": "1192",
+          "Overall (%)": "541",
+          "Sprint Distance (m)": "121",
+          "Accel & Decel Efforts": "301"
+        }
+      },
+      {
+        "name_raw": "Saiwa, Joseph",
+        "position": "CB",
+        "row_y": 627,
+        "values": {
+          "High Speed Distance (m)": "227",
+          "Distance (m)": "2109",
+          "Max Acceleration": "3.6",
+          "Max Deceleration": "3.1",
+          "Player Load": "279",
+          "Overall (%)": "125",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "19"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CB",
+        "row_y": 704,
+        "values": {
+          "High Speed Distance (m)": "296",
+          "Distance (m)": "11710",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "5.1",
+          "Player Load": "1482",
+          "Overall (%)": "1067",
+          "Sprint Distance (m)": "25",
+          "Accel & Decel Efforts": "227"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 783,
+        "values": {
+          "High Speed Distance (m)": "108",
+          "Distance (m)": "3755",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "5.3",
+          "Player Load": "449",
+          "Overall (%)": "84",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "75"
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 860,
+        "values": {
+          "High Speed Distance (m)": "227",
+          "Distance (m)": "6901",
+          "Max Acceleration": "3.5",
+          "Max Deceleration": "4.5",
+          "Player Load": "946",
+          "Overall (%)": "72",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "107"
+        }
+      },
+      {
+        "name_raw": "Waka, Joshua",
+        "position": "GK",
+        "row_y": 938,
+        "values": {
+          "High Speed Distance (m)": "202",
+          "Distance (m)": "2076",
+          "Max Acceleration": "3.1",
+          "Max Deceleration": "3.0",
+          "Player Load": "264",
+          "Overall (%)": "973",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "20"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:19:33",
+      "venue": "DEFAULT",
+      "Distance (m)": "7013",
+      "High Speed Dist (m)": "360",
+      "Accel+Decel (#)": "147",
+      "Athletes": "20",
+      "Duration": "2:19:33",
+      "Start": "2:19 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_kamuzubarracks.png"
+  },
+  {
+    "file": "Moyale Barracks Catapult report 16 May 2026.pdf",
+    "date": "2026-05-16",
+    "competition": "FDH Premiership",
+    "opponent": "Moyale Barracks",
+    "players": [
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "CM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "520",
+          "Distance (m)": "7012",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.0",
+          "Player Load": "932",
+          "Overall (%)": "1097",
+          "Sprint Distance (m)": "73",
+          "Accel & Decel Efforts": "204"
+        }
+      },
+      {
+        "name_raw": "Chizinga, Alfred",
+        "position": "CM",
+        "row_y": 396,
+        "values": {
+          "High Speed Distance (m)": "300",
+          "Distance (m)": "2199",
+          "Max Acceleration": null,
+          "Max Deceleration": "4.4",
+          "Player Load": "339",
+          "Overall (%)": "1677",
+          "Sprint Distance (m)": "223",
+          "Accel & Decel Efforts": "26"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "CM",
+        "row_y": 474,
+        "values": {
+          "High Speed Distance (m)": "120",
+          "Distance (m)": "3476",
+          "Max Acceleration": "3.6",
+          "Max Deceleration": "4.2",
+          "Player Load": "515",
+          "Overall (%)": "11",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "60"
+        }
+      },
+      {
+        "name_raw": "Chunga, Gift",
+        "position": "CM",
+        "row_y": 552,
+        "values": {
+          "High Speed Distance (m)": "322",
+          "Distance (m)": "3057",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "4.4",
+          "Player Load": "406",
+          "Overall (%)": "24",
+          "Sprint Distance (m)": "207",
+          "Accel & Decel Efforts": "39"
+        }
+      },
+      {
+        "name_raw": "James, Hadji",
+        "position": "CB",
+        "row_y": 612,
+        "values": {
+          "High Speed Distance (m)": "227",
+          "Distance (m)": "2023",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.3",
+          "Player Load": "293",
+          "Overall (%)": "10",
+          "Sprint Distance (m)": "65",
+          "Accel & Decel Efforts": "14"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CB",
+        "row_y": 690,
+        "values": {
+          "High Speed Distance (m)": "322",
+          "Distance (m)": "10613",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "4.9",
+          "Player Load": "1179",
+          "Overall (%)": "108",
+          "Sprint Distance (m)": "73",
+          "Accel & Decel Efforts": "205"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 768,
+        "values": {
+          "High Speed Distance (m)": "695",
+          "Distance (m)": "10953",
+          "Max Acceleration": "4.6",
+          "Max Deceleration": "5.9",
+          "Player Load": "1230",
+          "Overall (%)": "178",
+          "Sprint Distance (m)": "144",
+          "Accel & Decel Efforts": "265"
+        }
+      },
+      {
+        "name_raw": "Mafaiti, Charles",
+        "position": "CB",
+        "row_y": 827,
+        "values": {
+          "High Speed Distance (m)": "322",
+          "Distance (m)": "10543",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.9",
+          "Player Load": "1298",
+          "Overall (%)": "85",
+          "Sprint Distance (m)": "77",
+          "Accel & Decel Efforts": "197"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 906,
+        "values": {
+          "High Speed Distance (m)": "736",
+          "Distance (m)": "11118",
+          "Max Acceleration": null,
+          "Max Deceleration": "5.9",
+          "Player Load": "1421",
+          "Overall (%)": "208",
+          "Sprint Distance (m)": "170",
+          "Accel & Decel Efforts": "204"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 1003,
+        "values": {
+          "High Speed Distance (m)": "888",
+          "Distance (m)": "11030",
+          "Max Acceleration": "4.4",
+          "Max Deceleration": "6.0",
+          "Player Load": "1160",
+          "Overall (%)": "206",
+          "Sprint Distance (m)": "93",
+          "Accel & Decel Efforts": "246"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1098,
+        "values": {
+          "High Speed Distance (m)": "255",
+          "Distance (m)": "2968",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "4.3",
+          "Player Load": "434",
+          "Overall (%)": "33",
+          "Sprint Distance (m)": "131",
+          "Accel & Decel Efforts": "39"
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1196,
+        "values": {
+          "High Speed Distance (m)": "53",
+          "Distance (m)": "6784",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "7.0",
+          "Player Load": "566",
+          "Overall (%)": "162",
+          "Sprint Distance (m)": "12",
+          "Accel & Decel Efforts": "79"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "CB",
+        "row_y": 355,
+        "values": {
+          "High Speed Distance (m)": "1329",
+          "Distance (m)": "12252",
+          "Max Acceleration": "4.8",
+          "Max Deceleration": "6.7",
+          "Player Load": "1388",
+          "Overall (%)": "177",
+          "Sprint Distance (m)": "302",
+          "Accel & Decel Efforts": "314"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "331",
+          "Distance (m)": "3636",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.4",
+          "Player Load": "515",
+          "Overall (%)": "41",
+          "Sprint Distance (m)": "205",
+          "Accel & Decel Efforts": "58"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CB",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "553",
+          "Distance (m)": "13932",
+          "Max Acceleration": "3.9",
+          "Max Deceleration": "5.3",
+          "Player Load": "1669",
+          "Overall (%)": "3026",
+          "Sprint Distance (m)": "63",
+          "Accel & Decel Efforts": "330"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "FB",
+        "row_y": 645,
+        "values": {
+          "High Speed Distance (m)": "937",
+          "Distance (m)": "11458",
+          "Max Acceleration": "4.8",
+          "Max Deceleration": "5.6",
+          "Player Load": "1259",
+          "Overall (%)": "771",
+          "Sprint Distance (m)": "192",
+          "Accel & Decel Efforts": "322"
+        }
+      },
+      {
+        "name_raw": "Sande, Amos",
+        "position": "GK",
+        "row_y": 724,
+        "values": {
+          "High Speed Distance (m)": "298",
+          "Distance (m)": "2198",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "4.0",
+          "Player Load": "315",
+          "Overall (%)": "9588",
+          "Sprint Distance (m)": "139",
+          "Accel & Decel Efforts": "18"
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "CB",
+        "row_y": 782,
+        "values": {
+          "High Speed Distance (m)": "254",
+          "Distance (m)": "2380",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "3.7",
+          "Player Load": "330",
+          "Overall (%)": "67",
+          "Sprint Distance (m)": "115",
+          "Accel & Decel Efforts": "24"
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "CB",
+        "row_y": 860,
+        "values": {
+          "High Speed Distance (m)": "323",
+          "Distance (m)": "5456",
+          "Max Acceleration": "4.1",
+          "Max Deceleration": "5.4",
+          "Player Load": "755",
+          "Overall (%)": "67",
+          "Sprint Distance (m)": "85",
+          "Accel & Decel Efforts": "74"
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:26:29",
+      "venue": "DEFAULT",
+      "Distance (m)": "7005",
+      "High Speed Dist (m)": "462",
+      "Accel+Decel (#)": "143",
+      "Athletes": "19",
+      "Duration": "2:26:29",
+      "Start": "2:18 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_moyalebarracks.png"
+  },
+  {
+    "file": "Red Lions Catapult report 2 May 2026.pdf",
+    "date": "2026-05-02",
+    "competition": "FDH Premiership",
+    "opponent": "Red Lions",
+    "players": [
+      {
+        "name_raw": "Chihana, Allen",
+        "position": "WM",
+        "row_y": 337,
+        "values": {
+          "High Speed Distance (m)": "562",
+          "Distance (m)": "6572",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.7",
+          "Player Load": "821",
+          "Overall (%)": "1209",
+          "Sprint Distance (m)": "89",
+          "Accel & Decel Efforts": "173"
+        }
+      },
+      {
+        "name_raw": "Chunga, Chimwemwe",
+        "position": "WM",
+        "row_y": 416,
+        "values": {
+          "High Speed Distance (m)": "520",
+          "Distance (m)": "7561",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "5.4",
+          "Player Load": "1053",
+          "Overall (%)": "111",
+          "Sprint Distance (m)": "84",
+          "Accel & Decel Efforts": "182"
+        }
+      },
+      {
+        "name_raw": "James, Hadji",
+        "position": "WM",
+        "row_y": 494,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "790",
+          "Max Acceleration": "3.2",
+          "Max Deceleration": "1.4",
+          "Player Load": "116",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Jnr, Wongani Kaponya",
+        "position": "CM",
+        "row_y": 571,
+        "values": {
+          "High Speed Distance (m)": "51",
+          "Distance (m)": "1172",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "4.1",
+          "Player Load": "188",
+          "Overall (%)": null,
+          "Sprint Distance (m)": "13",
+          "Accel & Decel Efforts": "20"
+        }
+      },
+      {
+        "name_raw": "Lameck, An- drew",
+        "position": "CM",
+        "row_y": 667,
+        "values": {
+          "High Speed Distance (m)": "408",
+          "Distance (m)": "10572",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.4",
+          "Player Load": "1109",
+          "Overall (%)": "124",
+          "Sprint Distance (m)": "51",
+          "Accel & Decel Efforts": "168"
+        }
+      },
+      {
+        "name_raw": "Lumbe, James",
+        "position": "CM",
+        "row_y": 745,
+        "values": {
+          "High Speed Distance (m)": "556",
+          "Distance (m)": "9405",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.3",
+          "Player Load": "1006",
+          "Overall (%)": "129",
+          "Sprint Distance (m)": "63",
+          "Accel & Decel Efforts": "212"
+        }
+      },
+      {
+        "name_raw": "Malinda, Bless- ings",
+        "position": "CM",
+        "row_y": 822,
+        "values": {
+          "High Speed Distance (m)": "692",
+          "Distance (m)": "12141",
+          "Max Acceleration": "4.3",
+          "Max Deceleration": "5.4",
+          "Player Load": "1472",
+          "Overall (%)": "245",
+          "Sprint Distance (m)": "189",
+          "Accel & Decel Efforts": "223"
+        }
+      },
+      {
+        "name_raw": "Masinja, Her- mas",
+        "position": "FB",
+        "row_y": 920,
+        "values": {
+          "High Speed Distance (m)": "908",
+          "Distance (m)": "10807",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.7",
+          "Player Load": "1164",
+          "Overall (%)": "230",
+          "Sprint Distance (m)": "221",
+          "Accel & Decel Efforts": "236"
+        }
+      },
+      {
+        "name_raw": "McDonald, Josephy",
+        "position": "CB",
+        "row_y": 1016,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "553",
+          "Max Acceleration": "1.8",
+          "Max Deceleration": "1.5",
+          "Player Load": "92",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Mkungula, Clever",
+        "position": "GK",
+        "row_y": 1113,
+        "values": {
+          "High Speed Distance (m)": "16",
+          "Distance (m)": "6505",
+          "Max Acceleration": "4.0",
+          "Max Deceleration": "4.5",
+          "Player Load": "521",
+          "Overall (%)": "108",
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "66"
+        }
+      },
+      {
+        "name_raw": "Mnyenyembe, Levison",
+        "position": "GK",
+        "row_y": 1209,
+        "values": {
+          "High Speed Distance (m)": "566",
+          "Distance (m)": "6442",
+          "Max Acceleration": "4.7",
+          "Max Deceleration": "5.2",
+          "Player Load": "853",
+          "Overall (%)": "43",
+          "Sprint Distance (m)": "177",
+          "Accel & Decel Efforts": "149"
+        }
+      },
+      {
+        "name_raw": "Mphepo, Hap- py",
+        "position": "CB",
+        "row_y": 1306,
+        "values": {
+          "High Speed Distance (m)": "536",
+          "Distance (m)": "10452",
+          "Max Acceleration": "4.5",
+          "Max Deceleration": "5.6",
+          "Player Load": "1092",
+          "Overall (%)": "221",
+          "Sprint Distance (m)": "91",
+          "Accel & Decel Efforts": "200"
+        }
+      },
+      {
+        "name_raw": "Nyirenda, Isa- iah",
+        "position": "CM",
+        "row_y": 354,
+        "values": {
+          "High Speed Distance (m)": "450",
+          "Distance (m)": "7147",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "5.2",
+          "Player Load": "878",
+          "Overall (%)": "1247",
+          "Sprint Distance (m)": "47",
+          "Accel & Decel Efforts": "165"
+        }
+      },
+      {
+        "name_raw": "Rukura, Samuel",
+        "position": "CM",
+        "row_y": 452,
+        "values": {
+          "High Speed Distance (m)": "749",
+          "Distance (m)": "11216",
+          "Max Acceleration": "4.8",
+          "Max Deceleration": "6.1",
+          "Player Load": "1224",
+          "Overall (%)": "623",
+          "Sprint Distance (m)": "268",
+          "Accel & Decel Efforts": "255"
+        }
+      },
+      {
+        "name_raw": "Salawira, Vin- cent",
+        "position": "CM",
+        "row_y": 548,
+        "values": {
+          "High Speed Distance (m)": "77",
+          "Distance (m)": "3968",
+          "Max Acceleration": "3.7",
+          "Max Deceleration": "6.1",
+          "Player Load": "572",
+          "Overall (%)": "128",
+          "Sprint Distance (m)": "11",
+          "Accel & Decel Efforts": "89"
+        }
+      },
+      {
+        "name_raw": "Sande, Amos",
+        "position": "GK",
+        "row_y": 626,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "550",
+          "Max Acceleration": "2.3",
+          "Max Deceleration": "1.7",
+          "Player Load": "94",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      },
+      {
+        "name_raw": "Simbi, Aubrey",
+        "position": "GK",
+        "row_y": 686,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "796",
+          "Max Acceleration": "3.4",
+          "Max Deceleration": "2.3",
+          "Player Load": "118",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": "11"
+        }
+      },
+      {
+        "name_raw": "Stambuli, James",
+        "position": "FB",
+        "row_y": 764,
+        "values": {
+          "High Speed Distance (m)": "490",
+          "Distance (m)": "10742",
+          "Max Acceleration": "4.2",
+          "Max Deceleration": "4.7",
+          "Player Load": "1477",
+          "Overall (%)": "258",
+          "Sprint Distance (m)": "56",
+          "Accel & Decel Efforts": "178"
+        }
+      },
+      {
+        "name_raw": "Tizola, Lucky",
+        "position": "GK",
+        "row_y": 843,
+        "values": {
+          "High Speed Distance (m)": null,
+          "Distance (m)": "770",
+          "Max Acceleration": "1.9",
+          "Max Deceleration": "2.0",
+          "Player Load": "111",
+          "Overall (%)": null,
+          "Sprint Distance (m)": null,
+          "Accel & Decel Efforts": null
+        }
+      }
+    ],
+    "summary": {
+      "total_time": "2:07:08",
+      "venue": "MPIRA STADIUM",
+      "Distance (m)": "6219",
+      "High Speed Dist (m)": "346",
+      "Accel+Decel (#)": "123",
+      "Athletes": "19",
+      "Duration": "2:17 PM",
+      "Start": "2:17 PM"
+    },
+    "pages": 5,
+    "team_shape": "teamshape_redlions.png"
+  }
+]

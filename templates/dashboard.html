@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}{{ team['name'] }} - Ekhaya Nexus{% endblock %}
+{% block body_class %}has-hero{% endblock %}
+
+{% block content %}
+<section class="hero hero-dashboard">
+  <div class="hero-inner">
+    <p class="hero-kicker">Team dashboard</p>
+    <h1 class="hero-title">{{ team['name'] }}</h1>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <span class="stat-label">Squad size</span>
+        <span class="stat-value">{{ stats.total_players }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Goals scored</span>
+        <span class="stat-value">{{ stats.total_goals }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Assists</span>
+        <span class="stat-value">{{ stats.total_assists }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Yellow / Red</span>
+        <span class="stat-value">{{ stats.total_yellows }} / {{ stats.total_reds }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="modules">
+  <h2 class="section-title">Modules</h2>
+  <nav class="module-grid">
+    <a class="module-card" href="{{ url_for('players', team_id=team['id']) }}">
+      <span class="module-num">1</span>
+      <span class="module-name">Players</span>
+      <span class="module-hint">Roster &amp; profiles</span>
+    </a>
+    <a class="module-card" href="{{ url_for('competitions', team_id=team['id']) }}">
+      <span class="module-num">2</span>
+      <span class="module-name">Competitions</span>
+      <span class="module-hint">Leagues, cups &amp; friendlies</span>
+    </a>
+    <a class="module-card" href="{{ url_for('attendance', team_id=team['id']) }}">
+      <span class="module-num">3</span>
+      <span class="module-name">Attendance</span>
+      <span class="module-hint">Sessions &amp; presence</span>
+    </a>
+<a class="module-card" href="{{ url_for('league', team_id=team['id']) }}">
+      <span class="module-num">4</span>
+      <span class="module-name">League Table</span>
+      <span class="module-hint">Results & standings</span>
+    </a>
+    {% if team['id'] == 1 %}
+    <a class="module-card" href="{{ url_for('performance', team_id=team['id']) }}">
+      <span class="module-num">5</span>
+      <span class="module-name">Performance</span>
+      <span class="module-hint">Fitness & ratings</span>
+    </a>
+    {% endif %}
+    <a class="module-card" href="{{ url_for('medical', team_id=team['id']) }}">
+      <span class="module-num">6</span>
+      <span class="module-name">Medical</span>
+      <span class="module-hint">Injuries & rehab</span>
+    </a>
+    <a class="module-card" href="{{ url_for('fixtures', team_id=team['id']) }}">
+      <span class="module-num">7</span>
+      <span class="module-name">Fixtures</span>
+      <span class="module-hint">Schedule &amp; results</span>
+    </a>
+  </nav>
+
+  {% if competitions %}
+  <h2 class="section-title" style="margin-top:40px;">Active Competitions</h2>
+  <div class="comp-list">
+    {% for c in competitions %}
+    <a class="comp-card" href="{{ url_for('competition_detail', team_id=team['id'], comp_id=c['id']) }}">
+      <span class="comp-type-badge comp-{{ c['comp_type'] }}">{{ c['comp_type']|upper }}</span>
+      <span class="comp-name">{{ c['name'] }}</span>
+      <span class="comp-record">{{ c['wins']|default(0) }}W {{ c['draws']|default(0) }}D {{ c['losses']|default(0) }}L</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="dashboard-two-col">
+    {% if standings %}
+    <div class="dash-section">
+      <h2 class="section-title">League Position</h2>
+      {% for row in standings %}
+        {% if row['team_name'] == standings_team_name %}
+        <div class="dash-standings-card">
+          <div class="dash-position">{{ row['position'] }}</div>
+          <div class="dash-standings-info">
+            <div class="dash-standings-team">{{ row['team_name'] }}</div>
+            <div class="dash-standings-record">{{ row['played'] }}P &middot; {{ row['won'] }}W {{ row['drawn'] }}D {{ row['lost'] }}L</div>
+            <div class="dash-standings-gd">GD {{ row['goal_diff'] }} &middot; <strong>{{ row['points'] }} pts</strong></div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <a class="btn btn-outline" href="{{ url_for('league', team_id=team['id']) }}" style="margin-top:12px">Full Table</a>
+    </div>
+    {% endif %}
+
+    {% if fixtures %}
+    <div class="dash-section">
+      <h2 class="section-title">Next Fixtures</h2>
+      <div class="dash-fixtures">
+        {% for f in fixtures %}
+        <div class="dash-fixture">
+          <div class="dash-fixture-date">MW{{ f['matchweek'] }} &middot; {{ f['match_date'] }}</div>
+          <div class="dash-fixture-teams">
+            {{ f['home_team'] }} <span class="dash-fixture-vs">{% if f['home_score'] is not none %}{{ f['home_score'] }}-{{ f['away_score'] }}{% else %}vs{% endif %}</span> {{ f['away_team'] }}
+          </div>
+          <div class="dash-fixture-venue">{{ f['venue'] }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      <a class="btn btn-outline" href="{{ url_for('fixtures', team_id=team['id']) }}" style="margin-top:12px">All Fixtures</a>
+    </div>
+    {% endif %}
+
+    {% if recent_results %}
+    <div class="dash-section">
+      <h2 class="section-title">Recent Results</h2>
+      <div class="dash-results">
+        {% for f in recent_results %}
+        <div class="dash-result">
+          <span class="dash-result-date">{{ f['match_date'] }}</span>
+          <span class="dash-result-teams">{{ f['home_team'] }} {{ f['home_score'] }}-{{ f['away_score'] }} {{ f['away_team'] }}</span>
+          {% if f['home_team'] == 'Ekhaya FC' %}
+            {% set r = 'W' if f['home_score'] > f['away_score'] else ('D' if f['home_score'] == f['away_score'] else 'L') %}
+          {% else %}
+            {% set r = 'W' if f['away_score'] > f['home_score'] else ('D' if f['away_score'] == f['home_score'] else 'L') %}
+          {% endif %}
+          <span class="perf-result-badge perf-result-{{ r }}">{{ r }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <a class="back-link" href="{{ url_for('team_select') }}">&larr; Back to team selection</a>
+</section>
+{% endblock %}

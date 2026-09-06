@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ module_name }} - Ekhaya Nexus{% endblock %}
+{% block content %}
+<section class="placeholder">
+  <h1 class="placeholder-title">{{ module_name }} — coming soon</h1>
+  <p class="placeholder-text">
+    The {{ module_name }} module is phase {{ stage }} of the Ekhaya Nexus rollout.
+    We'll unlock it once phase {{ stage }} activates — check with the admin team
+    if you expected it to be live already.
+  </p>
+  <a class="back-link" href="{{ url_for('dashboard', team_id=team['id']) }}">&larr; Back to dashboard</a>
+</section>
+{% endblock %}

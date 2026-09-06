@@ -1,0 +1,57 @@
+{% extends "admin_base.html" %}
+{% block title %}Edit Standings - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="comp-section">
+  <div class="page-header-inner" style="margin-bottom:20px">
+    <h1 class="page-title">Edit Standings</h1>
+  </div>
+
+  <div class="matchweek-tabs">
+    {% for ln in leagues %}
+    <a class="mw-tab {% if ln == selected %}mw-tab-active{% endif %}" href="{{ url_for('admin_standings', league=ln) }}">{{ ln }}</a>
+    {% endfor %}
+  </div>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>P</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>PTS</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in standings %}
+        <tr>
+          <form method="POST" action="{{ url_for('admin_update_standings') }}">
+            <input type="hidden" name="entry_id" value="{{ row['id'] }}">
+            <td class="num">{{ row['position'] }}</td>
+            <td>
+              <input type="text" name="team_name" value="{{ row['team_name'] }}" style="width:160px;padding:6px 8px;border:1px solid var(--line);border-radius:4px">
+            </td>
+            <td><input class="mini-input" type="number" name="played" value="{{ row['played'] }}"></td>
+            <td><input class="mini-input" type="number" name="won" value="{{ row['won'] }}"></td>
+            <td><input class="mini-input" type="number" name="drawn" value="{{ row['drawn'] }}"></td>
+            <td><input class="mini-input" type="number" name="lost" value="{{ row['lost'] }}"></td>
+            <td><input class="mini-input" type="number" name="goals_for" value="{{ row['goals_for'] }}"></td>
+            <td><input class="mini-input" type="number" name="goals_against" value="{{ row['goals_against'] }}"></td>
+            <td><input class="mini-input" type="number" name="goal_diff" value="{{ row['goal_diff'] }}"></td>
+            <td><input class="mini-input" type="number" name="points" value="{{ row['points'] }}"></td>
+            <td><button class="btn btn-outline" style="padding:4px 10px" type="submit">Save</button></td>
+          </form>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

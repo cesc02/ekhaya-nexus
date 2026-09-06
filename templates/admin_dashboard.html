@@ -1,0 +1,43 @@
+{% extends "admin_base.html" %}
+{% block title %}Admin Dashboard - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Super admin control</p>
+    <h1 class="hero-title">Admin Dashboard</h1>
+    <p class="hero-sub">Manage all teams, players, competitions, matches and standings.</p>
+  </div>
+</div>
+
+<div class="comp-section">
+  <div class="stat-row">
+    <div class="stat-card">
+      <span class="stat-label">Teams</span>
+      <span class="stat-value">{{ teams|length }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Players</span>
+      <span class="stat-value">{{ teams|sum(attribute='players') }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Competitions</span>
+      <span class="stat-value">{{ teams|sum(attribute='competitions') }}</span>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:32px">Teams</h2>
+  <div class="team-grid">
+    {% for t in teams %}
+    <a class="team-card" href="{{ url_for('admin_players') }}">
+      <span class="team-card-index">Team {{ t['id'] }}</span>
+      <span class="team-card-name">{{ t['name'] }}</span>
+      <span class="team-card-go">{{ t['competitions'] }} comps &middot; {{ t['goals'] }} goals</span>
+      <span class="team-card-go">
+        League: {{ t['league'] }}
+        {% if t['league_position'] %} &middot; Position {{ t['league_position'] }}{% endif %}
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

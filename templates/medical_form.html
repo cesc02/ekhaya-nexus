@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if medical else 'Add' }} Medical Record - {{ team.name }}{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('medical', team_id=team['id']) }}">&larr; Medical</a>
+    <h1 class="page-title">{{ 'Edit' if medical else 'Add' }} Medical Record</h1>
+  </div>
+</section>
+
+<div class="form-section">
+  <form method="POST" class="app-form">
+    <div class="form-group">
+      <label>Player</label>
+      <select name="player_id" required>
+        {% for p in players %}
+        <option value="{{ p.id }}" {% if medical and medical.player_id == p.id %}selected{% endif %}>
+          {{ p.first_name }} {{ p.last_name }} {% if p.squad_number %}#{{ p.squad_number }}{% endif %}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Injury Type</label>
+      <input type="text" name="injury_type" value="{{ medical.injury_type if medical else '' }}" required placeholder="e.g., Hamstring strain, Ankle sprain">
+    </div>
+
+    <div class="form-group">
+      <label>Body Part</label>
+      <input type="text" name="body_part" value="{{ medical.body_part if medical else '' }}" required placeholder="e.g., Right hamstring, Left ankle">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Severity</label>
+        <select name="severity" required>
+          {% for s in ['minor', 'moderate', 'severe'] %}
+          <option value="{{ s }}" {% if medical and medical.severity == s %}selected{% endif %}>{{ s|title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select name="status" required>
+          {% for s in ['active', 'recovered', 'chronic'] %}
+          <option value="{{ s }}" {% if medical and medical.status == s %}selected{% endif %}>{{ s|title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Diagnosed Date</label>
+        <input type="date" name="diagnosed_date" value="{{ medical.diagnosed_date if medical else '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Expected Return</label>
+        <input type="date" name="expected_return" value="{{ medical.expected_return if medical else '' }}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Actual Return (if recovered)</label>
+      <input type="date" name="actual_return" value="{{ medical.actual_return if medical else '' }}">
+    </div>
+
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea name="notes" rows="3" placeholder="Additional details...">{{ medical.notes if medical else '' }}</textarea>
+    </div>
+
+    <div>
+      <button class="btn btn-gold" type="submit">Save</button>
+      <a class="btn btn-outline" href="{{ url_for('medical', team_id=team['id']) }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

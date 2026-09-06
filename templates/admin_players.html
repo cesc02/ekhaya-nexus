@@ -1,0 +1,49 @@
+{% extends "admin_base.html" %}
+{% block title %}Manage Players - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="comp-section">
+  <div class="page-header-inner" style="margin-bottom:20px">
+    <h1 class="page-title">All Players</h1>
+    <a class="btn btn-gold" href="{{ url_for('admin_add_player') }}">+ Add Player</a>
+  </div>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Squad</th>
+          <th>Name</th>
+          <th>Position</th>
+          <th>G</th>
+          <th>A</th>
+          <th>YC</th>
+          <th>RC</th>
+          <th>Apps</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in players %}
+        <tr>
+          <td>{{ p['team_name'] }}</td>
+          <td>{{ p['first_name'] }} {{ p['last_name'] }}</td>
+          <td>{{ p['position'] }}</td>
+          <td class="num">{{ p['goals'] }}</td>
+          <td class="num">{{ p['assists'] }}</td>
+          <td class="num">{{ p['yellow_cards'] }}</td>
+          <td class="num">{{ p['red_cards'] }}</td>
+          <td class="num">{{ p['appearances'] }}</td>
+          <td>
+            <a class="btn btn-outline" style="padding:4px 10px" href="{{ url_for('admin_edit_player', player_id=p['id']) }}">Edit</a>
+            <form method="POST" action="{{ url_for('admin_delete_player', player_id=p['id']) }}" style="display:inline" onsubmit="return confirm('Delete this player?')">
+              <button class="btn btn-danger" style="padding:4px 10px" type="submit">Del</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

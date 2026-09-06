@@ -1,0 +1,22 @@
+# Secrets & local runtime data (re-seeded on startup)
+*.db
+*.db-journal
+cert.pem
+key.pem
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Uploads (runtime) — static uploads are re-created
+static/uploads/
+
+# OS/editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

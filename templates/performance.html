@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+{% block title %}Performance - {{ team['name'] }}{% endblock %}
+{% block body_class %}perf-system{% endblock %}
+
+{% block content %}
+<style>
+  .perf-system { --bg:#faf9f5; --surface:#ffffff; --surface-2:#f4efe0; --border:#e6ddc2;
+    --ink:#17160f; --muted:#78735f; --muted-2:#a9a48c; --gold:#c6992f; --gold-deep:#9c7a22;
+    --gold-soft:#f3e6bd; --black:#131210; --red:#b23a32; --red-soft:#f7e2df;
+    --amber:#c98a1e; --amber-soft:#f7edd2; --green-ok:#3f8557; --green-soft:#e3f1e7;
+    --shadow: 0 1px 2px rgba(23,22,15,.04), 0 10px 26px -14px rgba(23,22,15,.18);
+    font-family:'Inter',sans-serif; color:var(--ink); }
+  .perf-system .content { max-width:1420px; }
+  .perf-system h1,h2,h3,.display { font-family:'Anton',sans-serif; letter-spacing:.02em;
+    font-weight:400; text-transform:uppercase; }
+  .perf-system .mono { font-family:'JetBrains Mono',monospace; }
+  .perf-topbar { position:sticky; top:0; z-index:10; display:flex; align-items:center;
+    justify-content:space-between; padding:16px 0 18px; border-bottom:1px solid var(--border);
+    gap:14px; flex-wrap:wrap; background:linear-gradient(180deg, rgba(250,249,245,.98),
+    rgba(250,249,245,.9) 70%, transparent); }
+  .perf-topbar .eyebrow { color:var(--gold-deep); font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; font-weight:700; margin:0 0 2px; }
+  .perf-topbar h1 { font-size:30px; margin:0; color:var(--ink); }
+  .perf-topbar-right { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .season-pill { border:1px solid var(--border); background:var(--surface); padding:7px 14px;
+    border-radius:999px; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); display:flex; align-items:center; gap:8px; }
+  .season-pill .dot { width:7px; height:7px; border-radius:50%; background:var(--green-ok);
+    box-shadow:0 0 8px var(--green-ok); }
+  .perf-btn { background:var(--gold); color:var(--black); border:none; border-radius:9px;
+    padding:10px 16px; font-weight:700; font-size:12.5px; letter-spacing:.03em; cursor:pointer;
+    text-transform:uppercase; transition:.15s; text-decoration:none; display:inline-flex;
+    align-items:center; gap:7px; }
+  .perf-btn:hover { background:var(--gold-deep); color:#fff; }
+  .perf-btn.ghost { background:transparent; color:var(--ink); border:1px solid var(--border); }
+  .perf-btn.ghost:hover { border-color:var(--gold); color:var(--gold-deep); }
+  .perf-btn.small { padding:6px 11px; font-size:11px; border-radius:7px; }
+
+  .perf-grid { display:grid; gap:16px; }
+  .perf-g4 { grid-template-columns:repeat(4,1fr); }
+  .perf-g3 { grid-template-columns:repeat(3,1fr); }
+  .perf-g2 { grid-template-columns:repeat(2,1fr); }
+  @media(max-width:1100px){ .perf-g4{grid-template-columns:repeat(2,1fr);} .perf-g3{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:680px){ .perf-g4,.perf-g3,.perf-g2{grid-template-columns:1fr;} }
+
+  .perf-card { background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:18px 20px; box-shadow:var(--shadow); }
+  .perf-stats .label { color:var(--muted); font-size:11px; text-transform:uppercase;
+    letter-spacing:.1em; font-weight:700; }
+  .perf-stats .value { font-family:'Anton',sans-serif; font-size:34px; color:var(--gold-deep);
+    margin-top:6px; }
+  .perf-stats .foot { color:var(--muted-2); font-size:11.5px; margin-top:4px; }
+
+  .perf-section-head { display:flex; align-items:flex-end; justify-content:space-between;
+    flex-wrap:wrap; gap:14px; margin:34px 0 16px; }
+  .perf-section-head h2 { font-size:26px; margin:0; }
+  .perf-section-head p { color:var(--muted); margin:4px 0 0; font-size:13.5px; max-width:680px; }
+  .perf-section-note { color:var(--muted-2); font-size:11.5px; text-align:center; margin-top:18px; }
+
+  .perf-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .perf-table th { text-align:left; color:var(--muted); font-size:10.5px;
+    text-transform:uppercase; letter-spacing:.07em; padding:10px; border-bottom:1px solid var(--border);
+    font-weight:700; cursor:default; user-select:none; white-space:nowrap; }
+  .perf-table th.sortable { cursor:pointer; }
+  .perf-table th.sortable:hover { color:var(--gold-deep); }
+  .perf-table td { padding:11px 10px; border-bottom:1px solid var(--border); color:var(--ink); }
+  .perf-table tr:last-child td { border-bottom:none; }
+  .perf-table tbody tr:hover { background:var(--surface-2); }
+  .perf-table .num { text-align:right; font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; }
+  .perf-wrap { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden;
+    padding:6px 14px; box-shadow:var(--shadow); }
+  .perf-table .num small { font-family:'Inter',sans-serif; }
+  .perf-table td strong { color:var(--ink); }
+
+  .perf-pill { padding:3px 9px; border-radius:999px; font-size:10.5px; text-transform:uppercase;
+    letter-spacing:.04em; font-weight:700; }
+  .perf-pill.cup { background:var(--gold-soft); color:var(--gold-deep); }
+  .perf-pill.friendly { background:var(--surface-2); color:var(--muted); }
+  .perf-pill.fit { background:var(--green-soft); color:var(--green-ok); }
+  .perf-result { display:inline-flex; align-items:center; justify-content:center; width:26px;
+    height:26px; border-radius:8px; font-weight:800; font-size:12px; }
+  .perf-result.W { background:var(--green-soft); color:var(--green-ok); }
+  .perf-result.D { background:var(--amber-soft); color:var(--amber); }
+  .perf-result.L { background:var(--red-soft); color:var(--red); }
+  .perf-result.none { background:var(--surface-2); color:var(--muted-2); }
+
+  .perf-bar-cell { display:flex; flex-direction:column; gap:4px; min-width:74px; }
+  .perf-bar-cell .bar-num { font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:700; }
+  .perf-bar-track { width:100%; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; }
+  .perf-bar-fill { height:100%; border-radius:3px; background:linear-gradient(90deg, var(--gold-soft), var(--gold)); }
+  .perf-bar-fill.hot { background:linear-gradient(90deg, var(--gold), var(--red)); }
+
+  .perf-team { display:flex; align-items:center; gap:10px; font-weight:700; }
+  .perf-team img { width:26px; height:26px; object-fit:contain; }
+  .perf-pos-code { color:var(--gold-deep); font-size:11px; text-transform:uppercase; font-weight:700; }
+
+  .dist-track { display:flex; align-items:flex-end; gap:1.5px; height:26px; min-width:150px; }
+  .dist-track div { width:6px; height:3px; background:var(--border); border-radius:1.5px; }
+  .dist-track div.on { background:var(--gold); }
+
+  .pos-avg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media(max-width:800px){ .pos-avg-grid{grid-template-columns:1fr;} }
+  .pos-avg-card { display:flex; flex-direction:column; gap:2px; }
+  .pos-avg-card .tag { font-size:10.5px; color:var(--gold-deep); text-transform:uppercase;
+    letter-spacing:.08em; font-weight:700; }
+  .pos-avg-card .big { font-family:'Anton',sans-serif; font-size:21px; margin-top:4px; }
+  .pos-avg-card .sub { color:var(--muted); font-size:12px; }
+
+  .admin-note { display:inline-flex; align-items:center; gap:6px; background:var(--gold-soft);
+    color:var(--gold-deep); padding:5px 11px; border-radius:999px; font-size:11px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.04em; margin-top:8px; }
+  .locked-note { color:var(--muted-2); font-size:12px; font-style:italic; margin-top:8px; }
+  .empty { color:var(--muted-2); font-size:13px; font-style:italic; padding:24px; text-align:center; }
+
+  .perf-nav { display:flex; align-items:center; gap:8px; }
+  .perf-back { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+    text-decoration:none; font-weight:700; }
+  .perf-back:hover { color:var(--gold-deep); }
+  .perf-toolbar { display:flex; align-items:center; gap:14px; justify-content:flex-end; flex-wrap:wrap; }
+  .perf-search { background:var(--surface); border:1px solid var(--border); border-radius:9px;
+    padding:9px 12px; color:var(--ink); font-size:13px; min-width:220px; }
+  .perf-search:focus { outline:none; border-color:var(--gold); }
+
+  /* league table hover highlight for Ekhaya row */
+  .perf-ekhaya-row td { background:var(--gold-soft); font-weight:700; }
+  .perf-table .perf-ekhaya-row:hover td { background:var(--gold-soft); }
+  .pos-dot { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; }
+</style>
+
+<div class="perf-topbar">
+  <div>
+    <p class="eyebrow">Ekhaya FC · First Team · Performance System</p>
+    <h1 class="display">Squad Performance</h1>
+  </div>
+  <div class="perf-topbar-right">
+    <div class="season-pill"><span class="dot"></span> 2026 Season · Live</div>
+    <a class="perf-btn ghost" href="#standings-section">Standings</a>
+    <a class="perf-btn" href="{{ url_for('add_match_route', team_id=team['id'], comp_id=comp_id) }}">+ Add Match</a>
+  </div>
+</div>
+
+<div class="perf-grid perf-g4 perf-stats" style="margin:22px 0;">
+  <div class="perf-card"><div class="label">Squad Size</div><div class="value">{{ players|length }}</div><div class="foot">Registered players, 6 positions</div></div>
+  <div class="perf-card"><div class="label">Matches Tracked</div><div class="value">{{ gps_summary.count }}</div><div class="foot">Catapult GPS matchday reports</div></div>
+  <div class="perf-card"><div class="label">Total Minutes</div><div class="value">{{ minutes_rows|sum(attribute='total') }}</div><div class="foot">Across all logged players</div></div>
+  <div class="perf-card"><div class="label">Season Avg Overall</div><div class="value">{{ gps_summary.average }}%</div><div class="foot">vs. matchday benchmark</div></div>
+</div>
+
+{% if gps_summary.peak %}
+<div class="perf-grid perf-g3" style="margin-bottom:8px;">
+  <div class="perf-card pos-avg-card">
+    <span class="tag">Peak Output</span>
+    <span class="big">vs {{ gps_summary.peak.opponent }}</span>
+    <span class="sub">{{ gps_summary.peak.match_date }} · {{ gps_summary.peak.overall_pct }}% overall</span>
+  </div>
+  <div class="perf-card pos-avg-card">
+    <span class="tag">Most Physically Demanding</span>
+    <span class="big">vs {{ gps_summary.toughest.opponent }}</span>
+    <span class="sub">{{ gps_summary.toughest.match_date }} · {{ gps_summary.toughest.distance_m }} m covered</span>
+  </div>
+  <div class="perf-card pos-avg-card">
+    <span class="tag">Tracked Sessions</span>
+    <span class="big">{{ gps_summary.count }}</span>
+    <span class="sub">{{ gps_summary.count }} league &amp; cup matchdays</span>
+  </div>
+</div>
+{% endif %}
+
+<div class="perf-section-head">
+  <div>
+    <h2>GPS Match Analytics</h2>
+    <p>Catapult-derived team output for every tracked session — distance, high-speed yards, volume and intensity benchmarked against the club's matchday standard.</p>
+  </div>
+</div>
+<div class="perf-wrap">
+  <table class="perf-table" id="gpsTable">
+    <thead>
+      <tr>
+        <th class="sortable" data-sort="date">Date</th>
+        <th class="sortable" data-sort="opponent">Opponent</th>
+        <th>Competition</th>
+        <th class="sortable" data-sort="distance_m">Distance</th>
+        <th class="sortable" data-sort="hs_distance_m">HS Dist.</th>
+        <th>Accel/Decel</th>
+        <th class="sortable" data-sort="volume_pct">Volume</th>
+        <th class="sortable" data-sort="intensity_pct">Intensity</th>
+        <th class="sortable" data-sort="overall_pct">Overall</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in matches %}
+      <tr>
+        <td class="mono">{{ m.match_date }}</td>
+        <td>
+          <div class="perf-team">
+            {% if logo_map.get(m.opponent) %}
+            <img src="{{ url_for('static', filename='img/teams/' + logo_map.get(m.opponent)) }}" alt="">
+            {% endif %}
+            {{ m.opponent }}
+          </div>
+        </td>
+        <td><span class="perf-pill {{ 'cup' if 'Airtel' in (m.competition or '') else 'friendly' }}">{{ m.competition }}</span></td>
+        <td class="num">{{ '{:,}'.format(m.distance_m|int) }} m</td>
+        <td class="num">{{ '{:,}'.format(m.hs_distance_m|int) }} m</td>
+        <td class="num">{{ m.accel_decel_count|default(0) }}</td>
+        {% set mpct = m.volume_pct or 0 %}
+        <td><div class="perf-bar-cell"><span class="bar-num">{{ mpct }}%</span><div class="perf-bar-track"><div class="perf-bar-fill {{ 'hot' if mpct >= 140 else '' }}" style="width:{{ [mpct/1.8, 100]|min }}%;"></div></div></div></td>
+        {% set ipct = m.intensity_pct or 0 %}
+        <td><div class="perf-bar-cell"><span class="bar-num">{{ ipct }}%</span><div class="perf-bar-track"><div class="perf-bar-fill {{ 'hot' if ipct >= 140 else '' }}" style="width:{{ [ipct/1.8, 100]|min }}%;"></div></div></div></td>
+        {% set opct = m.overall_pct or 0 %}
+        <td><div class="perf-bar-cell"><span class="bar-num">{{ opct }}%</span><div class="perf-bar-track"><div class="perf-bar-fill {{ 'hot' if opct >= 140 else '' }}" style="width:{{ [opct/2.6, 100]|min }}%;"></div></div></div></td>
+        <td>
+          {% if m.result %}
+          <span class="perf-result {{ m.result }}">{{ m.result }}</span>
+          {% else %}
+          <span class="perf-result none">&ndash;</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="perf-section-note">Volume / Intensity / Overall are percentages relative to the club's internal matchday benchmark, as reported by the Catapult system.</div>
+
+<div class="perf-section-head" style="margin-top:40px;">
+  <div>
+    <h2>Minutes Breakdown — Per Player</h2>
+    <p>Every player's game time logged match-by-match and grouped into 5-minute ranges (1–5, 6–10, 11–15 … up to 91+), useful for tracking rotation and workload.</p>
+    {% if is_admin %}
+    <div class="admin-note">🔓 Super Admin — log minutes per match from any player's profile</div>
+    {% else %}
+    <div class="locked-note">Log in as Super Admin to add match-minute entries.</div>
+    {% endif %}
+  </div>
+  <div class="perf-toolbar">
+    <input class="perf-search" id="minFilter" placeholder="Search player name…">
+  </div>
+</div>
+<div class="perf-wrap">
+  <table class="perf-table" id="minTable">
+    <thead>
+      <tr>
+        <th class="sortable" data-sort="name">Player</th>
+        <th>Position</th>
+        <th class="sortable" data-sort="total">Total Minutes</th>
+        <th class="sortable" data-sort="apps">Matches Logged</th>
+        <th class="sortable" data-sort="avg">Avg / Match</th>
+        <th>Most Common Range</th>
+        <th>Distribution (1–5 … 91+)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in minutes_rows %}
+      <tr>
+        <td style="font-weight:700;">{{ r.name }}</td>
+        <td><span class="perf-pos-code">{{ pos_code_map.get(r.position, r.position or '—') }}</span></td>
+        <td class="num">{{ r.total }}</td>
+        <td class="num">{{ r.apps }}</td>
+        <td class="num">{{ r.avg }}</td>
+        <td>
+          {% if r.mode %}
+          <span class="perf-pill fit">{{ r.mode }}</span>
+          {% else %}
+          <span style="color:var(--muted-2);">&ndash;</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="dist-track" title="{% for b in r.distribution %}{{ b.band }}: {{ b.count }}x · {% endfor %}">
+            {% for b in r.distribution %}
+            <div class="{{ 'on' if b.count else '' }}" style="height:{{ [2, b.pct / 100 * 26]|max }}px;" title="{{ b.band }} min: {{ b.count }}x"></div>
+            {% endfor %}
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="perf-section-note">Each bar in the distribution column represents one 5-minute range, left to right from 1–5 up to 91+. Taller gold bars mean that range has come up more often for that player.</p>
+
+<div class="perf-section-head" style="margin-top:40px;">
+  <div>
+    <h2>Position Physical Averages</h2>
+    <p>Club benchmark for each position from tracked GPS sessions — head-to-head baseline for your squad's physical output.</p>
+  </div>
+</div>
+<div class="pos-avg-grid">
+  {% for pa in position_averages %}
+  <div class="perf-card pos-avg-card">
+    <span class="tag">#{{ pa.code }} &middot; {{ pa.label }}</span>
+    <span class="big">{{ pa.distance|int|string }} m</span>
+    <span class="sub">Avg distance · {{ pa.player_load|int|string }} player load · {{ pa.hs_distance|int|string }} m high-speed</span>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="perf-section-head" style="margin-top:40px;">
+  <div>
+    <h2>Individual Physical Profile (GPS)</h2>
+    <p>Downhill physical aggregates tracked across the season for each player.</p>
+  </div>
+</div>
+<div class="perf-wrap">
+  <table class="perf-table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Pos</th>
+        <th class="num">Sessions</th>
+        <th class="num">Avg Distance</th>
+        <th class="num">HS Distance</th>
+        <th class="num">Player Load</th>
+        <th class="num">Max Accel</th>
+        <th class="num">Max Decel</th>
+        <th class="num">Accel/Decel Efforts</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in physical %}
+      <tr>
+        <td style="font-weight:700;">{{ row.name }}</td>
+        <td><span class="perf-pos-code">{{ row.position or '—' }}</span></td>
+        <td class="num">{{ row.sessions_tracked }}</td>
+        <td class="num">{{ row.avg_distance|int|string }} <small>m</small></td>
+        <td class="num">{{ row.avg_hs_distance|int|string }} <small>m</small></td>
+        <td class="num">{{ row.avg_player_load|int|string }}</td>
+        <td class="num">{{ row.avg_max_accel|string }}</td>
+        <td class="num">{{ row.avg_max_decel|string }}</td>
+        <td class="num">{{ row.avg_ad_efforts|int|string }}</td>
+      </tr>
+      {% endfor %}
+      {% if not physical %}
+      <tr><td colspan="9" class="empty">No individual GPS breakdown available yet.</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<div class="perf-section-head" style="margin-top:40px;">
+  <div>
+    <h2>FDH Premiership — League Table</h2>
+    <p>{{ comp.name if comp else 'FDH Premiership' }} · {{ comp.season if comp else '2026/27' }} season — click rows below to navigate.</p>
+  </div>
+</div>
+<div class="perf-wrap" id="standings-section">
+  <table class="perf-table">
+    <thead>
+      <tr>
+        <th class="num">#</th><th>Club</th><th class="num">P</th><th class="num">W</th>
+        <th class="num">D</th><th class="num">L</th><th class="num">GF</th><th class="num">GA</th>
+        <th class="num">GD</th><th class="num">PTS</th><th>Form</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in standings %}
+      <tr class="{{ 'perf-ekhaya-row' if s['team_name'] == 'Ekhaya' or s['team_name'] == 'Ekhaya Reserve' else '' }}">
+        <td class="num">{{ s['position'] }}</td>
+        <td>
+          <div class="perf-team">
+            {% if s['logo_file'] %}
+            <img src="{{ url_for('static', filename='img/teams/' + s['logo_file']) }}" alt="">
+            {% endif %}
+            {{ s['team_name'] }}
+          </div>
+        </td>
+        <td class="num">{{ s['played'] }}</td>
+        <td class="num">{{ s['won'] }}</td>
+        <td class="num">{{ s['drawn'] }}</td>
+        <td class="num">{{ s['lost'] }}</td>
+        <td class="num">{{ s['goals_for'] }}</td>
+        <td class="num">{{ s['goals_against'] }}</td>
+        <td class="num">{{ s['goal_diff'] }}</td>
+        <td class="num"><strong>{{ s['points'] }}</strong></td>
+        <td>
+          {% if s['form'] %}
+            {% for ch in s['form'] %}
+            <span class="perf-form-dot perf-form-{{ ch }}">{{ ch }}</span>
+            {% endfor %}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="perf-grid perf-g2" style="margin-top:18px;">
+  <div>
+    <span class="perf-form-dot perf-form-W">W</span> Win &nbsp;
+    <span class="perf-form-dot perf-form-D">D</span> Draw &nbsp;
+    <span class="perf-form-dot perf-form-L">L</span> Loss
+  </div>
+  <div style="text-align:right;">
+    <a class="perf-btn ghost small" href="{{ url_for('league', team_id=team['id']) }}">Full Table →</a>
+  </div>
+</div>
+
+<p class="perf-section-note">Data compiled from Catapult GPS activity reports. Match-event data, minutes and the squad database are maintained under Super Admin mode.</p>
+
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .perf-form-dot { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center;
+    border-radius:6px; font-size:10px; font-weight:800; margin-right:3px; }
+  .perf-form-W { background:var(--green-soft, #e3f1e7); color:var(--green-ok, #3f8557); }
+  .perf-form-D { background:var(--amber-soft, #f7edd2); color:var(--amber, #c98a1e); }
+  .perf-form-L { background:var(--red-soft, #f7e2df); color:var(--red, #b23a32); }
+</style>
+<script>
+(function () {
+  function makeSortable(tableId) {
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    var state = { key: null, dir: 1 };
+    function sortRows() {
+      if (!state.key) return;
+      var tbody = table.tBodies[0];
+      var rows = [].slice.call(tbody.rows);
+      rows.sort(function (a, b) {
+        var av = a.cells[0];
+        var bv = b.cells[0];
+        for (var i = 0; i < table.tHead.rows[0].cells.length; i++) {
+          if (table.tHead.rows[0].cells[i].dataset.sort === state.key) {
+            av = a.cells[i]; bv = b.cells[i];
+            break;
+          }
+        }
+        var at = av.textContent.trim(), bt = bv.textContent.trim();
+        var an = parseFloat(at.replace(/,/g, '')), bn = parseFloat(bt.replace(/,/g, ''));
+        if (!isNaN(an) && !isNaN(bn)) return state.dir * (an - bn);
+        return state.dir * at.localeCompare(bt);
+      });
+      rows.forEach(function (r) { tbody.appendChild(r); });
+    }
+    table.querySelectorAll('th.sortable').forEach(function (th) {
+      th.addEventListener('click', function () {
+        var k = th.dataset.sort;
+        state.dir = (state.key === k) ? -state.dir : 1;
+        state.key = k;
+        sortRows();
+      });
+    });
+  }
+  makeSortable('gpsTable');
+  makeSortable('minTable');
+
+  var filter = document.getElementById('minFilter');
+  if (filter) {
+    filter.addEventListener('input', function () {
+      var q = filter.value.toLowerCase();
+      [].slice.call(document.querySelectorAll('#minTable tbody tr')).forEach(function (tr) {
+        tr.style.display = tr.children[0].textContent.toLowerCase().indexOf(q) === -1 ? 'none' : '';
+      });
+    });
+  }
+})();
+</script>
+{% endblock %}

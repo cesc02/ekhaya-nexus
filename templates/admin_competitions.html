@@ -1,0 +1,44 @@
+{% extends "admin_base.html" %}
+{% block title %}Manage Competitions - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="comp-section">
+  <div class="page-header-inner" style="margin-bottom:20px">
+    <h1 class="page-title">All Competitions</h1>
+    <a class="btn btn-gold" href="{{ url_for('admin_add_competition') }}">+ Add Competition</a>
+  </div>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Season</th>
+          <th>W-D-L</th>
+          <th>Matches</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in competitions %}
+        <tr>
+          <td>{{ c['team_name'] }}</td>
+          <td>{{ c['name'] }}</td>
+          <td><span class="comp-type-badge comp-{{ c['comp_type'] }}">{{ c['comp_type'] }}</span></td>
+          <td>{{ c['season'] }}</td>
+          <td>{{ c['wins']|default(0) }}-{{ c['draws']|default(0) }}-{{ c['losses']|default(0) }}</td>
+          <td class="num">{{ c['match_count']|default(0) }}</td>
+          <td>
+            <a class="btn btn-outline" style="padding:4px 10px" href="{{ url_for('admin_edit_competition', comp_id=c['id']) }}">Edit</a>
+            <form method="POST" action="{{ url_for('admin_delete_competition', comp_id=c['id']) }}" style="display:inline" onsubmit="return confirm('Delete this competition and its matches?')">
+              <button class="btn btn-danger" style="padding:4px 10px" type="submit">Del</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

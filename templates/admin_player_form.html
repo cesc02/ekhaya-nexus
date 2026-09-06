@@ -1,0 +1,70 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ 'Edit' if player else 'Add' }} Player - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="form-section">
+  <h1 class="page-title" style="margin-bottom:24px">{{ 'Edit' if player else 'Add' }} Player</h1>
+  <form method="POST" class="app-form">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Team</label>
+        <select name="team_id" required>
+          {% for t in teams %}
+          <option value="{{ t['id'] }}" {% if player and player['team_id'] == t['id'] %}selected{% endif %}>{{ t['name'] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Squad Number</label>
+      </div>
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="first_name" value="{{ player['first_name'] if player else '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" name="last_name" value="{{ player['last_name'] if player else '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Position</label>
+        <select name="position">
+          {% for pos in ['Goalkeeper','Defender','Midfielder','Forward'] %}
+          <option value="{{ pos }}" {% if player and player['position'] == pos %}selected{% endif %}>{{ pos }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nationality</label>
+        <input type="text" name="nationality" value="{{ player['nationality'] if player else '' }}">
+      </div>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="text" name="date_of_birth" value="{{ player['date_of_birth'] if player else '' }}" placeholder="YYYY-MM-DD">
+      </div>
+      <div class="form-group">
+        <label>Strong Foot</label>
+        <select name="strong_foot">
+          {% for foot in ['Right','Left','Both'] %}
+          <option value="{{ foot }}" {% if player and player['strong_foot'] == foot %}selected{% endif %}>{{ foot }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <h3 style="font-family:Oswald;font-size:16px;margin-top:8px">Season Stats</h3>
+    <div class="form-grid">
+      <div class="form-group"><label>Goals</label><input type="number" name="goals" value="{{ player['goals'] if player else 0 }}"></div>
+      <div class="form-group"><label>Assists</label><input type="number" name="assists" value="{{ player['assists'] if player else 0 }}"></div>
+      <div class="form-group"><label>Yellow Cards</label><input type="number" name="yellow_cards" value="{{ player['yellow_cards'] if player else 0 }}"></div>
+      <div class="form-group"><label>Red Cards</label><input type="number" name="red_cards" value="{{ player['red_cards'] if player else 0 }}"></div>
+      <div class="form-group"><label>Appearances</label><input type="number" name="appearances" value="{{ player['appearances'] if player else 0 }}"></div>
+      <div class="form-group"><label>Minutes</label><input type="number" name="minutes_played" value="{{ player['minutes_played'] if player else 0 }}"></div>
+      <div class="form-group"><label>Distance (km)</label><input type="number" step="0.1" name="distance_km" value="{{ player['distance_km'] if player else 0 }}"></div>
+    </div>
+
+    <div>
+      <button class="btn btn-gold" type="submit">Save</button>
+      <a class="btn btn-outline" href="{{ url_for('admin_players') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block title %}{{ comp.name }} - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('competitions', team_id=team['id']) }}">&larr; Competitions</a>
+    <h1 class="page-title">
+      {{ comp.name }}
+      {% if comp.is_champion %}
+      <span class="champion-badge">&#127942; Champions</span>
+      {% endif %}
+    </h1>
+    <div class="top-bar-actions">
+      <a class="btn btn-gold" href="{{ url_for('add_match_route', team_id=team['id'], comp_id=comp_id) }}">+ Add Match</a>
+      <a class="btn btn-outline" href="#standings-section">Standings</a>
+    </div>
+  </div>
+</section>
+
+<section class="competition-detail">
+  <div class="comp-meta">
+    <span class="comp-season">{{ comp.season or 'Season' }}</span>
+    <span class="comp-type">{{ comp.comp_type|title }}</span>
+    {% if comp.video_url %}<span class="comp-video"><a href="{{ comp.video_url }}" target="_blank" rel="noopener">▶ Watch Video</a></span>{% endif %}
+  </div>
+
+  {% if comp.is_champion %}
+  <div class="champions-banner">
+    <div class="champions-rays" aria-hidden="true"></div>
+    <div class="champions-inner">
+      <span class="champions-trophy">&#127942;</span>
+      <p class="champions-kicker">{{ team['name'] }} won the {{ comp.name }}</p>
+      <h2 class="champions-title">{{ comp.name }} Champions</h2>
+      <p class="champions-season">{{ comp.season }} &bull; First title in the competition</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="section-head">
+    <div>
+      <h2>Match Results</h2>
+      <p>Every {{ comp.name }} match for {{ team['name'] }}{% if comp.is_champion %} en route to lifting the trophy{% endif %}.</p>
+    </div>
+  </div>
+
+  {% if upcoming %}
+  <div class="section-head" style="margin-top:36px">
+    <div>
+      <h2>Upcoming Fixtures</h2>
+      <p>Remaining {{ comp.name }} fixtures for {{ team['name'] }} in the {{ comp.season }} season.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table comp-results-table">
+      <thead>
+        <tr>
+          <th>Matchweek</th>
+          <th>Date</th>
+          <th>Opponent</th>
+          <th>Venue</th>
+          <th>Kick-off</th>
+          {% if comp.comp_type == 'cup' %}<th>Stage</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in upcoming %}
+        <tr>
+          <td>MW {{ u.matchweek }}</td>
+          <td>{{ u.match_date }}</td>
+          {% set opp = u.away_team if u.home_team == 'Ekhaya FC' else u.home_team %}
+          <td>
+            <div class="comp-opponent">
+              {% if logo_map.get(opp) %}
+              <img class="standings-logo" src="{{ url_for('static', filename='img/teams/' + logo_map.get(opp)) }}" alt="">
+              {% endif %}
+              {{ opp }}
+            </div>
+          </td>
+          <td>{{ u.venue }}</td>
+          <td>{{ u.kick_off }}</td>
+          {% if comp.comp_type == 'cup' %}<td>&ndash;</td>{% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <div class="table-wrap">
+    <table class="data-table comp-results-table">
+      <thead>
+        <tr>
+          {% if comp.comp_type == 'cup' %}<th>Stage</th>{% endif %}
+          <th>Date</th>
+          <th>Opponent</th>
+          <th>Venue</th>
+          <th class="num">Score</th>
+          <th>Result</th>
+          {% if comp.comp_type == 'cup' %}<th>Goalscorers</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in matches %}
+        <tr>
+          {% if comp.comp_type == 'cup' %}
+          <td>
+            {% if loop.index0 == 0 %}Final
+            {% elif loop.index0 == 1 %}Semi-final
+            {% elif loop.index0 == 2 and matches|length >= 4 %}Quarter-final 2nd leg
+            {% elif loop.index0 == 3 and matches|length >= 4 %}Quarter-final 1st leg
+            {% else %}&ndash;{% endif %}
+          </td>
+          {% endif %}
+          <td>{{ m.match_date }}</td>
+          <td>
+            <div class="comp-opponent">
+              {% if logo_map.get(m.opponent) %}
+              <img class="standings-logo" src="{{ url_for('static', filename='img/teams/' + logo_map.get(m.opponent)) }}" alt="">
+              {% endif %}
+              {{ m.opponent }}
+            </div>
+          </td>
+          <td>{{ m.venue }}</td>
+          <td class="num score">{{ m.team_score }} - {{ m.opponent_score }}</td>
+          <td>
+            <span class="result-badge result-{{ m.result }}">{{ m.result }}</span>
+          </td>
+          {% if comp.comp_type == 'cup' %}
+          <td class="scorers-cell">
+            {% if m.scorers %}
+              {{ m.scorers }}
+            {% else %}
+              <span class="muted">&ndash;</span>
+            {% endif %}
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+{% if not matches %}
+        <tr><td colspan="{{ 7 if comp.comp_type == 'cup' else 5 }}" class="empty-state">No matches recorded yet.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if standings %}
+  <div class="standings-section" id="standings-section">
+    <h2>League Table</h2>
+    <p>{{ comp.name }} - {{ comp.season }}</p>
+    <table class="data-table standings-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>P</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>PTS</th>
+          <th>Form</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in standings %}
+        <tr class="{% if s['team_name'] == 'Ekhaya' %}standings-ekhaya{% endif %}">
+          <td class="num">{{ s['position'] }}</td>
+          <td>
+            <div class="standings-team">
+              {% if s['logo_file'] %}
+              <img class="standings-logo" src="{{ url_for('static', filename='img/teams/' + s['logo_file']) }}" alt="">
+              {% endif %}
+              <span>{{ s['team_name'] }}</span>
+            </div>
+          </td>
+          <td class="num">{{ s['played'] }}</td>
+          <td class="num">{{ s['won'] }}</td>
+          <td class="num">{{ s['drawn'] }}</td>
+          <td class="num">{{ s['lost'] }}</td>
+          <td class="num">{{ s['goals_for'] }}</td>
+          <td class="num">{{ s['goals_against'] }}</td>
+          <td class="num">{{ s['goal_diff'] }}</td>
+          <td class="num"><strong>{{ s['points'] }}</strong></td>
+          <td class="form-cell">
+            {% if s['form'] %}
+              {% for ch in s['form'] %}
+              <span class="form-dot form-{{ ch }}">{{ ch }}</span>
+              {% endfor %}
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

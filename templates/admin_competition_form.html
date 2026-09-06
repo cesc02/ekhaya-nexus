@@ -1,0 +1,41 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ 'Edit' if competition else 'Add' }} Competition - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="form-section">
+  <h1 class="page-title" style="margin-bottom:24px">{{ 'Edit' if competition else 'Add' }} Competition</h1>
+  <form method="POST" class="app-form">
+    <div class="form-group">
+      <label>Team</label>
+      <select name="team_id" required>
+        {% for t in teams %}
+        <option value="{{ t['id'] }}" {% if competition and competition['team_id'] == t['id'] %}selected{% endif %}>{{ t['name'] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Competition Name</label>
+      <input type="text" name="name" value="{{ competition['name'] if competition else '' }}" required>
+    </div>
+    <div class="form-group">
+      <label>Type</label>
+      <select name="comp_type">
+        {% for ct, label in [('league','League'),('cup','Cup'),('international','International'),('friendly','Friendly')] %}
+        <option value="{{ ct }}" {% if competition and competition['comp_type'] == ct %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Season</label>
+      <input type="text" name="season" value="{{ competition['season'] if competition else '2025/26' }}">
+    </div>
+    <div class="form-group">
+      <label>Video URL</label>
+      <input type="text" name="video_url" value="{{ competition['video_url'] if competition else '' }}">
+    </div>
+    <div>
+      <button class="btn btn-gold" type="submit">Save</button>
+      <a class="btn btn-outline" href="{{ url_for('admin_competitions') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

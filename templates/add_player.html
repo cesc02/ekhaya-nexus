@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Add Player - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('players', team_id=team['id']) }}">&larr; Squad</a>
+    <h1 class="page-title">Add Player to {{ team['name'] }}</h1>
+  </div>
+</section>
+
+<section class="form-section">
+  <form class="app-form" method="post">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" name="first_name" required>
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" name="last_name" required>
+      </div>
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+        <label for="position">Position</label>
+        <select id="position" name="position" required>
+          <option value="Goalkeeper">Goalkeeper</option>
+          <option value="Defender">Defender</option>
+          <option value="Midfielder">Midfielder</option>
+          <option value="Forward">Forward</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="date_of_birth">Date of birth</label>
+        <input type="date" id="date_of_birth" name="date_of_birth">
+      </div>
+      <div class="form-group">
+        <label for="nationality">Nationality</label>
+        <input type="text" id="nationality" name="nationality">
+      </div>
+      <div class="form-group">
+        <label for="strong_foot">Strong foot</label>
+        <select id="strong_foot" name="strong_foot">
+          <option value="Right">Right</option>
+          <option value="Left">Left</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-gold" type="submit">Add Player</button>
+  </form>
+</section>
+{% endblock %}

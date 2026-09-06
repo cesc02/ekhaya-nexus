@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Medical & Injuries - {{ team.name }}{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('dashboard', team_id=team['id']) }}">&larr; {{ team.name }}</a>
+    <h1 class="page-title">Medical & Injuries</h1>
+    <a class="btn btn-gold" href="{{ url_for('add_medical_route', team_id=team['id']) }}">+ Add Record</a>
+  </div>
+</section>
+
+<section class="medical-section">
+  <div class="medical-summary">
+    {% set active_injuries = medical_summary|length %}
+    <div class="summary-card">
+      <span class="summary-num">{{ active_injuries }}</span>
+      <span class="summary-label">Active Injuries</span>
+    </div>
+  </div>
+
+  {% if medical_summary %}
+  <div class="table-wrap">
+    <table class="data-table medical-table">
+      <thead>
+        <tr>
+          <th>Player</th>
+          <th>Injury</th>
+          <th>Body Part</th>
+          <th>Severity</th>
+          <th>Status</th>
+          <th>Diagnosed</th>
+          <th>Expected Return</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in medical_summary %}
+        <tr class="medical-{{ m.severity }}">
+          <td>{{ m.first_name }} {{ m.last_name }} {% if m.squad_number %}#{{ m.squad_number }}{% endif %}</td>
+          <td>{{ m.injury_type }}</td>
+          <td>{{ m.body_part }}</td>
+          <td><span class="severity-badge severity-{{ m.severity }}">{{ m.severity|title }}</span></td>
+          <td><span class="status-badge status-{{ m.status }}">{{ m.status|title }}</span></td>
+          <td>{{ m.diagnosed_date }}</td>
+          <td>{{ m.expected_return or '&ndash;' }}</td>
+          <td>
+            <a class="btn btn-sm btn-outline" href="{{ url_for('edit_medical_route', team_id=team['id'], record_id=m.id) }}">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="empty-state">No active injuries.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Players - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('dashboard', team_id=team['id']) }}">&larr; Dashboard</a>
+    <h1 class="page-title">{{ team['name'] }} &mdash; Squad</h1>
+    <a class="btn btn-gold" href="{{ url_for('add_player_route', team_id=team['id']) }}">+ Add Player</a>
+  </div>
+</section>
+
+<section class="player-list">
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Position</th>
+          <th>Nationality</th>
+          <th>Foot</th>
+          <th class="num">Goals</th>
+          <th class="num">Assists</th>
+          <th class="num">Apps</th>
+          <th class="num">Yellows</th>
+          <th class="num">Reds</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in players %}
+        <tr>
+          <td>
+            <a class="player-link" href="{{ url_for('player_profile', team_id=team['id'], player_id=p['id']) }}">
+              {% if p.photo_url %}
+              <img class="player-list-photo" src="{{ url_for('static', filename=p.photo_url) }}" alt="">
+              {% endif %}
+              {{ p.first_name }} {{ p.last_name }}
+            </a>
+          </td>
+          <td>{{ p.position }}</td>
+          <td>{{ p.nationality }}</td>
+          <td>{{ p.strong_foot }}</td>
+          <td class="num">{{ p.goals|default(0) }}</td>
+          <td class="num">{{ p.assists|default(0) }}</td>
+          <td class="num">{{ p.appearances|default(0) }}</td>
+          <td class="num card-yellow">{{ p.yellow_cards|default(0) }}</td>
+          <td class="num card-red">{{ p.red_cards|default(0) }}</td>
+        </tr>
+        {% endfor %}
+        {% if not players %}
+        <tr><td colspan="10" class="empty-state">No players yet. Add one to get started.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

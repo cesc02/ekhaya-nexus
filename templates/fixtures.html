@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Fixtures - Ekhaya Nexus{% endblock %}
+{% block body_class %}has-hero{% endblock %}
+{% block content %}
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">FDH BANK PREMIERSHIP 2026/27</p>
+    <h1 class="hero-title">Fixtures</h1>
+    <p class="hero-sub">Ekhaya FC's full 2026/27 season — {{ ekhaya_played }} played of {{ ekhaya_fixtures|length }} matchdays</p>
+  </div>
+</div>
+
+<div class="comp-section">
+  <h2 class="section-title">Ekhaya FC Fixtures</h2>
+  <div class="ekhaya-fixtures">
+    {% for f in ekhaya_fixtures %}
+    <div class="fixture-card {% if f['status'] == 'played' %}fixture-played{% else %}fixture-upcoming{% endif %}">
+      <div class="fixture-mw">MW {{ f['matchweek'] }}</div>
+      <div class="fixture-date">{{ f['match_date'] }} &middot; {{ f['kick_off'] }}</div>
+      <div class="fixture-teams">
+        <span class="fixture-team {% if f['home_team'] == 'Ekhaya FC' %}fixture-ekhaya{% endif %}">{{ f['home_team'] }}</span>
+        <span class="fixture-score">
+          {% if f['home_score'] is not none %}{{ f['home_score'] }} - {{ f['away_score'] }}{% else %}vs{% endif %}
+        </span>
+        <span class="fixture-team {% if f['away_team'] == 'Ekhaya FC' %}fixture-ekhaya{% endif %}">{{ f['away_team'] }}</span>
+      </div>
+      <div class="fixture-venue">{{ f['venue'] }}</div>
+      {% if f['status'] == 'played' %}
+      <span class="fixture-status fixture-status-played">Played</span>
+      {% else %}
+      <span class="fixture-status fixture-status-upcoming">Upcoming</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <h2 class="section-title" style="margin-top:40px">All Fixtures</h2>
+  <div class="matchweek-tabs">
+    <a href="{{ url_for('fixtures', team_id=team['id']) }}" class="mw-tab {% if not selected_mw %}mw-tab-active{% endif %}">All</a>
+    {% for mw in fixtures %}
+    <a href="{{ url_for('fixtures', team_id=team['id'], matchweek=mw) }}" class="mw-tab {% if selected_mw == mw %}mw-tab-active{% endif %}">MW {{ mw }}</a>
+    {% endfor %}
+  </div>
+
+  <div class="all-fixtures">
+    {% set current_mw = namespace(val=0) %}
+    {% for f in all_fixtures %}
+      {% if f['matchweek'] != current_mw.val %}
+        {% set current_mw.val = f['matchweek'] %}
+        <h3 class="mw-heading">MatchWeek {{ f['matchweek'] }}</h3>
+      {% endif %}
+    <div class="fixture-row {% if f['home_team'] == 'Ekhaya FC' or f['away_team'] == 'Ekhaya FC' %}fixture-row-ekhaya{% endif %}">
+      <span class="fixture-row-date">{{ f['match_date'] }} {{ f['kick_off'] }}</span>
+      <span class="fixture-row-home">{{ f['home_team'] }}</span>
+      <span class="fixture-row-score">
+        {% if f['home_score'] is not none %}{{ f['home_score'] }} - {{ f['away_score'] }}{% else %}vs{% endif %}
+      </span>
+      <span class="fixture-row-away">{{ f['away_team'] }}</span>
+      <span class="fixture-row-venue">{{ f['venue'] }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

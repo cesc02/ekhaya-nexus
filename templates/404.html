@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Not found - Ekhaya Nexus{% endblock %}
+{% block content %}
+<section class="placeholder">
+  <h1 class="placeholder-title">Team not found</h1>
+  <p class="placeholder-text">That team doesn't exist. Head back and pick one from the list.</p>
+  <a class="back-link" href="{{ url_for('team_select') }}">&larr; Back to team selection</a>
+</section>
+{% endblock %}

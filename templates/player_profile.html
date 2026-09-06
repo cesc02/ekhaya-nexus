@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}{{ player.first_name }} {{ player.last_name }} - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('players', team_id=team['id']) }}">&larr; Squad</a>
+    <h1 class="page-title">{{ player.first_name }} {{ player.last_name }}</h1>
+  </div>
+</section>
+
+<section class="profile">
+  <div class="profile-grid">
+    <div class="profile-main">
+      <div class="profile-header-card">
+        {% if player.photo_url %}
+        <img class="profile-photo" src="{{ url_for('static', filename=player.photo_url) }}" alt="{{ player.first_name }} {{ player.last_name }}">
+        {% else %}
+        <div class="profile-photo profile-photo-placeholder">{{ player.first_name[:1] }}{{ player.last_name[:1] }}</div>
+        {% endif %}
+        <div class="profile-info">
+          <h2 class="profile-name">{{ player.first_name }} {{ player.last_name }}</h2>
+          <p class="profile-meta">{{ player.position }} &bull; {{ player.nationality }}</p>
+          <p class="profile-meta">
+            DOB: {{ player.date_of_birth or 'Unknown' }} &bull;
+            Strong foot: <strong>{{ player.strong_foot }}</strong>
+          </p>
+          <p class="profile-meta">Status: <span class="status-badge status-{{ player.status|lower }}">{{ player.status }}</span></p>
+          <form class="photo-upload" method="post" action="{{ url_for('upload_player_photo', team_id=team['id'], player_id=player['id']) }}" enctype="multipart/form-data">
+            <label class="btn btn-outline btn-small" for="photo-input">{% if player.photo_url %}Change photo{% else %}Add photo{% endif %}</label>
+            <input id="photo-input" type="file" name="photo" accept="image/*" hidden onchange="this.form.submit()">
+          </form>
+        </div>
+        <div class="profile-actions">
+          <a class="btn btn-outline" href="{{ url_for('edit_player', team_id=team['id'], player_id=player['id']) }}">Edit Stats</a>
+          <form method="post" action="{{ url_for('delete_player_route', team_id=team['id'], player_id=player['id']) }}" onsubmit="return confirm('Remove this player?')">
+            <button class="btn btn-danger" type="submit">Remove</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Goals</span>
+          <span class="stat-value stat-gold">{{ player.goals|default(0) }}</span>
+        </div>
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Assists</span>
+          <span class="stat-value stat-gold">{{ player.assists|default(0) }}</span>
+        </div>
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Appearances</span>
+          <span class="stat-value">{{ player.appearances|default(0) }}</span>
+        </div>
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Minutes played</span>
+          <span class="stat-value">{{ player.minutes_played|default(0) }}</span>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Yellow cards</span>
+          <span class="stat-value stat-yellow">{{ player.yellow_cards|default(0) }}</span>
+        </div>
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Red cards</span>
+          <span class="stat-value stat-red">{{ player.red_cards|default(0) }}</span>
+        </div>
+        <div class="stat-card stat-highlight">
+          <span class="stat-label">Distance covered <span class="stat-tag">Catapult GPS</span></span>
+          <span class="stat-value">{{ '%.1f'|format(perf.distance_km) if perf.tracked_matches else ('%.1f'|format(player.distance_km|default(0))) }} km</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-side">
+      <div class="card">
+        <h3 class="card-title">Strong Foot</h3>
+        <div class="heart-map">
+          <div class="foot-display">
+            <span class="foot-icon {% if player.strong_foot == 'Left' %}foot-active{% endif %}">L</span>
+            <span class="foot-icon {% if player.strong_foot == 'Right' %}foot-active{% endif %}">R</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Goals per appearance</h3>
+        <div class="mini-stat">
+          {% if player.appearances and player.appearances > 0 %}
+            {{ '%.2f'|format((player.goals|default(0)) / player.appearances) }}
+          {% else %}
+            -
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Avg distance per match <span class="stat-tag">Catapult GPS</span></h3>
+        <div class="mini-stat">
+          {% if perf.tracked_matches and perf.tracked_matches > 0 %}
+            {{ '%.1f'|format(perf.distance_km / perf.tracked_matches) }} km
+          {% elif player.appearances and player.appearances > 0 %}
+            {{ '%.1f'|format((player.distance_km|default(0)) / player.appearances) }} km
+          {% else %}
+            -
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if perf_matches %}
+  <section class="profile-section">
+    <div class="section-head">
+      <div>
+        <h2>Catapult GPS Match History</h2>
+        <p>{{ perf.tracked_matches }} tracked match{% if perf.tracked_matches != 1 %}es{% endif %} &mdash; distance, load, high-speed and sprint data auto-filled from the GPS reports.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Opponent</th>
+            <th>Pos</th>
+            <th class="num">Result</th>
+            <th class="num">Distance</th>
+            <th class="num">HS Dist</th>
+            <th class="num">Load</th>
+            <th class="num">Overall</th>
+            <th class="num">Sprint</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in perf_matches %}
+          <tr>
+            <td class="mono">{{ m['match_date'] }}</td>
+            <td>{{ m['opponent'] }}</td>
+            <td class="num">{{ m['position'] or '–' }}</td>
+            <td class="num"><span class="result-badge result-{{ m['result_class'] }}">{{ m['result'] }}</span></td>
+            <td class="num">{{ '%.1f'|format(m['distance_km']) }} km</td>
+            <td class="num">{{ '{:,}'.format((m['hs_distance_m'] or 0)|int) }} m</td>
+            <td class="num">{{ m['player_load'] or '–' }}</td>
+            <td class="num">{{ m['overall_pct'] or '–' }}</td>
+            <td class="num">{{ '{:,}'.format((m['sprint_distance_m'] or 0)|int) }} m</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+</section>
+{% endblock %}

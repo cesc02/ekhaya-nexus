@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Admin - Ekhaya Nexus{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20260905b">
+</head>
+<body class="admin-body">
+  <header class="topbar admin-topbar">
+    <a class="brand" href="{{ url_for('admin_dashboard') }}">
+      <img class="brand-mark" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC crest">
+      <span class="brand-name">Ekhaya Nexus <span class="admin-tag">ADMIN</span></span>
+    </a>
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('admin_players') }}">Players</a>
+      <a href="{{ url_for('admin_competitions') }}">Competitions</a>
+      <a href="{{ url_for('admin_matches') }}">Matches</a>
+      <a href="{{ url_for('admin_standings') }}">Standings</a>
+      <a href="{{ url_for('admin_logout') }}" class="admin-logout">Logout</a>
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-container">
+    {% for category, message in messages %}
+    <div class="flash flash-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

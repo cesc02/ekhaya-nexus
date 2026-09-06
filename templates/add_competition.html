@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Add Competition - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('competitions', team_id=team['id']) }}">&larr; Competitions</a>
+    <h1 class="page-title">Add Competition</h1>
+  </div>
+</section>
+
+<section class="form-section">
+  <form class="app-form" method="post">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="name">Competition name</label>
+        <input type="text" id="name" name="name" required placeholder="e.g. FDH Championship">
+      </div>
+      <div class="form-group">
+        <label for="comp_type">Type</label>
+        <select id="comp_type" name="comp_type" required>
+          <option value="league">FDH Championship (League)</option>
+          <option value="cup">Cup (Airtel / Castel)</option>
+          <option value="international">International (CAF CL / CAF CC)</option>
+          <option value="friendly">Friendly</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="season">Season</label>
+        <input type="text" id="season" name="season" value="2025/26">
+      </div>
+    </div>
+    <button class="btn btn-gold" type="submit">Add Competition</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ player.first_name }} {{ player.last_name }} - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('player_profile', team_id=team['id'], player_id=player['id']) }}">&larr; Profile</a>
+    <h1 class="page-title">Edit Stats &mdash; {{ player.first_name }} {{ player.last_name }}</h1>
+  </div>
+</section>
+
+<section class="form-section">
+  <form class="app-form" method="post">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="goals">Goals</label>
+        <input type="number" id="goals" name="goals" value="{{ player.goals|default(0) }}" min="0">
+      </div>
+      <div class="form-group">
+        <label for="assists">Assists</label>
+        <input type="number" id="assists" name="assists" value="{{ player.assists|default(0) }}" min="0">
+      </div>
+      <div class="form-group">
+        <label for="yellow_cards">Yellow cards</label>
+        <input type="number" id="yellow_cards" name="yellow_cards" value="{{ player.yellow_cards|default(0) }}" min="0">
+      </div>
+      <div class="form-group">
+        <label for="red_cards">Red cards</label>
+        <input type="number" id="red_cards" name="red_cards" value="{{ player.red_cards|default(0) }}" min="0">
+      </div>
+      <div class="form-group">
+        <label for="appearances">Appearances</label>
+        <input type="number" id="appearances" name="appearances" value="{{ player.appearances|default(0) }}" min="0">
+      </div>
+      <div class="form-group">
+        <label for="minutes_played">Minutes played</label>
+        <input type="number" id="minutes_played" name="minutes_played" value="{{ player.minutes_played|default(0) }}" min="0">
+      </div>
+      <div class="form-group">
+        <label for="distance_km">Distance covered (km)</label>
+        <input type="number" id="distance_km" name="distance_km" value="{{ player.distance_km|default(0) }}" min="0" step="0.1">
+      </div>
+    </div>
+    <button class="btn btn-gold" type="submit">Save Changes</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Competitions - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('dashboard', team_id=team['id']) }}">&larr; Dashboard</a>
+    <h1 class="page-title">{{ team['name'] }} &mdash; Competitions</h1>
+    <a class="btn btn-gold" href="{{ url_for('add_competition_route', team_id=team['id']) }}">+ Add Competition</a>
+  </div>
+</section>
+
+<section class="comp-section">
+  {% if competitions %}
+    {% set sections = [
+      ('league', 'FDH Championship', 'League'),
+      ('cup', 'Cups', 'Cup'),
+      ('international', 'International', 'International'),
+      ('friendly', 'Friendlies', 'Friendly')
+    ] %}
+    {% for key, title, label in sections %}
+      {% set count = competitions|selectattr('comp_type', 'eq', key)|list|length %}
+      {% if count %}
+      <div class="comp-group">
+        <h2 class="section-title">{{ title }}</h2>
+        <div class="comp-cards">
+          {% for c in competitions %}
+            {% if c.comp_type == key %}
+            <a class="comp-card" href="{{ url_for('competition_detail', team_id=team['id'], comp_id=c['id']) }}">
+              <span class="comp-type-badge comp-{{ c['comp_type'] }}">{{ label }}</span>
+              <span class="comp-name">{{ c.name }}</span>
+              <span class="comp-season">{{ c.season or '2025/26' }}</span>
+              <div class="comp-record-row">
+                <span class="comp-record">{{ c.wins|default(0) }}W {{ c.draws|default(0) }}D {{ c.losses|default(0) }}L</span>
+                <span class="comp-gd">GF {{ c.goals_for|default(0) }} / GA {{ c.goals_against|default(0) }}</span>
+              </div>
+            </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No competitions added yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

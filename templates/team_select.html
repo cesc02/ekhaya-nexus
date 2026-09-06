@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Select a Team - Ekhaya Nexus{% endblock %}
+{% block body_class %}has-hero{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Club management</p>
+    <h1 class="hero-title">Central Football Management System</h1>
+    <p class="hero-sub">Pick a team to see its roster, attendance, form and results.</p>
+
+    <div class="team-grid">
+      {% for team in teams %}
+      <a class="team-card" href="{{ url_for('dashboard', team_id=team['id']) }}">
+        <span class="team-card-index">{{ team['id'] }}</span>
+        <span class="team-card-name">{{ team['name'] }}</span>
+        <span class="team-card-go">Open dashboard &rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

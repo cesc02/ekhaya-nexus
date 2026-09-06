@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Add Match - {{ team['name'] }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="page-header-inner">
+    <a class="back-link" href="{{ url_for('competition_detail', team_id=team['id'], comp_id=comp_id) }}">&larr; Matches</a>
+    <h1 class="page-title">Add Match Result</h1>
+  </div>
+</section>
+
+<section class="form-section">
+  <form class="app-form" method="post">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="match_date">Match date</label>
+        <input type="date" id="match_date" name="match_date" required>
+      </div>
+      <div class="form-group">
+        <label for="opponent">Opponent</label>
+        <input type="text" id="opponent" name="opponent" required>
+      </div>
+      <div class="form-group">
+        <label for="venue">Venue</label>
+        <select id="venue" name="venue">
+          <option value="Home">Home</option>
+          <option value="Away">Away</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="team_score">{{ team['name'] }} score</label>
+        <input type="number" id="team_score" name="team_score" min="0" required>
+      </div>
+      <div class="form-group">
+        <label for="opponent_score">Opponent score</label>
+        <input type="number" id="opponent_score" name="opponent_score" min="0" required>
+      </div>
+    </div>
+    <button class="btn btn-gold" type="submit">Add Match</button>
+  </form>
+</section>
+{% endblock %}
