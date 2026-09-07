@@ -885,12 +885,72 @@ def seed_medical():
 
     records = [
         # (team_id, player full name, injury type, body part, severity,
-        #  status, diagnosed date)
-        (2, "Kettie Munthali",  "Ankle injury",  "Ankle",    "minor",  "active", "2026-09-06"),
-        (2, "Nilza Carlos",     "Gluteal injury", "Gluteal", "minor",  "active", "2026-09-06"),
-        (2, "Melisha Member",   "Knee injury",   "Knee",     "minor",  "active", "2026-09-06"),
-        (2, "Patuma Mzokomera", "Ankle injury",  "Ankle",    "minor",  "active", "2026-09-06"),
-        (2, "Eneless Fabiano",  "Knee injury",   "Knee",     "minor",  "active", "2026-09-06"),
+        #  status, diagnosed date, notes)
+        (2, "Kettie Munthali",  "Ankle injury",  "Ankle",    "minor",  "active", "2026-09-06",
+         None),
+        (2, "Nilza Carlos",     "Gluteal injury", "Gluteal", "minor",  "active", "2026-09-06",
+         None),
+        (2, "Melisha Member",   "Knee injury",   "Knee",     "minor",  "active", "2026-09-06",
+         None),
+        (2, "Patuma Mzokomera", "Ankle injury",  "Ankle",    "minor",  "active", "2026-09-06",
+         None),
+        (2, "Eneless Fabiano",  "Knee injury",   "Knee",     "minor",  "active", "2026-09-06",
+         None),
+
+        (1, "Moses Banda", "Adductor Longus Strain Grade 1", "Right Adductor",
+         "minor", "active", "2026-09-06",
+         """POST-MATCH MEDICAL REPORT - 06 September 2026
+PREPARED BY: Samuel Matukuta, Team Doctor
+
+PRESENTING COMPLAINT:
+Sustained injury to adductor muscles on the right side with associated swelling.
+
+EXAMINATION FINDINGS:
+- In pain
+- Swelling present
+- Pink conjunctiva
+- Tenderness over right adductor region
+
+INVESTIGATIONS:
+- Upper Posterior Drawer Test: Positive
+- Lower Anterior Drawer Test: Negative
+
+DIAGNOSIS:
+ADDUCTOR LONGUS STRAIN GRADE 1
+
+MANAGEMENT PLAN:
+1. Physiotherapy to strengthen adductor muscles
+2. Elevate right leg to promote venous return
+3. Diclofenac 100mg TDS for 5 days to block pain receptors
+4. Ibuprofen 400mg TDS for 5 days to minimize swelling
+5. Attend every training session for monitoring of progress
+
+PROGNOSIS:
+Good. Expected to return to full training once pain-free and strength is restored."""),
+
+        (1, "Happy Mphepo", "Soft Tissue Injury - Right Foot", "Right Foot",
+         "minor", "active", "2026-09-06",
+         """POST-MATCH MEDICAL REPORT - 06 September 2026
+PREPARED BY: Samuel Matukuta, Team Doctor
+
+PRESENTING COMPLAINT:
+Bruising to the upper aspect of the right foot secondary to a kick from an opposing player.
+
+EXAMINATION FINDINGS:
+- In pain
+- Pink conjunctiva
+- Tenderness and swelling over upper foot
+- Painful on palpation
+
+DIAGNOSIS:
+SOFT TISSUE INJURY - RIGHT FOOT
+
+MANAGEMENT PLAN:
+1. Elevate right foot to promote venous return
+2. Diclofenac 100mg TDS for 5 days
+3. Ibuprofen 400mg TDS for 5 days
+4. Apply ice 15 minutes every 2 hours to facilitate circulation
+5. Reassess after 24 hours"""),
     ]
     ALIASES = {
         "nilzacarlos": "mpizacarlos",
@@ -904,34 +964,35 @@ def seed_medical():
 
     conn = get_connection()
     cur = conn.cursor()
-    idx = {}
+    by_team = {}
     for row in cur.execute(
-            "SELECT id, first_name, last_name FROM players WHERE team_id = 2"):
+            "SELECT id, first_name, last_name, team_id FROM players"):
         fn = norm(row["first_name"])
         ln = norm(row["last_name"])
-        idx.setdefault(ALIASES.get(fn + ln, fn + ln), row["id"])
-        idx.setdefault(ALIASES.get(ln + fn, ln + fn), row["id"])
+        by_team.setdefault(row["team_id"], {})
+        by_team[row["team_id"]].setdefault(ALIASES.get(fn + ln, fn + ln), row["id"])
+        by_team[row["team_id"]].setdefault(ALIASES.get(ln + fn, ln + fn), row["id"])
 
-    # Clear the women's medical board, then re-insert (idempotent).
-    cur.execute("""
-        DELETE FROM player_medical
-        WHERE player_id IN (SELECT id FROM players WHERE team_id = 2)
-    """)
+    # Clear the whole medical board, then re-insert (idempotent; the
+    # medical records are seed-managed and must point at re-created player ids
+    # after reseed() wipes and rebuilds the squads).
+    cur.execute("DELETE FROM player_medical")
     added = 0
-    for (tid, full, itype, bpart, sev, status, ddate) in records:
+    for (tid, full, itype, bpart, sev, status, ddate, notes) in records:
         parts = full.split()
         key = norm(parts[0]) + norm("".join(parts[1:]))
         key_rev = norm("".join(parts[1:])) + norm(parts[0])
-        pid = (idx.get(ALIASES.get(key, key))
-               or idx.get(ALIASES.get(key_rev, key_rev)))
+        pool = by_team.get(tid, {})
+        pid = (pool.get(ALIASES.get(key, key))
+               or pool.get(ALIASES.get(key_rev, key_rev)))
         if pid is None:
             print(f"[seed_medical] player not found: {full}")
             continue
         cur.execute("""
             INSERT INTO player_medical (player_id, injury_type, body_part,
-                severity, status, diagnosed_date)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (pid, itype, bpart, sev, status, ddate))
+                severity, status, diagnosed_date, notes)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (pid, itype, bpart, sev, status, ddate, notes))
         added += 1
     conn.commit()
     conn.close()

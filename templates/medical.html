@@ -43,10 +43,18 @@
           <td><span class="status-badge status-{{ m.status }}">{{ m.status|title }}</span></td>
           <td>{{ m.diagnosed_date }}</td>
           <td>{{ m.expected_return or '&ndash;' }}</td>
-          <td>
+          <td class="actions-cell">
+            {% if m.notes %}
+            <button class="btn btn-sm btn-outline js-report-toggle" type="button" data-target="report-{{ m.id }}">Report</button>
+            {% endif %}
             <a class="btn btn-sm btn-outline" href="{{ url_for('edit_medical_route', team_id=team['id'], record_id=m.id) }}">Edit</a>
           </td>
         </tr>
+        {% if m.notes %}
+        <tr class="report-row" id="report-{{ m.id }}" hidden>
+          <td colspan="8"><pre class="medical-report">{{ m.notes }}</pre></td>
+        </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
     </table>
@@ -55,4 +63,26 @@
   <p class="empty-state">No active injuries.</p>
   {% endif %}
 </section>
+<style>
+  .report-row td { background: #fff; padding: 0 1.25rem 1.25rem; }
+  .medical-report {
+    margin: 0.75rem 0 0; padding: 1rem 1.25rem; border-radius: 10px;
+    background: #f4f1ea; border: 1px solid #e2dccb; color: #2c2a25;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.65;
+    white-space: pre-wrap; word-break: break-word; max-height: 420px; overflow: auto;
+  }
+</style>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.querySelectorAll('.js-report-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var row = document.getElementById(btn.dataset.target);
+      if (!row) return;
+      var hidden = row.hidden;
+      row.hidden = !hidden;
+      btn.textContent = hidden ? 'Hide' : 'Report';
+    });
+  });
+</script>
 {% endblock %}
