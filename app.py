@@ -75,6 +75,17 @@ if not mdb.get_benefits(active_only=True):
     mdb.add_benefit("Match-day discounts", "Members save on ticket prices.")
     mdb.add_benefit("Exclusive news", "Early access to club announcements.")
     mdb.add_benefit("Fan events", "Invitations to supporter gatherings.")
+if not mdb.get_seat_types(active_only=False):
+    mdb.add_seat_type("Open Stand", 3000, 2500,
+                      "General admission terrace", 1, 1)
+    mdb.add_seat_type("Covered Stand", 5000, 1200,
+                      "Reserved shaded seating", 1, 2)
+    mdb.add_seat_type("VIP Seat", 10000, 300,
+                      "Premium bucket seat near the tunnel", 1, 3)
+    mdb.add_seat_type("Executive Lounge", 20000, 120,
+                      "Lounge access with refreshments", 1, 4)
+mdb.set_setting("max_tickets_per_fan", "6")
+mdb.set_setting("ticket_member_discount_pct", "0")
 
 
 def admin_required(f):

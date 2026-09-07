@@ -1,0 +1,39 @@
+{% extends "fan_base.html" %}
+{% block title %}Ticket Checkout - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Ticket Checkout</h1>
+</div>
+
+<div class="fan-plan fan-checkout-summary">
+  <h3 class="fan-plan-name">{{ booking['home_team'] }} vs {{ booking['away_team'] }}</h3>
+  <div class="fan-plan-price">MWK {{ '%.0f'|format(booking['total_mwk']) }}</div>
+  <div class="fan-plan-per">{{ booking['seat_type_name'] }} &times; {{ booking['qty'] }} tickets &middot; {{ booking['match_date'] }} {{ booking['kick_off'] }}</div>
+  {% if member %}
+  <p class="fan-muted small">&#10003; Active member discount applied.</p>
+  {% endif %}
+</div>
+
+<form method="POST" action="{{ url_for('fanhub.fan_ticket_pay') }}" class="fan-form fan-card">
+  <input type="hidden" name="booking_id" value="{{ booking['id'] }}">
+  <input type="hidden" name="provider" value="{{ provider.id }}">
+
+  <label>Mobile Money number to pay from</label>
+  <input type="text" name="phone" value="{{ fan['phone'] or '' }}" placeholder="+265..." required>
+
+  <label>Gateway</label>
+  <div class="fan-gateway">
+    {% if provider.id == 'sandbox' %}
+    <p><strong>{{ provider_name }}</strong></p>
+    <p class="fan-muted small">This is a test gateway — no real money moves. When a live gateway is
+    enabled, payment is verified automatically and your e-tickets are issued instantly.</p>
+    {% else %}
+    <p><strong>{{ provider_name }}</strong></p>
+    <p class="fan-muted small">You will be prompted to approve the payment on your phone.</p>
+    {% endif %}
+  </div>
+
+  <p class="fan-muted small">Booking: <code>{{ booking['booking_ref'] }}</code></p>
+  <button class="fan-btn fan-btn-gold" type="submit">Pay {{ '%.0f'|format(booking['total_mwk']) }} MWK</button>
+</form>
+{% endblock %}

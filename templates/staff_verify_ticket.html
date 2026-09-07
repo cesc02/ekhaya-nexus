@@ -1,0 +1,47 @@
+{% extends "fan_base.html" %}
+{% block title %}Gate - Ticket Check{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Gate &middot; Ticket Check</h1>
+  <span class="fan-member-no">Scan or enter ticket code</span>
+</div>
+
+<form method="POST" action="{{ url_for('fanhub.staff_verify_ticket') }}" class="fan-form">
+  <label>Ticket QR code</label>
+  <input type="text" name="qr" value="{{ request.args.get('qr','') }}" placeholder="Paste QR content or scan" autofocus>
+  <button class="fan-btn fan-btn-gold" type="submit" style="margin-top:10px">Check ticket</button>
+</form>
+
+{% if msg %}
+<div class="fan-verify-result {{ 'ok' if ok else 'bad' }}">
+  <strong>{{ msg }}</strong>
+</div>
+{% endif %}
+
+{% if ticket %}
+<div class="fan-verify-card">
+  <div style="display:flex;gap:14px;align-items:center">
+    <div class="fan-m-card-photo" style="width:52px;height:52px;flex:none">
+      <span>{{ ticket['first_name'][0] }}{{ ticket['last_name'][0] }}</span>
+    </div>
+    <div>
+      <div class="fan-m-card-name" style="font-size:18px">{{ ticket['first_name'] }} {{ ticket['last_name'] }}</div>
+      <div class="fan-m-card-no">{{ ticket['member_number'] or '' }}</div>
+    </div>
+  </div>
+  <div class="fan-card-meta">
+    <div><strong>Match</strong><br>{{ ticket['home_team'] }} vs {{ ticket['away_team'] }}</div>
+    <div><strong>Date</strong><br>{{ ticket['match_date'] }} {{ ticket['kick_off'] }}</div>
+    <div><strong>Seat</strong><br>{{ ticket['seat_type_name'] }}{% if ticket['seat_label'] %} {{ ticket['seat_label'] }}{% endif %}</div>
+    <div><strong>Status</strong><br>{{ ticket['status'] }}{% if ticket['scanned_at'] %}<br>{{ ticket['scanned_at'] }}{% endif %}</div>
+  </div>
+  {% if not scanned and ticket['status'] == 'ISSUED' %}
+  <form method="POST" action="{{ url_for('fanhub.staff_verify_ticket') }}" style="margin-top:12px">
+    <input type="hidden" name="qr" value="{{ ticket['qr_secret'] }}">
+    <input type="hidden" name="action" value="scan">
+    <button class="fan-btn fan-btn-gold" type="submit">Admit fan (mark used)</button>
+  </form>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

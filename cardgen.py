@@ -165,3 +165,19 @@ def generate_card_png(fan, card, package_name, expiry, status="ACTIVE",
 def card_data_uri(path):
     with open(path, "rb") as f:
         return "data:image/png;base64," + base64.b64encode(f.read()).decode()
+
+
+def generate_qr_png(data, out_path=None):
+    """Render a standalone scannable QR PNG (used for e-tickets)."""
+    qr = qrcode.QRCode(error_correction=ERROR_CORRECT_M, box_size=8, border=2)
+    qr.add_data(data)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    if out_path is None:
+        buf = io.BytesIO()
+        img.save(buf, "PNG")
+        buf.seek(0)
+        return buf
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
+    img.save(out_path, "PNG")
+    return out_path

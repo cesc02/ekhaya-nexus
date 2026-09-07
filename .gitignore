@@ -16,6 +16,7 @@ venv/
 static/uploads/
 static/img/fan_cards/
 static/img/fans/
+static/img/fan_tickets/
 
 # OS/editor
 .DS_Store

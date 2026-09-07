@@ -6,6 +6,7 @@ stays thin and a payment provider can be swapped without touching queries.
 """
 
 import sqlite3
+import uuid
 from datetime import datetime, timedelta
 from database import get_connection
 
@@ -338,15 +339,15 @@ def expire_stale_memberships():
 # Payments
 # ---------------------------------------------------------------------------
 def create_payment(fan_id, membership_id, package_id, amount, provider,
-                   reference):
+                   reference, item_type="membership", booking_id=None):
     conn = get_connection()
     cur = conn.execute("""
         INSERT INTO fan_payments
             (fan_id, membership_id, package_id, amount, currency, provider,
-             reference, status, created_at)
-        VALUES (?,?,?,?,?,?,?, 'PENDING', ?)
+             reference, status, item_type, booking_id, created_at)
+        VALUES (?,?,?,?,?,?,?, 'PENDING', ?, ?, ?)
     """, (fan_id, membership_id, package_id, float(amount), "MWK", provider,
-          reference, now()))
+          reference, item_type, booking_id, now()))
     conn.commit()
     pid = cur.lastrowid
     conn.close()
@@ -372,9 +373,13 @@ def get_payment_by_reference(reference):
 def get_payments_for_fan(fan_id):
     conn = get_connection()
     rows = conn.execute("""
-        SELECT p.*, pk.name AS package_name
+        SELECT p.*, pk.name AS package_name,
+               tb.seat_type_name AS ticket_seat_name, tb.match_date AS ticket_date,
+               tb.home_team AS ticket_home, tb.away_team AS ticket_away,
+               tb.booking_ref
         FROM fan_payments p
         LEFT JOIN membership_packages pk ON p.package_id = pk.id
+        LEFT JOIN ticket_bookings tb ON p.booking_id = tb.id
         WHERE p.fan_id = ?
         ORDER BY p.id DESC
     """, (fan_id,)).fetchall()
@@ -386,10 +391,14 @@ def get_all_payments(limit=500):
     conn = get_connection()
     rows = conn.execute("""
         SELECT p.*, f.first_name, f.last_name, f.member_number,
-               pk.name AS package_name
+               pk.name AS package_name,
+               tb.seat_type_name AS ticket_seat_name, tb.match_date AS ticket_date,
+               tb.home_team AS ticket_home, tb.away_team AS ticket_away,
+               tb.booking_ref
         FROM fan_payments p
         LEFT JOIN fan_members f ON p.fan_id = f.id
         LEFT JOIN membership_packages pk ON p.package_id = pk.id
+        LEFT JOIN ticket_bookings tb ON p.booking_id = tb.id
         ORDER BY p.id DESC LIMIT ?
     """, (limit,)).fetchall()
     conn.close()
@@ -414,6 +423,282 @@ def set_payment_status(payment_id, status, provider_txn_id=None):
     """, (status, provider_txn_id, payment_id))
     conn.commit()
     conn.close()
+
+
+# ---------------------------------------------------------------------------
+# Matchday ticket booking (seat types, bookings, e-tickets)
+# ---------------------------------------------------------------------------
+def get_seat_types(active_only=True):
+    conn = get_connection()
+    q = "SELECT * FROM ticket_seat_types"
+    if active_only:
+        q += " WHERE is_active = 1"
+    q += " ORDER BY sort_order, id"
+    rows = conn.execute(q).fetchall()
+    conn.close()
+    return rows
+
+
+def get_all_seat_types():
+    return get_seat_types(active_only=False)
+
+
+def get_seat_type(seat_type_id):
+    conn = get_connection()
+    row = conn.execute("SELECT * FROM ticket_seat_types WHERE id=?",
+                       (seat_type_id,)).fetchone()
+    conn.close()
+    return row
+
+
+def add_seat_type(name, price_mwk, capacity, description=None, is_active=1,
+                  sort_order=0):
+    conn = get_connection()
+    cur = conn.execute("""
+        INSERT INTO ticket_seat_types
+            (name, price_mwk, capacity, description, is_active, sort_order)
+        VALUES (?,?,?,?,?,?)
+    """, (name, float(price_mwk), int(capacity), description, int(is_active),
+          int(sort_order)))
+    conn.commit()
+    sid = cur.lastrowid
+    conn.close()
+    return sid
+
+
+def update_seat_type(seat_type_id, name, price_mwk, capacity, description=None,
+                     is_active=1, sort_order=0):
+    conn = get_connection()
+    conn.execute("""
+        UPDATE ticket_seat_types SET name=?, price_mwk=?, capacity=?,
+            description=?, is_active=?, sort_order=? WHERE id=?
+    """, (name, float(price_mwk), int(capacity), description, int(is_active),
+          int(sort_order), seat_type_id))
+    conn.commit()
+    conn.close()
+
+
+def set_seat_type_active(seat_type_id, is_active):
+    conn = get_connection()
+    conn.execute("UPDATE ticket_seat_types SET is_active=? WHERE id=?",
+                 (1 if is_active else 0, seat_type_id))
+    conn.commit()
+    conn.close()
+
+
+def available_seats(fixture_id, seat_type_id):
+    """Capacity minus seats already committed (PENDING or paid bookings)."""
+    conn = get_connection()
+    row = conn.execute("""
+        SELECT capacity - COALESCE((
+            SELECT SUM(qty) FROM ticket_bookings
+            WHERE fixture_id=? AND seat_type_id=? AND status IN ('PENDING','SUCCESSFUL')
+        ), 0) AS avail
+        FROM ticket_seat_types WHERE id=?
+    """, (fixture_id, seat_type_id, seat_type_id)).fetchone()
+    conn.close()
+    if row is None:
+        return 0
+    return max(int(row["avail"]), 0)
+
+
+def next_ticket_number():
+    conn = get_connection()
+    row = conn.execute(
+        "SELECT ticket_number FROM tickets "
+        "WHERE ticket_number LIKE 'EKH-TKT-%' ORDER BY id DESC LIMIT 1"
+    ).fetchone()
+    conn.close()
+    if row and row["ticket_number"]:
+        try:
+            seq = int(row["ticket_number"].split("-")[-1]) + 1
+        except ValueError:
+            seq = 1
+    else:
+        seq = 1
+    return "EKH-TKT-%06d" % seq
+
+
+def create_ticket_booking(fan_id, fixture, seat_type, qty, unit_price,
+                          seat_label=None):
+    """Create a PENDING booking, snapshotting fixture details (the seed_fixtures
+    wipe rebuilds the fixtures table each startup, so we keep a copy here)."""
+    total = round(float(unit_price) * int(qty), 2)
+    ref = "BK-%s" % uuid.uuid4().hex[:10].upper()
+    conn = get_connection()
+    cur = conn.execute("""
+        INSERT INTO ticket_bookings
+            (booking_ref, fan_id, fixture_id, home_team, away_team, match_date,
+             kick_off, venue, seat_type_id, seat_type_name, qty, seat_label,
+             unit_price, total_mwk, status, created_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'PENDING', ?)
+    """, (ref, fan_id, fixture["id"], fixture["home_team"], fixture["away_team"],
+          fixture["match_date"], fixture["kick_off"], fixture["venue"],
+          seat_type["id"], seat_type["name"], int(qty), seat_label,
+          float(unit_price), total, now()))
+    conn.commit()
+    bid = cur.lastrowid
+    conn.close()
+    return bid, ref
+
+
+def get_booking(booking_id):
+    conn = get_connection()
+    row = conn.execute("SELECT * FROM ticket_bookings WHERE id=?",
+                       (booking_id,)).fetchone()
+    conn.close()
+    return row
+
+
+def get_booking_by_ref(reference):
+    conn = get_connection()
+    row = conn.execute("SELECT * FROM ticket_bookings WHERE booking_ref=?",
+                       (reference,)).fetchone()
+    conn.close()
+    return row
+
+
+def set_booking_status(booking_id, status):
+    conn = get_connection()
+    conn.execute("UPDATE ticket_bookings SET status=? WHERE id=?",
+                 (status, booking_id))
+    conn.commit()
+    conn.close()
+
+
+def get_bookings_for_fan(fan_id):
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT * FROM ticket_bookings WHERE fan_id=? ORDER BY id DESC",
+        (fan_id,)).fetchall()
+    conn.close()
+    return rows
+
+
+def get_all_bookings(limit=500):
+    conn = get_connection()
+    rows = conn.execute("""
+        SELECT b.*, f.first_name, f.last_name, f.member_number
+        FROM ticket_bookings b
+        LEFT JOIN fan_members f ON b.fan_id = f.id
+        ORDER BY b.id DESC LIMIT ?
+    """, (limit,)).fetchall()
+    conn.close()
+    return rows
+
+
+def create_tickets_for_booking(booking):
+    """Issue one e-ticket per seat for a SUCCESSFUL booking."""
+    import uuid as _uuid
+    conn = get_connection()
+    # Compute the next ticket numbers in the SAME transaction so concurrent
+    # inserts within this booking can't collide on ticket_number.
+    row = conn.execute(
+        "SELECT ticket_number FROM tickets WHERE ticket_number LIKE "
+        "'EKH-TKT-%' ORDER BY id DESC LIMIT 1").fetchone()
+    if row and row["ticket_number"]:
+        try:
+            seq = int(row["ticket_number"].split("-")[-1]) + 1
+        except ValueError:
+            seq = 1
+    else:
+        seq = 1
+    for i in range(int(booking["qty"])):
+        conn.execute("""
+            INSERT INTO tickets
+                (booking_id, fan_id, fixture_id, home_team, away_team,
+                 match_date, kick_off, venue, seat_type_id, seat_type_name,
+                 ticket_number, qr_secret, seat_label, status, created_at)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?, 'ISSUED', ?)
+        """, (booking["id"], booking["fan_id"], booking["fixture_id"],
+              booking["home_team"], booking["away_team"], booking["match_date"],
+              booking["kick_off"], booking["venue"], booking["seat_type_id"],
+              booking["seat_type_name"], "EKH-TKT-%06d" % (seq + i),
+              "TKT-%s" % _uuid.uuid4().hex[:20].upper(),
+              booking["seat_label"], now()))
+    conn.commit()
+    conn.close()
+    return get_tickets_for_booking(booking["id"])
+
+
+def get_tickets_for_fan(fan_id, limit=100):
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT * FROM tickets WHERE fan_id=? ORDER BY id DESC LIMIT ?",
+        (fan_id, limit)).fetchall()
+    conn.close()
+    return rows
+
+
+def get_tickets_for_booking(booking_id):
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT * FROM tickets WHERE booking_id=? ORDER BY id",
+        (booking_id,)).fetchall()
+    conn.close()
+    return rows
+
+
+def get_ticket_by_id(ticket_id):
+    conn = get_connection()
+    row = conn.execute("SELECT * FROM tickets WHERE id=?",
+                       (ticket_id,)).fetchone()
+    conn.close()
+    return row
+
+
+def lookup_ticket_by_qr_secret(secret):
+    """Staff verification: find the ticket whose QR secret matches."""
+    conn = get_connection()
+    row = conn.execute("""
+        SELECT t.*, f.first_name, f.last_name, f.member_number,
+               f.email, f.phone
+        FROM tickets t
+        LEFT JOIN fan_members f ON t.fan_id = f.id
+        WHERE t.qr_secret = ?
+    """, (secret,)).fetchone()
+    conn.close()
+    return row
+
+
+def set_ticket_scanned(ticket_id):
+    conn = get_connection()
+    conn.execute("UPDATE tickets SET status='USED', scanned_at=? WHERE id=?",
+                 (now(), ticket_id))
+    conn.commit()
+    conn.close()
+
+
+def ticket_stats():
+    conn = get_connection()
+    bookings = conn.execute(
+        "SELECT COUNT(*) FROM ticket_bookings WHERE status='SUCCESSFUL'"
+    ).fetchone()[0]
+    issued = conn.execute(
+        "SELECT COUNT(*) FROM tickets WHERE status='ISSUED'").fetchone()[0]
+    used = conn.execute(
+        "SELECT COUNT(*) FROM tickets WHERE status='USED'").fetchone()[0]
+    revenue = conn.execute(
+        "SELECT COALESCE(SUM(total_mwk),0) FROM ticket_bookings "
+        "WHERE status='SUCCESSFUL'").fetchone()[0]
+    conn.close()
+    return {"bookings": bookings, "issued": issued, "used": used,
+            "revenue": revenue}
+
+
+def ticket_sales_per_fixture(limit=20):
+    conn = get_connection()
+    rows = conn.execute("""
+        SELECT fixture_id, home_team, away_team, match_date, kick_off, venue,
+               COUNT(DISTINCT id) AS bookings,
+               SUM(CASE WHEN status='SUCCESSFUL' THEN qty ELSE 0 END) AS sold,
+               SUM(CASE WHEN status='SUCCESSFUL' THEN total_mwk ELSE 0 END) AS revenue
+        FROM ticket_bookings
+        GROUP BY fixture_id, home_team, away_team, match_date, kick_off, venue
+        ORDER BY id DESC LIMIT ?
+    """, (limit,)).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
 
 
 # ---------------------------------------------------------------------------

@@ -187,6 +187,12 @@ a:hover { text-decoration: underline; }
 .fan-fixture-meta { color: var(--grey); font-size: 12px; }
 .fan-fixture-mw { color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
 
+/* ---------- Tickets / e-ticket ---------- */
+.small { font-size: 12px; }
+.fan-fixture form label { margin-top: 8px; }
+.fan-card-meta > div strong { color: var(--ink); }
+.fan-ticket-win { border: 2px dashed var(--gold); border-radius: 14px; padding: 14px; text-align: center; background: #fffdf6; }
+
 /* ---------- Verification (staff) ---------- */
 .fan-verify-result { margin-top: 14px; padding: 12px; border-radius: 10px; font-size: 14px; }
 .fan-verify-result.ok { background: #e2f2e9; color: #1f7a4d; border: 1px solid #cfe7d8; }

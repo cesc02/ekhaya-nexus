@@ -438,6 +438,36 @@ def _card_active(card):
     return True
 
 
+@bp.route("/verify/ticket", methods=["GET", "POST"])
+def staff_verify_ticket():
+    """Matchday gate: scan or enter a ticket QR code and admit the fan."""
+    msg = None
+    ok = None
+    scanned = False
+    ticket = None
+    secret = (request.form.get("qr") if request.method == "POST"
+              else request.args.get("qr", "")).strip()
+    action = request.form.get("action", "").strip()
+    if secret:
+        ticket = mdb.lookup_ticket_by_qr_secret(secret)
+        if ticket:
+            if request.method == "POST" and action == "scan" and \
+                    ticket["status"] == "ISSUED":
+                mdb.set_ticket_scanned(ticket["id"])
+                scanned = True
+            ok = ticket["status"] == "ISSUED"
+            if scanned:
+                msg = "Valid ticket — admitted!"
+            elif ok:
+                msg = "Valid ticket (not yet scanned)"
+            else:
+                msg = "Ticket already used or not issued"
+        else:
+            msg = "Unknown or invalid ticket code."
+    return render_template("staff_verify_ticket.html", ticket=ticket, ok=ok,
+                           msg=msg, scanned=scanned)
+
+
 # ---------------------------------------------------------------------------
 # Notifications, news, announcements, benefits
 # ---------------------------------------------------------------------------
@@ -479,6 +509,164 @@ def fan_benefits(fan=None):
 @fan_required
 def fan_settings(fan=None):
     return render_template("fan_settings.html", fan=fan, **_fan_context(fan))
+
+
+# ---------------------------------------------------------------------------
+# Matchday ticket booking
+# ---------------------------------------------------------------------------
+def _upcoming_home_fixtures():
+    """Upcoming Ekhaya FC home matches we can sell tickets for."""
+    return [f for f in get_all_fixtures()
+            if f["status"] != "played" and f["home_team"] == "Ekhaya FC"]
+
+
+def _ticket_unit_price(seat_type, fan):
+    """Seat price after the active-member discount (if configured)."""
+    pct = float(mdb.get_setting("ticket_member_discount_pct", "0") or 0)
+    price = float(seat_type["price_mwk"] or 0)
+    if pct > 0 and mdb.get_active_membership(fan["id"]):
+        price = round(price * (1 - pct / 100.0), 2)
+    return price
+
+
+@bp.route("/fan/tickets")
+@fan_required
+def fan_tickets(fan=None):
+    seat_types = mdb.get_seat_types(active_only=True)
+    fixtures = []
+    for f in _upcoming_home_fixtures():
+        f = dict(f)
+        f["avail"] = {st["id"]: mdb.available_seats(f["id"], st["id"])
+                      for st in seat_types}
+        fixtures.append(f)
+    member = mdb.get_active_membership(fan["id"]) is not None
+    bookings = mdb.get_bookings_for_fan(fan["id"])
+    tickets_by_booking = {b["id"]: mdb.get_tickets_for_booking(b["id"])
+                          for b in bookings}
+    max_per = int(mdb.get_setting("max_tickets_per_fan", "6") or 6)
+    seat_display = []
+    for st in seat_types:
+        st = dict(st)
+        st["final_price"] = _ticket_unit_price(st, fan)
+        st["member_price"] = member
+        seat_display.append(st)
+    return render_template("fan_tickets.html", fan=fan,
+                           seat_types=seat_display, fixtures=fixtures,
+                           member=member, bookings=bookings,
+                           tickets_by_booking=tickets_by_booking,
+                           max_per=max_per, **_fan_context(fan))
+
+
+@bp.route("/fan/tickets/book", methods=["POST"])
+@fan_required
+def fan_ticket_book(fan=None):
+    fixture_id = request.form.get("fixture_id", type=int)
+    seat_type_id = request.form.get("seat_type_id", type=int)
+    qty = request.form.get("qty", type=int) or 1
+    seat_label = request.form.get("seat_label", "").strip() or None
+
+    fixture = next((f for f in get_all_fixtures() if f["id"] == fixture_id),
+                   None)
+    seat_type = mdb.get_seat_type(seat_type_id)
+    if not fixture or fixture["status"] == "played" or \
+            fixture["home_team"] != "Ekhaya FC":
+        flash("That match is not available for booking.", "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+    if not seat_type or not seat_type["is_active"]:
+        flash("That seat category is not available.", "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+    max_per = int(mdb.get_setting("max_tickets_per_fan", "6") or 6)
+    if qty < 1 or qty > max_per:
+        flash("Please select between 1 and %d tickets." % max_per, "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+    if mdb.available_seats(fixture["id"], seat_type["id"]) < qty:
+        flash("Not enough seats left in that category.", "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+
+    unit = _ticket_unit_price(seat_type, fan)
+    booking_id, _ref = mdb.create_ticket_booking(
+        fan["id"], fixture, seat_type, qty, unit, seat_label)
+    booking = mdb.get_booking(booking_id)
+    provider = pp.get_provider()
+    return render_template("fan_ticket_checkout.html", fan=fan, booking=booking,
+                           seat_type=seat_type, member=unit < seat_type["price_mwk"],
+                           provider=provider, provider_name=provider.name,
+                           **_fan_context(fan))
+
+
+@bp.route("/fan/tickets/pay", methods=["POST"])
+@fan_required
+def fan_ticket_pay(fan=None):
+    booking_id = request.form.get("booking_id", type=int)
+    phone = request.form.get("phone", "").strip()
+    provider_id = request.form.get("provider", "sandbox")
+    booking = mdb.get_booking(booking_id) if booking_id else None
+    if not booking or booking["fan_id"] != fan["id"]:
+        flash("Booking not found.", "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+    if booking["status"] != "PENDING":
+        flash("This booking is no longer awaiting payment.", "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+
+    reference = "TB-{}-{}".format(fan["id"], uuid.uuid4().hex[:10].upper())
+    try:
+        provider = pp.get_provider(provider_id)
+        payment_id = mdb.create_payment(
+            fan["id"], None, None, booking["total_mwk"], provider.id,
+            reference, item_type="ticket", booking_id=booking["id"])
+        created = provider.create_payment(
+            amount=booking["total_mwk"], phone=phone or fan["phone"],
+            email=fan["email"], reference=reference,
+            description="Ekhaya FC match day tickets")
+        txn = created.get("txn_id")
+        if txn:
+            mdb.set_payment_status(payment_id, "PENDING", provider_txn_id=txn)
+    except pp.PaymentProviderError as e:
+        flash("Payment could not be initiated: %s" % e, "error")
+        return redirect(url_for("fanhub.fan_tickets"))
+
+    if provider_id == "sandbox":
+        res = pp.verify_and_issue_tickets(payment_id)
+        if res.get("ok"):
+            mdb.audit(fan["email"], "TICKET_PAID",
+                      "Ticket payment %s verified (%d seats)" %
+                      (reference, booking["qty"]), actor_type="fan")
+            flash("Payment verified! Your matchday e-tickets are ready.",
+                  "success")
+            return redirect(url_for("fanhub.fan_tickets"))
+        flash("Payment could not be verified: %s" % res.get("message"),
+              "error")
+    else:
+        flash("Payment initiated. Tickets will be issued once the provider "
+              "verifies the payment.", "info")
+    return redirect(url_for("fanhub.fan_tickets"))
+
+
+@bp.route("/fan/tickets/<int:ticket_id>")
+@fan_required
+def fan_ticket_eticket(fan=None, ticket_id=None):
+    ticket = mdb.get_ticket_by_id(ticket_id)
+    if not ticket or ticket["fan_id"] != fan["id"]:
+        abort(404)
+    return render_template("fan_ticket_eticket.html", fan=fan, ticket=ticket,
+                           **_fan_context(fan))
+
+
+@bp.route("/fan/tickets/<int:ticket_id>/qr.png")
+def fan_ticket_qr(ticket_id):
+    from flask import send_file
+    ticket = mdb.get_ticket_by_id(ticket_id)
+    if not ticket:
+        abort(404)
+    if session.get("fan_id") != ticket["fan_id"] and \
+            not session.get("admin_logged_in"):
+        abort(403)
+    path = os.path.join(STATIC, "img", "fan_tickets",
+                        "tkt_%s.png" % ticket["id"])
+    from cardgen import generate_qr_png
+    generate_qr_png("EKH|TKT|%s|%s" % (ticket["ticket_number"],
+                                        ticket["qr_secret"]), path)
+    return send_file(path, mimetype="image/png")
 
 
 # ===========================================================================
@@ -608,15 +796,87 @@ def admin_fanhub_payments():
 @bp.route("/admin/fanhub/payments/<int:pay_id>/verify", methods=["POST"])
 @admin_required
 def admin_fanhub_payment_verify(pay_id):
-    res = pp.verify_and_activate(pay_id)
+    res = pp.verify_and_fulfil(pay_id)
     if res.get("ok"):
-        flash("Payment verified and membership activated / card issued.",
+        flash("Payment verified and fulfilled (membership / tickets issued).",
               "success")
         mdb.audit(session.get("admin_username"), "PAYMENT_VERIFY_ADMIN",
                   "Admin verified payment #%s" % pay_id)
     else:
         flash("Verification: %s" % res.get("message"), "error")
     return redirect(url_for("fanhub.admin_fanhub_payments"))
+
+
+@bp.route("/admin/fanhub/tickets", methods=["GET", "POST"])
+@admin_required
+def admin_fanhub_tickets():
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        price = request.form.get("price", 0, type=float)
+        cap = request.form.get("capacity", 500, type=int)
+        desc = request.form.get("description", "").strip() or None
+        order = request.form.get("sort_order", 0, type=int)
+        active = 1 if request.form.get("is_active") == "on" else 0
+        if not name:
+            flash("Seat category name is required.", "error")
+        else:
+            mdb.add_seat_type(name, price, cap, desc, active, order)
+            mdb.audit(session.get("admin_username"), "SEAT_TYPE_CREATE",
+                      "Created seat type %s @ %s MWK" % (name, price))
+            flash("Seat category created.", "success")
+        return redirect(url_for("fanhub.admin_fanhub_tickets"))
+    seat_types = mdb.get_all_seat_types()
+    stats = mdb.ticket_stats()
+    per_fixture = mdb.ticket_sales_per_fixture(20)
+    bookings = mdb.get_all_bookings(50)
+    return render_template("fanhub_admin_tickets.html", seat_types=seat_types,
+                           stats=stats, per_fixture=per_fixture,
+                           bookings=bookings,
+                           current_user=session.get("admin_username"))
+
+
+@bp.route("/admin/fanhub/tickets/seat/<int:seat_type_id>", methods=["POST"])
+@admin_required
+def admin_fanhub_seat_update(seat_type_id):
+    action = request.form.get("action", "update")
+    st = mdb.get_seat_type(seat_type_id)
+    if not st:
+        abort(404)
+    if action == "toggle":
+        mdb.set_seat_type_active(seat_type_id, not st["is_active"])
+        mdb.audit(session.get("admin_username"), "SEAT_TYPE_TOGGLE",
+                  "Toggled seat type %s" % st["name"])
+    else:
+        mdb.update_seat_type(
+            seat_type_id, request.form["name"].strip(),
+            request.form.get("price", 0, type=float),
+            request.form.get("capacity", 500, type=int),
+            request.form.get("description", "").strip() or None,
+            1 if request.form.get("is_active") == "on" else 0,
+            request.form.get("sort_order", 0, type=int))
+        mdb.audit(session.get("admin_username"), "SEAT_TYPE_UPDATE",
+                  "Updated seat type %s" % st["name"])
+    flash("Seat category updated.", "success")
+    return redirect(url_for("fanhub.admin_fanhub_tickets"))
+
+
+@bp.route("/admin/fanhub/tickets/<int:booking_id>/cancel", methods=["POST"])
+@admin_required
+def admin_fanhub_booking_cancel(booking_id):
+    booking = mdb.get_booking(booking_id)
+    if not booking:
+        abort(404)
+    if booking["status"] == "PENDING":
+        mdb.set_booking_status(booking_id, "CANCELLED")
+        mdb.add_notification(booking["fan_id"], "Booking Cancelled",
+                             "Your ticket booking %s was cancelled and the "
+                             "seats released." % booking["booking_ref"])
+        mdb.audit(session.get("admin_username"), "BOOKING_CANCEL",
+                  "Cancelled ticket booking %s" % booking["booking_ref"])
+        flash("Booking cancelled; seats released.", "success")
+    else:
+        flash("Only pending bookings can be cancelled.", "error")
+    return redirect(url_for("fanhub.admin_fanhub_tickets"))
 
 
 @bp.route("/admin/fanhub/cards")

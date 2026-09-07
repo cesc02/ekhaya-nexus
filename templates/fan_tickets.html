@@ -1,0 +1,71 @@
+{% extends "fan_base.html" %}
+{% block title %}Matchday Tickets - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Matchday Tickets</h1>
+  <span class="fan-member-no">{% if member %}&#10003; Member pricing{% else %}Become a member to save{% endif %}</span>
+</div>
+
+<p class="fan-muted">Book e-tickets for Ekhaya FC home matches. Tickets are QR-scannable at the gate — no prints needed.</p>
+
+<div class="fan-section">
+  <h2 class="fan-section-title">Book tickets</h2>
+  {% for f in fixtures %}
+  <div class="fan-fixture upcoming">
+    <span class="fan-fixture-mw">MW {{ f['matchweek'] }}</span>
+    <span class="fan-fixture-teams">{{ f['home_team'] }}  vs  {{ f['away_team'] }}</span>
+    <span class="fan-fixture-meta">{{ f['match_date'] }} &middot; {{ f['kick_off'] }} &middot; {{ f['venue'] }}</span>
+
+    <form method="POST" action="{{ url_for('fanhub.fan_ticket_book') }}" class="fan-form" style="margin-top:10px">
+      <input type="hidden" name="fixture_id" value="{{ f['id'] }}">
+      <div class="fan-form-row">
+        <div>
+          <label>Seat category</label>
+          <select name="seat_type_id" required>
+            {% for st in seat_types %}
+            <option value="{{ st['id'] }}">{{ st['name'] }} &mdash; {% if st['final_price']==0 %}FREE{% else %}MWK {{ '%.0f'|format(st['final_price']) }}{% endif %} <em>({{ f['avail'].get(st['id'], 0) }} left)</em></option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label>Qty (max {{ max_per }})</label>
+          <input type="number" name="qty" min="1" max="{{ max_per }}" value="1" required>
+        </div>
+      </div>
+      <label>Row / seat preference (optional)</label>
+      <input type="text" name="seat_label" placeholder="e.g. Covered B-12">
+      <button class="fan-btn fan-btn-gold" type="submit" style="margin-top:10px">Continue to checkout</button>
+    </form>
+  </div>
+  {% else %}
+  <p class="fan-muted">No upcoming home matches available for booking right now.</p>
+  {% endfor %}
+</div>
+
+<div class="fan-section">
+  <h2 class="fan-section-title">My e-tickets</h2>
+  {% for b in bookings %}
+  <div class="fan-list-item">
+    <div class="fan-list-main">
+      <span class="fan-list-title">Ekhaya FC vs {{ b['away_team'] if b['home_team']=='Ekhaya FC' else b['home_team'] }}</span>
+      <span class="fan-list-sub">{{ b['match_date'] }} &middot; {{ b['seat_type_name'] }} &times; {{ b['qty'] }}</span>
+      {% set tkts = tickets_by_booking.get(b['id'], []) %}
+      {% if tkts and b['status'] == 'SUCCESSFUL' %}
+      <span class="fan-list-sub">
+        {% for t in tkts %}
+        <a href="{{ url_for('fanhub.fan_ticket_eticket', ticket_id=t['id']) }}">{{ t['ticket_number'] }}</a>{% if not loop.last %} &middot; {% endif %}
+        {% endfor %}
+      </span>
+      {% endif %}
+    </div>
+    <div class="fan-list-side">
+      <span class="fan-list-amount">{{ '%.0f'|format(b['total_mwk']) }} MWK</span>
+      <span class="tag tag-{{ b['status']|lower }}">{{ b['status'] }}</span>
+      <span class="fan-date">{{ b['booking_ref'] }}</span>
+    </div>
+  </div>
+  {% else %}
+  <p class="fan-muted">No bookings yet. Pick a match above to grab your seats.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "fan_base.html" %}
+{% block title %}E-Ticket - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">E-Ticket</h1>
+</div>
+
+<div class="fan-m-card" style="text-align:center">
+  <div class="fan-m-card-status {% if ticket['status']=='ISSUED' %}active{% endif %}">{{ ticket['status'] }}</div>
+  <div class="fan-m-card-name" style="font-size:22px">{{ ticket['home_team'] }}  vs  {{ ticket['away_team'] }}</div>
+  <p class="fan-muted" style="margin:4px 0">{{ ticket['match_date'] }} &middot; {{ ticket['kick_off'] }} &middot; {{ ticket['venue'] }}</p>
+
+  <div class="fan-card-preview">
+    {% if ticket['status'] == 'ISSUED' %}
+    <img src="{{ url_for('fanhub.fan_ticket_qr', ticket_id=ticket['id']) }}" alt="Ticket QR code"
+         style="width:200px;height:200px;background:#fff;padding:8px;border:1px solid var(--line);border-radius:12px">
+    {% else %}
+    <div style="width:200px;height:200px;margin:0 auto;display:grid;place-items:center;background:var(--cream);border-radius:12px;color:var(--grey);font-family:Oswald;letter-spacing:2px">USED<br>{{ ticket['scanned_at'] or '' }}</div>
+    {% endif %}
+  </div>
+
+  <div class="fan-card-meta">
+    <div><strong>Ticket No.</strong><br>{{ ticket['ticket_number'] }}</div>
+    <div><strong>Seat</strong><br>{{ ticket['seat_type_name'] }}{% if ticket['seat_label'] %} &middot; {{ ticket['seat_label'] }}{% endif %}</div>
+  </div>
+
+  <p class="fan-muted small" style="margin-top:12px">Show this QR at the turnstile. Staff scan it once to admit you.
+  {% if ticket['status'] == 'ISSUED' %}Do not share it — each ticket admits one fan.{% endif %}</p>
+</div>
+
+<p style="text-align:center;margin-top:14px"><a class="fan-m-card-link" href="{{ url_for('fanhub.fan_tickets') }}">&larr; All my tickets</a></p>
+{% endblock %}

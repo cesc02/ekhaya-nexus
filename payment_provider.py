@@ -198,6 +198,31 @@ def initiate_payment(fan_id, membership_id, package, amount, phone, email,
     return payment_id, txn_id, provider_id
 
 
+def _verify_status(payment):
+    """Query the gateway for a payment's real status.
+
+    Updates the payment row to the verified status and returns
+    (status, error_message). status is one of 'SUCCESSFUL', 'PENDING',
+    'FAILED', or 'ERROR'.
+    """
+    from membership_db import set_payment_status
+
+    if payment["status"] == "SUCCESSFUL":
+        return "SUCCESSFUL", None
+
+    provider = get_provider(payment["provider"] or get_active_provider())
+    try:
+        result = provider.verify_payment(payment["provider_txn_id"])
+    except Exception as exc:  # noqa: BLE001
+        return "ERROR", "Verification error: %s" % exc
+
+    status = result.get("status", "PENDING")
+    set_payment_status(payment["id"], status,
+                       provider_txn_id=result.get("txn_id")
+                       or payment["provider_txn_id"])
+    return status, None
+
+
 def verify_and_activate(payment_id):
     """Query the provider for the real status and, only on SUCCESSFUL,
     activate the membership and generate the card.
@@ -220,17 +245,9 @@ def verify_and_activate(payment_id):
     if payment["status"] == "SUCCESSFUL":
         return {"ok": True, "payment": payment, "already": True}
 
-    provider = get_provider(payment["provider"] or get_active_provider())
-    try:
-        result = provider.verify_payment(payment["provider_txn_id"])
-    except Exception as exc:  # noqa: BLE001
-        return {"ok": False, "message": "Verification error: %s" % exc}
-
-    status = result.get("status", "PENDING")
-    set_payment_status(payment_id, status,
-                       provider_txn_id=result.get("txn_id")
-                       or payment["provider_txn_id"])
-
+    status, verr = _verify_status(payment)
+    if verr:
+        return {"ok": False, "message": verr}
     if status != "SUCCESSFUL":
         return {"ok": False, "message": "Payment is %s" % status.lower(),
                 "payment": payment}
@@ -285,3 +302,65 @@ def verify_and_activate(payment_id):
     return {"ok": True, "payment": payment, "membership": m,
             "package": package, "expiry": expiry, "card_number": card_number,
             "qr_secret": qr_secret}
+
+
+def verify_and_issue_tickets(payment_id):
+    """Ticket path: on a verified SUCCESSFUL payment, confirm the booking and
+    issue the e-tickets (one QR-scannable ticket per seat)."""
+    from membership_db import (get_payment, get_booking, get_tickets_for_booking,
+                               set_booking_status, create_tickets_for_booking,
+                               get_fan_by_id, add_notification)
+
+    payment = get_payment(payment_id)
+    if payment is None:
+        return {"ok": False, "message": "Payment not found"}
+    payment = dict(payment)
+    if (payment.get("item_type") or "membership") != "ticket":
+        return {"ok": False, "message": "Not a ticket payment"}
+
+    if payment["status"] == "SUCCESSFUL":
+        tickets = get_tickets_for_booking(payment["booking_id"])
+        return {"ok": True, "payment": payment, "already": True,
+                "tickets": tickets}
+
+    status, verr = _verify_status(payment)
+    if verr:
+        return {"ok": False, "message": verr}
+    if status != "SUCCESSFUL":
+        return {"ok": False, "message": "Payment is %s" % status.lower(),
+                "payment": payment}
+
+    booking = get_booking(payment["booking_id"]) if payment["booking_id"] else None
+    if not booking:
+        return {"ok": False, "message": "Booking not found"}
+
+    set_booking_status(booking["id"], "SUCCESSFUL")
+    tickets = create_tickets_for_booking(booking)
+
+    opponent = (booking["away_team"] if booking["home_team"] == "Ekhaya FC"
+                else booking["home_team"]) or "?"
+    add_notification(booking["fan_id"], "Matchday Tickets Issued",
+                     "Your %d ticket(s) for Ekhaya FC vs %s on %s are ready "
+                     "in the Tickets section." % (booking["qty"], opponent,
+                                                  booking["match_date"]))
+
+    return {"ok": True, "payment": payment, "booking": booking,
+            "tickets": tickets}
+
+
+def verify_and_fulfil(payment_id):
+    """Single entry point for admin/cron verification — dispatch by item type.
+
+    Membership payments activate the membership + card; ticket payments mark
+    the booking paid and issue the e-tickets. Nothing is authorised until the
+    gateway returns SUCCESSFUL.
+    """
+    from membership_db import get_payment
+
+    payment = get_payment(payment_id)
+    if payment is None:
+        return {"ok": False, "message": "Payment not found"}
+    payment = dict(payment)
+    if (payment.get("item_type") or "membership") == "ticket":
+        return verify_and_issue_tickets(payment_id)
+    return verify_and_activate(payment_id)

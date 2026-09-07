@@ -473,6 +473,78 @@ def init_db():
         )
     """)
 
+    # -------- Matchday ticket booking --------
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS ticket_seat_types (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE,
+            price_mwk REAL NOT NULL DEFAULT 0,
+            capacity INTEGER NOT NULL DEFAULT 500,
+            description TEXT,
+            is_active INTEGER DEFAULT 1,
+            sort_order INTEGER DEFAULT 0
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS ticket_bookings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            booking_ref TEXT UNIQUE,
+            fan_id INTEGER NOT NULL,
+            fixture_id INTEGER,
+            home_team TEXT,
+            away_team TEXT,
+            match_date TEXT,
+            kick_off TEXT,
+            venue TEXT,
+            seat_type_id INTEGER,
+            seat_type_name TEXT,
+            qty INTEGER NOT NULL,
+            seat_label TEXT,
+            unit_price REAL NOT NULL DEFAULT 0,
+            total_mwk REAL NOT NULL DEFAULT 0,
+            status TEXT DEFAULT 'PENDING',
+            created_at TEXT,
+            FOREIGN KEY (fan_id) REFERENCES fan_members(id) ON DELETE CASCADE,
+            FOREIGN KEY (seat_type_id) REFERENCES ticket_seat_types(id) ON DELETE SET NULL
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS tickets (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            booking_id INTEGER NOT NULL,
+            fan_id INTEGER NOT NULL,
+            fixture_id INTEGER,
+            home_team TEXT,
+            away_team TEXT,
+            match_date TEXT,
+            kick_off TEXT,
+            venue TEXT,
+            seat_type_id INTEGER,
+            seat_type_name TEXT,
+            ticket_number TEXT UNIQUE,
+            qr_secret TEXT UNIQUE,
+            seat_label TEXT,
+            status TEXT DEFAULT 'ISSUED',
+            scanned_at TEXT,
+            created_at TEXT,
+            FOREIGN KEY (booking_id) REFERENCES ticket_bookings(id) ON DELETE CASCADE,
+            FOREIGN KEY (fan_id) REFERENCES fan_members(id) ON DELETE CASCADE,
+            FOREIGN KEY (seat_type_id) REFERENCES ticket_seat_types(id) ON DELETE SET NULL
+        )
+    """)
+
+    # fan_payments is the single revenue ledger: extend it to also record
+    # ticket payments (item_type = 'ticket', linked back via booking_id).
+    fpcols = [r[1] for r in cur.execute(
+        "PRAGMA table_info(fan_payments)").fetchall()]
+    if "item_type" not in fpcols:
+        cur.execute(
+            "ALTER TABLE fan_payments ADD COLUMN item_type TEXT DEFAULT 'membership'")
+    if "booking_id" not in fpcols:
+        cur.execute("ALTER TABLE fan_payments ADD COLUMN booking_id INTEGER")
+
     # Ensure admins have a role column (backwards compatible with plaintext seed).
     acols = [r[1] for r in cur.execute("PRAGMA table_info(admins)").fetchall()]
     if "role" not in acols:

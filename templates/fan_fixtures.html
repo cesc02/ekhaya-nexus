@@ -13,6 +13,9 @@
       <span class="fan-fixture-mw">MW {{ f['matchweek'] }}</span>
       <span class="fan-fixture-teams">{{ f['home_team'] }}  vs  {{ f['away_team'] }}</span>
       <span class="fan-fixture-meta">{{ f['match_date'] }} &middot; {{ f['kick_off'] }} &middot; {{ f['venue'] }}</span>
+      {% if f['home_team'] == 'Ekhaya FC' %}
+      <a class="fan-m-card-link" style="margin-top:4px" href="{{ url_for('fanhub.fan_tickets') }}">Get tickets &rarr;</a>
+      {% endif %}
     </div>
     {% endif %}
   {% endfor %}
