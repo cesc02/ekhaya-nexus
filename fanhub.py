@@ -10,6 +10,7 @@ notifications, reports, audit log).
 import os
 import uuid
 import time
+from PIL import Image
 from datetime import datetime, timedelta
 from functools import wraps
 
@@ -104,6 +105,11 @@ def _fan_context(fan=None):
 def fan_register():
     teams = FAN_FAVOURITE_TEAMS
     if request.method == "POST":
+        bucket = "fan_register:%s" % request.remote_addr
+        if not _rate_limited(bucket, limit=5, window=300):
+            flash("Too many registration requests. Please wait a few minutes.",
+                  "error")
+            return redirect(url_for("fanhub.fan_register"))
         first = request.form.get("first_name", "").strip()
         last = request.form.get("last_name", "").strip()
         dob = request.form.get("dob", "").strip()
@@ -325,12 +331,19 @@ def fan_profile(fan=None):
             if photo and photo.filename:
                 ext = os.path.splitext(photo.filename)[1].lower()
                 if ext in ALLOWED_IMG:
-                    for old in os.listdir(FAN_PHOTO_DIR):
-                        if old.startswith("fan%d_" % fan["id"]):
-                            os.remove(os.path.join(FAN_PHOTO_DIR, old))
-                    fname = "fan%d%s" % (fan["id"], ext)
-                    photo.save(os.path.join(FAN_PHOTO_DIR, fname))
-                    mdb.update_fan_photo(fan["id"], "img/fans/" + fname)
+                    try:
+                        img = Image.open(file.stream)
+                        img.verify()
+                        fname = "fan%d%s" % (fan["id"], ext)
+                        # also verify it decodes properly
+                        Image.open(file.stream).load()
+                        for old in os.listdir(FAN_PHOTO_DIR):
+                            if old.startswith("fan%d_" % fan["id"]):
+                                os.remove(os.path.join(FAN_PHOTO_DIR, old))
+                        photo.save(os.path.join(FAN_PHOTO_DIR, fname))
+                        mdb.update_fan_photo(fan["id"], "img/fans/" + fname)
+                    except Exception:
+                        flash("Invalid image file.", "error")
                 else:
                     flash("Photo must be JPG, PNG or WebP.", "error")
             flash("Profile updated.", "success")

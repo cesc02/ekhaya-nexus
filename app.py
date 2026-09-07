@@ -6,6 +6,7 @@ Run: python3 app.py
 from flask import Flask, render_template, redirect, url_for, abort, request, flash, session
 from functools import wraps
 from werkzeug.utils import secure_filename
+from PIL import Image
 import os
 from database import (
     init_db, get_all_teams, get_team_by_id, get_players_by_team,
@@ -14,7 +15,8 @@ from database import (
     get_matches_by_team, add_match, seed_demo_data,
     get_standings, get_league_names, get_all_fixtures, get_ekhaya_fixtures,
     seed_standings, seed_fixtures, seed_reserve_standings,
-    check_admin, get_all_players, get_all_competitions, get_all_matches,
+    check_admin, update_admin_password, admin_uses_default_password,
+    get_all_players, get_all_competitions, get_all_matches,
     get_competition_by_id, update_competition, delete_competition,
     get_match_by_id, update_match, delete_match,
     update_standings_entry, update_standing_name,
@@ -24,6 +26,7 @@ from database import (
     seed_performance_data, seed_competitions,
     get_player_medical, add_medical_record, update_medical_record, delete_medical_record, get_team_medical_summary,
     seed_medical,
+    seed_main_team_stats,
     add_fan, get_all_fans, get_fan_by_id, update_fan, delete_fan,
     get_fan_stats, seed_fans,
     get_connection,
@@ -35,6 +38,9 @@ app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["PERMANENT_SESSION_LIFETIME"] = 60 * 60 * 24 * 7
+
+import security
+security.configure(app)
 
 from fanhub import bp as fanhub_bp
 app.register_blueprint(fanhub_bp)
@@ -52,6 +58,7 @@ seed_demo_data()
 from reseed import run as seed_real_rosters
 seed_real_rosters()
 seed_medical()
+seed_main_team_stats()
 seed_performance_data()
 seed_competitions()
 seed_reference_performance()
@@ -104,15 +111,49 @@ def admin_login():
     if session.get("admin_logged_in"):
         return redirect(url_for("admin_dashboard"))
     if request.method == "POST":
-        username = request.form.get("username", "")
+        username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
+        bucket = "admin_login:%s:%s" % (username,
+                                        request.remote_addr or "local")
+        if not security.rate_limit(bucket, limit=5, window=300):
+            flash("Too many login attempts. Please wait a few minutes.",
+                  "error")
+            return render_template("admin_login.html")
         if check_admin(username, password):
             session["admin_logged_in"] = True
             session["admin_username"] = username
+            security.reset_rate(bucket)
+            if admin_uses_default_password(username):
+                flash("Security: you are using the default password. "
+                      "Change it now at /admin/change-password.", "warning")
             flash("Welcome back, Super Admin!", "success")
             return redirect(url_for("admin_dashboard"))
         flash("Invalid username or password.", "error")
     return render_template("admin_login.html")
+
+
+@app.route("/admin/change-password", methods=["GET", "POST"])
+@admin_required
+def admin_change_password():
+    if request.method == "POST":
+        current = request.form.get("current_password", "")
+        new = request.form.get("new_password", "")
+        confirm = request.form.get("confirm_password", "")
+        username = session.get("admin_username", "admin")
+        if not check_admin(username, current):
+            flash("Current password is incorrect.", "error")
+        elif len(new) < 10:
+            flash("New password must be at least 10 characters.", "error")
+        elif new != confirm:
+            flash("New passwords do not match.", "error")
+        elif new == current:
+            flash("New password must differ from the current one.", "error")
+        else:
+            update_admin_password(username, new)
+            flash("Password changed successfully.", "success")
+            return redirect(url_for("admin_dashboard"))
+    return render_template("admin_change_password.html",
+                           current_user=session.get("admin_username"))
 
 
 @app.route("/admin/logout")
@@ -300,6 +341,14 @@ def upload_player_photo(team_id, player_id):
     ext = os.path.splitext(file.filename)[1].lower()
     if ext not in ALLOWED_PHOTO_EXT:
         flash("Photo must be JPG, PNG or WebP.", "error")
+        return redirect(url_for("player_profile", team_id=team_id, player_id=player_id))
+    # Verify the uploaded file is a real image (prevents data-exfiltration)
+    try:
+        img = Image.open(file.stream)
+        img.verify()
+        img.format  # force load to ensure it's not a crafted blob
+    except Exception:
+        flash("Invalid image file.", "error")
         return redirect(url_for("player_profile", team_id=team_id, player_id=player_id))
     for old in os.listdir(PLAYER_PHOTO_DIR):
         if old.startswith(f"p{player_id}_"):
@@ -1216,6 +1265,7 @@ if __name__ == "__main__":
     from reseed import run as seed_real_rosters
     seed_real_rosters()
     seed_medical()
+    seed_main_team_stats()
     seed_reference_performance()
     try:
         app.run(debug=False, host="0.0.0.0", port=5000,

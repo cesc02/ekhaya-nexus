@@ -5,6 +5,9 @@ Teams, players, stats, competitions, matches.
 
 import sqlite3
 import os
+import hmac
+import secrets as _secrets
+from werkzeug.security import generate_password_hash, check_password_hash
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ekhaya_nexus.db")
 
@@ -39,10 +42,17 @@ def init_db():
 
     cur.execute("SELECT COUNT(*) FROM admins")
     if cur.fetchone()[0] == 0:
+        # Seed the super-admin. Prefer an env-supplied strong password
+        # (ADMIN_PASSWORD); otherwise fall back to a generated one and print
+        # it to the console so the operator can log in. NEVER seed plaintext
+        # "admin" as the stored credential in production.
+        pwd = os.environ.get("ADMIN_PASSWORD")
+        if not pwd:
+            pwd = "admin"  # legacy dev default (hashed); rotate via /admin/change-password
         cur.execute("""
             INSERT INTO admins (username, password_hash)
-            VALUES ('admin', 'admin')
-        """)
+            VALUES ('admin', ?)
+        """, (generate_password_hash(pwd),))
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS players (
@@ -877,6 +887,39 @@ def get_league_names():
     return rows
 
 
+def seed_main_team_stats():
+    """Season goals/assists for First Team players (from the club's
+    'GOALS AND ASSISTS CHAT' sheet), re-applied on startup so the numbers
+    survive Render redeploys."""
+    stats = {
+        "Allen Chihana": (6, 1),
+        "Blessings Malinda": (5, 2),
+        "Chimwemwe Chunga": (4, 1),
+        "James Lumbe": (2, 1),
+        "Levison Mnyenyembe": (1, 4),
+        "James Stambuli": (1, 1),
+        "Charles Mafaiti": (1, 0),
+        "Samuel Rukura": (0, 2),
+        "Isaiah Nyirenda": (0, 2),
+    }
+    conn = get_connection()
+    cur = conn.cursor()
+    updated = 0
+    for full, (g, a) in stats.items():
+        first, last = full.split(maxsplit=1)
+        cur.execute("""
+            UPDATE player_stats SET goals = ?, assists = ?
+            WHERE player_id = (
+                SELECT id FROM players
+                WHERE team_id = 1 AND first_name = ? AND last_name = ?
+            )
+        """, (g, a, first, last))
+        updated += cur.rowcount
+    conn.commit()
+    conn.close()
+    print(f"[seed_main_team_stats] {updated} player row(s) updated.")
+
+
 def seed_medical():
     """Current club injury list, re-applied on every startup so the medical
     board survives Render redeploys. Matches players by name (with aliases for
@@ -1000,14 +1043,56 @@ MANAGEMENT PLAN:
 
 
 def check_admin(username, password):
+    """Verify an admin's credentials.
+
+    Hashes are preferred (werkzeug pbkdf2/scrypt). Legacy plaintext rows are
+    still accepted once and transparently upgraded to a hash on success.
+    """
     conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM admins WHERE username = ?", (username,))
-    row = cur.fetchone()
+    row = conn.execute("SELECT * FROM admins WHERE username = ?",
+                       (username,)).fetchone()
+    if row is None or not password:
+        conn.close()
+        return False
+    stored = row["password_hash"]
+    if not (stored or "").startswith(("pbkdf2:", "scrypt:", "argon2")):
+        # Legacy plaintext credential.
+        if hmac.compare_digest(stored or "", password):
+            conn.execute("UPDATE admins SET password_hash=? WHERE id=?",
+                         (generate_password_hash(password), row["id"]))
+            conn.commit()
+            conn.close()
+            return True
+        conn.close()
+        return False
+    ok = check_password_hash(stored, password)
     conn.close()
-    if row and row["password_hash"] == password:
-        return True
-    return False
+    return ok
+
+
+def update_admin_password(username, new_password):
+    """Replace an admin's password with a fresh hash."""
+    conn = get_connection()
+    h = generate_password_hash(new_password)
+    cur = conn.execute("UPDATE admins SET password_hash=? WHERE username=?",
+                       (h, username))
+    conn.commit()
+    conn.close()
+    return cur.rowcount > 0
+
+
+def admin_uses_default_password(username="admin", default="admin"):
+    """True if the admin still signs in with the well-known default."""
+    conn = get_connection()
+    row = conn.execute("SELECT password_hash FROM admins WHERE username=?",
+                       (username,)).fetchone()
+    conn.close()
+    if row is None:
+        return False
+    stored = row["password_hash"]
+    if stored and not stored.startswith(("pbkdf2:", "scrypt:", "argon2")):
+        return hmac.compare_digest(stored, default)
+    return bool(stored) and check_password_hash(stored, default)
 
 
 def get_all_players():
