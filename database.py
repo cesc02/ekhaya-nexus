@@ -877,6 +877,67 @@ def get_league_names():
     return rows
 
 
+def seed_medical():
+    """Current club injury list, re-applied on every startup so the medical
+    board survives Render redeploys. Matches players by name (with aliases for
+    common club spellings)."""
+    import re
+
+    records = [
+        # (team_id, player full name, injury type, body part, severity,
+        #  status, diagnosed date)
+        (2, "Kettie Munthali",  "Ankle injury",  "Ankle",    "minor",  "active", "2026-09-06"),
+        (2, "Nilza Carlos",     "Gluteal injury", "Gluteal", "minor",  "active", "2026-09-06"),
+        (2, "Melisha Member",   "Knee injury",   "Knee",     "minor",  "active", "2026-09-06"),
+        (2, "Patuma Mzokomera", "Ankle injury",  "Ankle",    "minor",  "active", "2026-09-06"),
+        (2, "Eneless Fabiano",  "Knee injury",   "Knee",     "minor",  "active", "2026-09-06"),
+    ]
+    ALIASES = {
+        "nilzacarlos": "mpizacarlos",
+        "melishamember": "merishamemba",
+        "patumamzokomera": "fatumazokomela",
+        "enelessfabiano": "enelessfasiano",
+    }
+
+    def norm(s):
+        return re.sub(r"[^a-z]", "", s.lower())
+
+    conn = get_connection()
+    cur = conn.cursor()
+    idx = {}
+    for row in cur.execute(
+            "SELECT id, first_name, last_name FROM players WHERE team_id = 2"):
+        fn = norm(row["first_name"])
+        ln = norm(row["last_name"])
+        idx.setdefault(ALIASES.get(fn + ln, fn + ln), row["id"])
+        idx.setdefault(ALIASES.get(ln + fn, ln + fn), row["id"])
+
+    # Clear the women's medical board, then re-insert (idempotent).
+    cur.execute("""
+        DELETE FROM player_medical
+        WHERE player_id IN (SELECT id FROM players WHERE team_id = 2)
+    """)
+    added = 0
+    for (tid, full, itype, bpart, sev, status, ddate) in records:
+        parts = full.split()
+        key = norm(parts[0]) + norm("".join(parts[1:]))
+        key_rev = norm("".join(parts[1:])) + norm(parts[0])
+        pid = (idx.get(ALIASES.get(key, key))
+               or idx.get(ALIASES.get(key_rev, key_rev)))
+        if pid is None:
+            print(f"[seed_medical] player not found: {full}")
+            continue
+        cur.execute("""
+            INSERT INTO player_medical (player_id, injury_type, body_part,
+                severity, status, diagnosed_date)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (pid, itype, bpart, sev, status, ddate))
+        added += 1
+    conn.commit()
+    conn.close()
+    print(f"[seed_medical] {added} injury record(s) loaded.")
+
+
 def check_admin(username, password):
     conn = get_connection()
     cur = conn.cursor()

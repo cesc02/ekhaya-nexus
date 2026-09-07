@@ -23,6 +23,7 @@ from database import (
     get_performance_physical, seed_reference_performance,
     seed_performance_data, seed_competitions,
     get_player_medical, add_medical_record, update_medical_record, delete_medical_record, get_team_medical_summary,
+    seed_medical,
     add_fan, get_all_fans, get_fan_by_id, update_fan, delete_fan,
     get_fan_stats, seed_fans,
     get_connection,
@@ -50,6 +51,7 @@ seed_reserve_standings()
 seed_demo_data()
 from reseed import run as seed_real_rosters
 seed_real_rosters()
+seed_medical()
 seed_performance_data()
 seed_competitions()
 seed_reference_performance()
@@ -1202,6 +1204,9 @@ if __name__ == "__main__":
     seed_standings()
     seed_fixtures()
     seed_reserve_standings()
+    from reseed import run as seed_real_rosters
+    seed_real_rosters()
+    seed_medical()
     seed_reference_performance()
     try:
         app.run(debug=False, host="0.0.0.0", port=5000,
