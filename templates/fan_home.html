@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ekhaya FC Fan Hub — Join the Family</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fanhub.css') }}?v=20260907">
+  <style>
+    .fan-landing { background: #fbfaf7; min-height: 100vh; }
+    .fan-land-top {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto; padding: 18px 20px;
+    }
+    .fan-land-top .fan-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .fan-land-top .fan-crest { width: 42px; height: 42px; border-radius: 50%; }
+    .fan-land-top .fan-brand-name { font-family: 'Oswald', sans-serif; color: #17150f; font-size: 20px; letter-spacing: .5px; }
+    .fan-land-top .fan-brand-name em { color: #c4a64c; font-style: normal; }
+    .fan-land-cta-row { display: flex; gap: 10px; }
+    .fan-hero {
+      background: linear-gradient(135deg, #17150f 0%, #2a2410 60%, #4b3d14 100%);
+      color: #fff; text-align: center; padding: 64px 20px 72px;
+    }
+    .fan-hero img.fan-crest { width: 84px; height: 84px; border-radius: 50%; border: 3px solid #c4a64c; box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+    .fan-hero h1 {
+      font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 42px;
+      letter-spacing: 2px; margin: 18px 0 6px; color: #fff;
+    }
+    .fan-hero h1 span { color: #e6c75c; }
+    .fan-hero p.tagline { color: #ded6c0; font-size: 16px; max-width: 560px; margin: 0 auto 26px; line-height: 1.6; }
+    .fan-hero .fan-btn { margin: 0 6px; }
+    .fan-hero .fan-badge-row {
+      display: flex; justify-content: center; gap: 12px; margin-top: 30px; flex-wrap: wrap;
+    }
+    .fan-badge {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(198,166,76,.4);
+      border-radius: 999px; padding: 7px 16px; font-size: 13px; color: #e6d9ae;
+    }
+    .fan-land-section { max-width: 1100px; margin: 0 auto; padding: 46px 20px 10px; }
+    .fan-land-section h2 {
+      font-family: 'Oswald', sans-serif; color: #17150f; font-size: 26px;
+      letter-spacing: 1px; margin: 0 0 6px;
+    }
+    .fan-land-section .sub { color: #7a7465; margin: 0 0 24px; font-size: 14px; }
+    .fan-land-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .fan-land-tile {
+      background: #fff; border: 1px solid #e8e1d0; border-radius: 14px; padding: 18px;
+      box-shadow: 0 2px 8px rgba(23,21,15,.04);
+    }
+    .fan-land-tile .icon { font-size: 26px; }
+    .fan-land-tile h3 { font-family: 'Oswald', sans-serif; font-size: 16px; margin: 10px 0 4px; color: #17150f; }
+    .fan-land-tile p { font-size: 13px; color: #7a7465; margin: 0; line-height: 1.5; }
+    .fan-pkg { border-top: 3px solid #c4a64c; }
+    .fan-pkg .price { font-family: 'Oswald', sans-serif; font-size: 22px; color: #8f7433; margin-top: 8px; }
+    .fan-land-foot {
+      max-width: 1100px; margin: 44px auto 0; padding: 22px 20px 40px;
+      border-top: 1px solid #e8e1d0; color: #8a8372; font-size: 13px;
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .fan-land-foot a { color: #6d6130; text-decoration: underline; margin-left: 12px; }
+    .fan-hello-meta a, .fan-land-sec-link { color: #c4a64c; font-weight: 600; text-decoration: none; }
+  </style>
+</head>
+<body class="fan-landing">
+  <div class="fan-land-top">
+    <a class="fan-brand" href="/">
+      <img class="fan-crest" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC">
+      <span class="fan-brand-name">EKHAYA FC <em>Fan Hub</em></span>
+    </a>
+    <div class="fan-land-cta-row">
+      <a class="fan-btn fan-btn-outline" href="{{ url_for('fanhub.fan_login') }}">Fan Login</a>
+      <a class="fan-btn fan-btn-gold" href="{{ url_for('fanhub.fan_register') }}">Join Now</a>
+    </div>
+  </div>
+
+  <section class="fan-hero">
+    <img class="fan-crest" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC">
+    <h1>EKHAYA FC<span> FAN HUB</span></h1>
+    <p class="tagline">Official home of the Ekhaya FC family — membership, digital cards,
+      matchday tickets and exclusive supporter benefits.</p>
+    <a class="fan-btn fan-btn-gold" href="{{ url_for('fanhub.fan_register') }}">&#10014; Become a Member</a>
+    <a class="fan-btn fan-btn-outline" href="{{ url_for('fanhub.fan_login') }}">Member Login</a>
+    <div class="fan-badge-row">
+      <span class="fan-badge">&#128179; Digital membership card</span>
+      <span class="fan-badge">&#9917; Matchday tickets &amp; QR e-tickets</span>
+      <span class="fan-badge">&#127942; Supporter benefits</span>
+      <span class="fan-badge">&#128276; Club news &amp; alerts</span>
+    </div>
+  </section>
+
+  <section class="fan-land-section">
+    <h2>WHY JOIN</h2>
+    <p class="sub">Everything a true Ekhaya FC supporter needs in one place.</p>
+    <div class="fan-land-grid">
+      <div class="fan-land-tile"><div class="icon">&#128179;</div><h3>Digital Membership Card</h3>
+        <p>Instant card with a QR code staff scan to confirm you at the gate.</p></div>
+      <div class="fan-land-tile"><div class="icon">&#9917;</div><h3>Matchday Tickets</h3>
+        <p>Book seats for home games and get QR e-tickets for each seat.</p></div>
+      <div class="fan-land-tile"><div class="icon">&#127942;</div><h3>Exclusive Benefits</h3>
+        <p>Members-only discounts on tickets plus club announcements first.</p></div>
+      <div class="fan-land-tile"><div class="icon">&#128276;</div><h3>Latest News</h3>
+        <p>Fixtures, results and club updates delivered straight to your feed.</p></div>
+    </div>
+  </section>
+
+  <section class="fan-land-section">
+    <h2>MEMBERSHIP PACKAGES</h2>
+    <p class="sub">Choose the level that fits how you support the boys.</p>
+    <div class="fan-land-grid">
+      {% for p in packages %}
+      <div class="fan-land-tile fan-pkg">
+        <h3>{{ p.name }}</h3>
+        <div class="price">MWK {{ '{:,}'.format(p.price_mwk|int) if p.price_mwk > 0 else 'Free' }}</div>
+        <p>{{ p.description or '' }}</p>
+        <a class="fan-land-sec-link" href="{{ url_for('fanhub.fan_register') }}">Join with {{ p.name }} &rarr;</a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="fan-land-section">
+    <h2>THE CLUB</h2>
+    <p class="sub">Follow the squads — first team, women's team and the reserve side.</p>
+    <div class="fan-land-grid">
+      {% for t in teams %}
+      <div class="fan-land-tile">
+        <h3>{{ t['name'] }}</h3>
+        <p>Results, fixtures and player profiles.</p>
+        <a class="fan-land-sec-link" href="{{ url_for('dashboard', team_id=t['id']) }}">Team dashboard &rarr;</a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <footer class="fan-land-foot">
+    <span>&copy; 2026 Ekhaya FC. All rights reserved.</span>
+    <span>
+      <a href="{{ url_for('admin_login') }}">Staff</a>
+      <a href="/verify/ticket">Gate</a>
+    </span>
+  </footer>
+</body>
+</html>

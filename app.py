@@ -152,6 +152,15 @@ def admin_dashboard():
 
 @app.route("/")
 def team_select():
+    """Public landing: the Ekhaya FC Fan Hub (membership system)."""
+    teams = get_all_teams()
+    packages = mdb.get_packages(active_only=True)
+    return render_template("fan_home.html", teams=teams, packages=packages)
+
+
+@app.route("/club")
+def club_landing():
+    """Club / team management home — kept for staff & admin access."""
     teams = get_all_teams()
     return render_template("team_select.html", teams=teams)
 
