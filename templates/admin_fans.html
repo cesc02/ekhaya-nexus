@@ -1,0 +1,96 @@
+{% extends "admin_base.html" %}
+{% block title %}Manage Fans - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Membership management</p>
+    <h1 class="hero-title">Fans &amp; Members</h1>
+    <p class="hero-sub">Manage the Ekhaya FC fan membership database.</p>
+  </div>
+</div>
+
+<div class="comp-section">
+  <div class="stat-row">
+    <div class="stat-card">
+      <span class="stat-label">Total Members</span>
+      <span class="stat-value">{{ stats['total'] }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Active</span>
+      <span class="stat-value">{{ stats['active'] }}</span>
+    </div>
+    {% for tier, count in stats['tiers'].items() %}
+    <div class="stat-card">
+      <span class="stat-label">{{ tier }}</span>
+      <span class="stat-value">{{ count }}</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="page-header-inner" style="margin:28px 0 16px">
+    <h2 class="section-title" style="margin:0">All Members</h2>
+    <a class="btn btn-gold" href="{{ url_for('admin_add_fan') }}">+ Add Fan</a>
+  </div>
+
+  <form method="GET" action="{{ url_for('admin_fans') }}" class="filter-bar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+    <input type="text" name="q" value="{{ search }}" placeholder="Search name, email, phone, city..." style="flex:1;min-width:200px;padding:8px 12px;border-radius:8px;border:1px solid var(--pbdr,#333);background:var(--pb,#111);color:var(--pt,#eee)">
+    <select name="status" style="padding:8px 12px;border-radius:8px;border:1px solid var(--pbdr,#333);background:var(--pb,#111);color:var(--pt,#eee)">
+      <option value="">All statuses</option>
+      {% for s in ['Active', 'Inactive'] %}
+      <option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+    <select name="tier" style="padding:8px 12px;border-radius:8px;border:1px solid var(--pbdr,#333);background:var(--pb,#111);color:var(--pt,#eee)">
+      <option value="">All tiers</option>
+      {% for t in ['Fan', 'Premium', 'VIP'] %}
+      <option value="{{ t }}" {% if tier == t %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-gold" type="submit">Filter</button>
+    <a class="btn btn-outline" href="{{ url_for('admin_fans') }}">Reset</a>
+  </form>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>City</th>
+          <th>Tier</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th>Source</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in fans %}
+        <tr>
+          <td>{{ f['first_name'] }} {{ f['last_name'] }}</td>
+          <td>
+            {% if f['email'] %}{{ f['email'] }}<br>{% endif %}
+            {% if f['phone'] %}{{ f['phone'] }}{% endif %}
+          </td>
+          <td>{{ f['city'] or '—' }}</td>
+          <td>{{ f['membership_tier'] }}</td>
+          <td><span class="status-badge status-{{ f['membership_status']|lower }}">{{ f['membership_status'] }}</span></td>
+          <td>{{ f['joined_date'] or '—' }}</td>
+          <td>{{ f['source'] }}</td>
+          <td>
+            <a class="btn btn-outline" style="padding:4px 10px" href="{{ url_for('admin_edit_fan', fan_id=f['id']) }}">Edit</a>
+            <form method="POST" action="{{ url_for('admin_delete_fan', fan_id=f['id']) }}" style="display:inline" onsubmit="return confirm('Delete this fan?')">
+              <button class="btn btn-danger" style="padding:4px 10px" type="submit">Del</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="8" style="text-align:center;padding:24px;color:#aaa">No fans found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

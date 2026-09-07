@@ -549,6 +549,11 @@ a { color: inherit; text-decoration: none; }
   color: #C62828;
 }
 
+.status-inactive {
+  background: #ECEFF1;
+  color: #546E7A;
+}
+
 .stat-highlight {
   text-align: center;
 }

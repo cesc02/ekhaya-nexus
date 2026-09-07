@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Become a Member - Ekhaya FC{% endblock %}
+{% block body_class %}has-hero{% endblock %}
+
+{% block content %}
+<section class="hero" style="padding-bottom:28px">
+  <div class="hero-inner">
+    <p class="hero-kicker">Join the family</p>
+    <h1 class="hero-title">Ekhaya FC Fan Membership</h1>
+    <p class="hero-sub">Become a registered member of the Ekhaya FC community and never miss out on events, news and exclusive fan experiences.</p>
+  </div>
+</section>
+
+<div class="comp-section" style="max-width:720px;margin:0 auto">
+  <div class="form-section" style="background:transparent;border:none;box-shadow:none;padding:8px 0">
+    <h1 class="page-title" style="margin-bottom:24px">Membership Sign-up</h1>
+    <form method="POST" class="app-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" name="first_name" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="last_name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" name="phone" placeholder="+265 ...">
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" name="city">
+        </div>
+        <div class="form-group">
+          <label>Membership Tier</label>
+          <select name="membership_tier">
+            {% for t in ['Fan', 'Premium', 'VIP'] %}
+            <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Joined Date</label>
+          <input type="text" name="joined_date" placeholder="YYYY-MM-DD">
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-gold" type="submit">Join Ekhaya FC</button>
+        <a class="btn btn-outline" href="{{ url_for('team_select') }}">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

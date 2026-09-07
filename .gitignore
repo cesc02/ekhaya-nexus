@@ -14,6 +14,8 @@ venv/
 
 # Uploads (runtime) — static uploads are re-created
 static/uploads/
+static/img/fan_cards/
+static/img/fans/
 
 # OS/editor
 .DS_Store

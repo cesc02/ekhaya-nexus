@@ -1,0 +1,30 @@
+{% extends "fan_base.html" %}
+{% block title %}My Membership Card - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">My Membership Card</h1>
+</div>
+
+{% if card %}
+<div class="fan-card-preview">
+  <img class="fan-card-img" src="{{ url_for('fanhub.fan_card_png', card_id=card['id']) }}" alt="Digital membership card">
+</div>
+
+<div class="fan-card-meta">
+  <div><span class="fan-muted">Member No.</span><br><strong>{{ fan['member_number'] }}</strong></div>
+  <div><span class="fan-muted">Package</span><br><strong>{{ card['package_name'] }}</strong></div>
+  <div><span class="fan-muted">Valid until</span><br><strong>{{ card['expiry_date'] }}</strong></div>
+  <div><span class="fan-muted">Status</span><br><span class="tag tag-{{ card['membership_status']|lower }}">{{ card['membership_status'] }}</span></div>
+</div>
+
+{% if card['membership_status'] != 'ACTIVE' %}
+<p class="fan-muted">Your membership is not active, so this card cannot be used for entry.
+<a href="{{ url_for('fanhub.fan_membership') }}">Renew or subscribe</a>.</p>
+{% endif %}
+{% else %}
+<div class="fan-empty">
+  <p>You don't have a digital membership card yet.</p>
+  <a class="fan-btn fan-btn-gold" href="{{ url_for('fanhub.fan_membership') }}">Subscribe now</a>
+</div>
+{% endif %}
+{% endblock %}

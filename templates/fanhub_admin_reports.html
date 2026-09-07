@@ -1,0 +1,44 @@
+{% extends "fanhub_admin_base.html" %}
+{% block title %}Reports - Fan Hub | Ekhaya Nexus{% endblock %}
+{% block fanhub_content %}
+<div class="page-header-inner" style="margin-bottom:16px">
+  <h1 class="page-title">Reports</h1>
+  <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub') }}">&larr; Hub</a>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card"><span class="stat-label">Registered Fans</span><span class="stat-value">{{ fs['total'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Active Members</span><span class="stat-value">{{ ms['active'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Expired</span><span class="stat-value">{{ ms['expired'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Revenue</span><span class="stat-value">{{ '%.0f'|format(ps['revenue']) }} MWK</span></div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:20px">
+  <div class="card">
+    <h3 class="card-title">Registrations (last 30 days)</h3>
+    <table class="data-table">
+      <thead><tr><th>Date</th><th>New fans</th></tr></thead>
+      <tbody>
+        {% for r in registrations %}
+        <tr><td>{{ r['day'] }}</td><td class="num">{{ r['n'] }}</td></tr>
+        {% else %}
+        <tr><td colspan="2" style="color:#888;text-align:center">No data</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Active membership breakdown</h3>
+    <table class="data-table">
+      <thead><tr><th>Package</th><th>Active</th></tr></thead>
+      <tbody>
+        {% for b in breakdown %}
+        <tr><td>{{ b['package'] }}</td><td class="num">{{ b['n'] }}</td></tr>
+        {% else %}
+        <tr><td colspan="2" style="color:#888;text-align:center">No data</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

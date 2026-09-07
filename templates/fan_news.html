@@ -1,0 +1,21 @@
+{% extends "fan_base.html" %}
+{% block title %}News - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Ekhaya FC News</h1>
+</div>
+
+{% if news %}
+<div class="fan-list">
+  {% for n in news %}
+  <div class="fan-news-full">
+    <h3>{{ n['title'] }}</h3>
+    <p>{{ n['body'] }}</p>
+    <span class="fan-date">{{ n['published_at'] }}</span>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="fan-muted">No news yet.</p>
+{% endif %}
+{% endblock %}

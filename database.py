@@ -309,6 +309,177 @@ def init_db():
             cur.execute("ALTER TABLE performance_matches ADD COLUMN %s %s"
                         % (pcol, ptype))
 
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fans (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            email TEXT,
+            phone TEXT,
+            city TEXT,
+            membership_tier TEXT DEFAULT 'Fan',
+            membership_status TEXT DEFAULT 'Active',
+            joined_date TEXT,
+            source TEXT DEFAULT 'Web',
+            notes TEXT
+        )
+    """)
+
+    # -------- Ekhaya FC Fan Membership / Fan Hub tables --------
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS site_settings (
+            key TEXT PRIMARY KEY,
+            value TEXT
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS membership_packages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE,
+            level INTEGER DEFAULT 0,
+            price_mwk REAL NOT NULL DEFAULT 0,
+            currency TEXT DEFAULT 'MWK',
+            duration_days INTEGER NOT NULL DEFAULT 365,
+            is_active INTEGER DEFAULT 1,
+            description TEXT,
+            benefits TEXT
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_members (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            member_number TEXT UNIQUE,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            dob TEXT,
+            gender TEXT,
+            phone TEXT,
+            email TEXT UNIQUE,
+            district TEXT,
+            profile_photo TEXT,
+            password_hash TEXT NOT NULL,
+            favourite_team TEXT,
+            emergency_name TEXT,
+            emergency_phone TEXT,
+            is_active INTEGER DEFAULT 1,
+            is_verified INTEGER DEFAULT 0,
+            created_at TEXT,
+            last_login TEXT
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_memberships (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fan_id INTEGER NOT NULL,
+            package_id INTEGER,
+            status TEXT DEFAULT 'PENDING',
+            start_date TEXT,
+            expiry_date TEXT,
+            amount_paid REAL DEFAULT 0,
+            payment_ref TEXT,
+            created_at TEXT,
+            FOREIGN KEY (fan_id) REFERENCES fan_members(id) ON DELETE CASCADE,
+            FOREIGN KEY (package_id) REFERENCES membership_packages(id) ON DELETE SET NULL
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_payments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fan_id INTEGER NOT NULL,
+            membership_id INTEGER,
+            package_id INTEGER,
+            amount REAL NOT NULL,
+            currency TEXT DEFAULT 'MWK',
+            provider TEXT,
+            reference TEXT,
+            status TEXT DEFAULT 'PENDING',
+            provider_txn_id TEXT,
+            paid_at TEXT,
+            created_at TEXT,
+            FOREIGN KEY (fan_id) REFERENCES fan_members(id) ON DELETE CASCADE,
+            FOREIGN KEY (membership_id) REFERENCES fan_memberships(id) ON DELETE SET NULL,
+            FOREIGN KEY (package_id) REFERENCES membership_packages(id) ON DELETE SET NULL
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_cards (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fan_id INTEGER NOT NULL,
+            membership_id INTEGER,
+            card_number TEXT,
+            qr_secret TEXT,
+            generated_at TEXT,
+            is_active INTEGER DEFAULT 1,
+            FOREIGN KEY (fan_id) REFERENCES fan_members(id) ON DELETE CASCADE,
+            FOREIGN KEY (membership_id) REFERENCES fan_memberships(id) ON DELETE SET NULL
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_notifications (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fan_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            body TEXT,
+            read INTEGER DEFAULT 0,
+            created_at TEXT,
+            FOREIGN KEY (fan_id) REFERENCES fan_members(id) ON DELETE CASCADE
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS audit_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            admin_user TEXT,
+            actor_type TEXT DEFAULT 'admin',
+            action TEXT NOT NULL,
+            details TEXT,
+            created_at TEXT
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_news (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            body TEXT,
+            image TEXT,
+            published_at TEXT,
+            is_active INTEGER DEFAULT 1
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_announcements (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            body TEXT,
+            published_at TEXT,
+            is_active INTEGER DEFAULT 1
+        )
+    """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS fan_benefits (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            is_active INTEGER DEFAULT 1
+        )
+    """)
+
+    # Ensure admins have a role column (backwards compatible with plaintext seed).
+    acols = [r[1] for r in cur.execute("PRAGMA table_info(admins)").fetchall()]
+    if "role" not in acols:
+        cur.execute("ALTER TABLE admins ADD COLUMN role TEXT DEFAULT 'admin'")
+    if "email" not in acols:
+        cur.execute("ALTER TABLE admins ADD COLUMN email TEXT")
+
     conn.commit()
     conn.close()
 
@@ -1242,6 +1413,126 @@ def get_team_medical_summary(team_id):
     conn.close()
     return rows
 
+
+def add_fan(first_name, last_name, email=None, phone=None, city=None,
+            membership_tier='Fan', membership_status='Active',
+            joined_date=None, source='Web', notes=None):
+    """Register a new fan/member."""
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        INSERT INTO fans (first_name, last_name, email, phone, city,
+            membership_tier, membership_status, joined_date, source, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (first_name, last_name, email, phone, city,
+          membership_tier, membership_status, joined_date, source, notes))
+    fan_id = cur.lastrowid
+    conn.commit()
+    conn.close()
+    return fan_id
+
+
+def get_all_fans(search=None, status=None, tier=None):
+    """List fans, optionally filtered by search text (name/email/phone/city),
+    membership status, or membership tier."""
+    conn = get_connection()
+    cur = conn.cursor()
+    query = "SELECT * FROM fans WHERE 1=1"
+    params = []
+    if search:
+        like = f"%{search}%"
+        query += (" AND (first_name LIKE ? OR last_name LIKE ? "
+                  "OR email LIKE ? OR phone LIKE ? OR city LIKE ?)")
+        params += [like, like, like, like, like]
+    if status:
+        query += " AND membership_status = ?"
+        params.append(status)
+    if tier:
+        query += " AND membership_tier = ?"
+        params.append(tier)
+    query += " ORDER BY id DESC"
+    cur.execute(query, params)
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+
+def get_fan_by_id(fan_id):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM fans WHERE id = ?", (fan_id,))
+    row = cur.fetchone()
+    conn.close()
+    return row
+
+
+def update_fan(fan_id, first_name, last_name, email=None, phone=None,
+               city=None, membership_tier='Fan', membership_status='Active',
+               joined_date=None, notes=None):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE fans
+        SET first_name = ?, last_name = ?, email = ?, phone = ?, city = ?,
+            membership_tier = ?, membership_status = ?, joined_date = ?, notes = ?
+        WHERE id = ?
+    """, (first_name, last_name, email, phone, city,
+          membership_tier, membership_status, joined_date, notes, fan_id))
+    conn.commit()
+    conn.close()
+
+
+def delete_fan(fan_id):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM fans WHERE id = ?", (fan_id,))
+    conn.commit()
+    conn.close()
+
+
+def get_fan_stats():
+    """Counts of fans by status and tier for admin summary cards."""
+    conn = get_connection()
+    cur = conn.cursor()
+    total = cur.execute("SELECT COUNT(*) FROM fans").fetchone()[0]
+    active = cur.execute(
+        "SELECT COUNT(*) FROM fans WHERE membership_status = 'Active'"
+    ).fetchone()[0]
+    tiers = {}
+    for tier, count in cur.execute(
+            "SELECT membership_tier, COUNT(*) FROM fans "
+            "GROUP BY membership_tier").fetchall():
+        tiers[tier] = count
+    conn.close()
+    return {"total": total, "active": active, "tiers": tiers}
+
+
+def seed_fans():
+    """Populate a handful of sample fans if the table is empty."""
+    conn = get_connection()
+    cur = conn.cursor()
+    total = cur.execute("SELECT COUNT(*) FROM fans").fetchone()[0]
+    if total > 0:
+        conn.close()
+        return
+    sample = [
+        ("Chisomo", "Banda", "chisomo.banda@example.com", "+265 888 000 111",
+         "Blantyre", "VIP", "Active", "2026-03-12", "Admin", None),
+        ("Mercy", "Phiri", "mercy.phiri@example.com", "+265 999 222 333",
+         "Lilongwe", "Premium", "Active", "2026-01-05", "Web", None),
+        ("Denis", "Kachale", "denis.kachale@example.com", "+265 777 444 555",
+         "Zomba", "Fan", "Active", "2026-06-18", "Web", None),
+        ("Tawonga", "Mtambo", "tawonga.mtambo@example.com", "+265 991 666 777",
+         "Blantyre", "Fan", "Inactive", "2025-11-02", "Web", None),
+    ]
+    for row in sample:
+        cur.execute("""
+            INSERT INTO fans (first_name, last_name, email, phone, city,
+                membership_tier, membership_status, joined_date, source, notes)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, row)
+    conn.commit()
+    conn.close()
 
 
 def seed_performance_data():

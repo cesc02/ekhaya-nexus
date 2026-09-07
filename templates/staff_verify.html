@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ekhaya FC - Staff Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fanhub.css') }}?v=20260907">
+</head>
+<body class="fan-body">
+<div class="fan-auth-wrap">
+  <div class="fan-auth-card" style="text-align:center">
+    <img class="fan-auth-crest" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC">
+    <h1 class="fan-auth-title">MEMBERSHIP VERIFICATION</h1>
+    <p class="fan-auth-sub">Scan the QR on a member's card, or enter the code manually.</p>
+
+    <form method="POST" class="fan-form">
+      <label>QR code / member code</label>
+      <input type="text" name="qr" value="{{ request.form.get('qr','') }}" placeholder="QR-....">
+      <button class="fan-btn fan-btn-gold" type="submit">Verify</button>
+    </form>
+
+    {% if msg %}
+    <div class="fan-verify-result {{ 'ok' if ok else 'bad' }}">
+      <strong>{{ msg }}</strong>
+    </div>
+    {% endif %}
+
+    {% if card %}
+    <div class="fan-verify-card">
+      <div class="fan-m-card-body">
+        <div class="fan-m-card-photo">
+          {% if card['profile_photo'] %}
+          <img src="{{ url_for('static', filename=card['profile_photo']) }}" alt="fan">
+          {% else %}
+          <span>{{ card['first_name'][0] }}</span>
+          {% endif %}
+        </div>
+        <div class="fan-m-card-info">
+          <div class="fan-m-card-name">{{ card['first_name'] }} {{ card['last_name'] }}</div>
+          <div class="fan-m-card-no">{{ card['package_name'] or 'FAN' }}</div>
+          <div class="fan-m-card-valid">Member: {{ card['member_number'] }}<br>Valid until: {{ card['expiry_date'] }}</div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <p class="fan-auth-alt"><a href="{{ url_for('team_select') }}">&larr; Back</a></p>
+  </div>
+</div>
+</body>
+</html>

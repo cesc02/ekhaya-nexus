@@ -1,0 +1,36 @@
+{% extends "fanhub_admin_base.html" %}
+{% block title %}Settings - Fan Hub | Ekhaya Nexus{% endblock %}
+{% block fanhub_content %}
+<div class="page-header-inner" style="margin-bottom:16px">
+  <h1 class="page-title">Fan Hub Settings</h1>
+  <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub') }}">&larr; Hub</a>
+</div>
+
+<div class="form-section">
+  <form method="POST" class="app-form">
+    <div class="form-group"><label>Active Payment Provider</label>
+      <select name="active_payment_provider">
+        {% for pid, name in providers.items() %}
+        <option value="{{ pid }}" {% if active_provider == pid %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group"><label>Sandbox auto-success (1 = always succeeds)</label>
+      <input type="text" name="sandbox_auto_success" value="{{ settings.get('sandbox_auto_success','1') }}"></div>
+
+    <h3 style="font-family:Oswald;font-size:16px;margin-top:14px">PayChangu (live gateway)</h3>
+    <div class="form-group"><label>PayChangu merchant token</label>
+      <input type="password" name="paychangu_token" value="{{ settings.get('paychangu_token','') }}"></div>
+    <div class="form-group"><label>PayChangu base URL</label>
+      <input type="text" name="paychangu_base_url" value="{{ settings.get('paychangu_base_url','https://api.paychangu.com') }}"></div>
+    <div class="form-group"><label>PayChangu callback URL</label>
+      <input type="text" name="paychangu_callback_url" value="{{ settings.get('paychangu_callback_url','') }}"></div>
+    <div class="form-group"><label>PayChangu return URL</label>
+      <input type="text" name="paychangu_return_url" value="{{ settings.get('paychangu_return_url','') }}"></div>
+
+    <p style="color:#888;font-size:13px">Settings are stored in the database and never hard-coded.
+    Switching to <b>PayChangu</b> with a valid token enables real Airtel Money / TNM Mpamba / card payments.</p>
+    <button class="btn btn-gold" type="submit">Save Settings</button>
+  </form>
+</div>
+{% endblock %}

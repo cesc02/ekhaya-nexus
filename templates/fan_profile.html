@@ -1,0 +1,66 @@
+{% extends "fan_base.html" %}
+{% block title %}My Profile - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">My Profile</h1>
+  <span class="fan-member-no">{{ fan['member_number'] }}</span>
+</div>
+
+<div class="fan-avatar-hero">
+  <div class="fan-avatar-big">
+    {% if fan['profile_photo'] %}
+    <img src="{{ url_for('static', filename=fan['profile_photo']) }}" alt="me">
+    {% else %}
+    <span>{{ fan['first_name'][0] }}</span>
+    {% endif %}
+  </div>
+  <p class="fan-hello-name" style="margin:0">{{ fan['first_name']|title }} {{ fan['last_name']|title }}</p>
+  <p class="fan-muted">{{ fan['email'] }}</p>
+</div>
+
+<form method="POST" enctype="multipart/form-data" class="fan-form fan-card">
+  <h3 class="fan-sub">Profile photo</h3>
+  <input type="file" name="profile_photo" accept=".jpg,.jpeg,.png,.webp">
+  <div class="fan-form-row">
+    <div><label>First Name</label><input type="text" name="first_name" value="{{ fan['first_name'] }}" required></div>
+    <div><label>Last Name</label><input type="text" name="last_name" value="{{ fan['last_name'] }}" required></div>
+  </div>
+  <div class="fan-form-row">
+    <div><label>Date of Birth</label><input type="date" name="dob" value="{{ fan['dob'] }}"></div>
+    <div><label>Gender</label>
+      <select name="gender">
+        {% for g in ['Male','Female','Other'] %}
+        <option value="{{ g }}" {% if fan['gender']==g %}selected{% endif %}>{{ g }}</option>
+        {% endfor %}
+      </select></div>
+  </div>
+  <div class="fan-form-row">
+    <div><label>Phone</label><input type="text" name="phone" value="{{ fan['phone'] }}"></div>
+    <div><label>District</label><input type="text" name="district" value="{{ fan['district'] }}"></div>
+  </div>
+  <label>Favourite Ekhaya FC Team</label>
+  <select name="favourite_team">
+    {% for t in teams %}
+    <option value="{{ t }}" {% if fan['favourite_team']==t %}selected{% endif %}>{{ t }}</option>
+    {% endfor %}
+  </select>
+  <div class="fan-form-row">
+    <div><label>Emergency contact name</label><input type="text" name="emergency_name" value="{{ fan['emergency_name'] or '' }}"></div>
+    <div><label>Emergency contact phone</label><input type="text" name="emergency_phone" value="{{ fan['emergency_phone'] or '' }}"></div>
+  </div>
+  <button class="fan-btn fan-btn-gold" type="submit">Save Profile</button>
+</form>
+
+<div class="fan-card">
+  <h3 class="fan-sub">Change password</h3>
+  <form method="POST" action="{{ url_for('fanhub.fan_change_password') }}" class="fan-form">
+    <label>Current password</label>
+    <input type="password" name="current_password" required>
+    <div class="fan-form-row">
+      <div><label>New password</label><input type="password" name="new_password" required></div>
+      <div><label>Confirm new password</label><input type="password" name="confirm_password" required></div>
+    </div>
+    <button class="fan-btn fan-btn-outline" type="submit">Update Password</button>
+  </form>
+</div>
+{% endblock %}

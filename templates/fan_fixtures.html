@@ -1,0 +1,33 @@
+{% extends "fan_base.html" %}
+{% block title %}Fixtures - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Ekhaya FC Fixtures</h1>
+</div>
+
+<div class="fan-section">
+  <h2 class="fan-section-title">Upcoming</h2>
+  {% for f in fixtures %}
+    {% if f['status'] != 'played' and ('Ekhaya' in f['home_team'] or 'Ekhaya' in f['away_team']) %}
+    <div class="fan-fixture upcoming">
+      <span class="fan-fixture-mw">MW {{ f['matchweek'] }}</span>
+      <span class="fan-fixture-teams">{{ f['home_team'] }}  vs  {{ f['away_team'] }}</span>
+      <span class="fan-fixture-meta">{{ f['match_date'] }} &middot; {{ f['kick_off'] }} &middot; {{ f['venue'] }}</span>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="fan-section">
+  <h2 class="fan-section-title">Results</h2>
+  {% for f in fixtures %}
+    {% if f['status'] == 'played' and ('Ekhaya' in f['home_team'] or 'Ekhaya' in f['away_team']) %}
+    <div class="fan-fixture played">
+      <span class="fan-fixture-mw">MW {{ f['matchweek'] }}</span>
+      <span class="fan-fixture-teams">{{ f['home_team'] }} {{ f['home_score'] }} - {{ f['away_score'] }} {{ f['away_team'] }}</span>
+      <span class="fan-fixture-meta">{{ f['match_date'] }} &middot; {{ f['venue'] }}</span>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

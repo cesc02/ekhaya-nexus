@@ -1,0 +1,70 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ 'Edit' if fan else 'Add' }} Fan - Ekhaya Nexus{% endblock %}
+{% block content %}
+<div class="form-section">
+  <h1 class="page-title" style="margin-bottom:24px">{{ 'Edit' if fan else 'Add' }} Fan</h1>
+  <form method="POST" class="app-form">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="first_name" value="{{ fan['first_name'] if fan else '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" name="last_name" value="{{ fan['last_name'] if fan else '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ fan['email'] if fan else '' }}">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ fan['phone'] if fan else '' }}" placeholder="+265 ...">
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" name="city" value="{{ fan['city'] if fan else '' }}">
+      </div>
+      <div class="form-group">
+        <label>Membership Tier</label>
+        <select name="membership_tier">
+          {% for t in ['Fan', 'Premium', 'VIP'] %}
+          <option value="{{ t }}" {% if fan and fan['membership_tier'] == t %}selected{% endif %}>{{ t }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Membership Status</label>
+        <select name="membership_status">
+          {% for s in ['Active', 'Inactive'] %}
+          <option value="{{ s }}" {% if fan and fan['membership_status'] == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Joined Date</label>
+        <input type="text" name="joined_date" value="{{ fan['joined_date'] if fan else '' }}" placeholder="YYYY-MM-DD">
+      </div>
+      {% if not fan %}
+      <div class="form-group">
+        <label>Source</label>
+        <select name="source">
+          {% for s in ['Admin', 'Web'] %}
+          <option value="{{ s }}">{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+      <div class="form-group" style="grid-column:1/-1">
+        <label>Notes</label>
+        <input type="text" name="notes" value="{{ fan['notes'] if fan else '' }}">
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-gold" type="submit">Save</button>
+      <a class="btn btn-outline" href="{{ url_for('admin_fans') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

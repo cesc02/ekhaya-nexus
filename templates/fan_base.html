@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Ekhaya FC Fan Hub{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fanhub.css') }}?v=20260907">
+</head>
+<body class="fan-body {% block body_class %}{% endblock %}">
+  <header class="fan-header">
+    <a class="fan-brand" href="{{ url_for('fanhub.fan_dashboard') }}">
+      <img class="fan-crest" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC">
+      <span class="fan-brand-name">EKHAYA FC <em>Fan Hub</em></span>
+    </a>
+    <div class="fan-header-right">
+      {% if unread is defined and unread %}
+      <a class="fan-bell" href="{{ url_for('fanhub.fan_notifications') }}"><span class="bell-dot">{{ unread }}</span>&#128276;</a>
+      {% endif %}
+      <a class="fan-avatar" href="{{ url_for('fanhub.fan_profile') }}">
+        {% if fan and fan['profile_photo'] %}
+        <img src="{{ url_for('static', filename=fan['profile_photo']) }}" alt="me">
+        {% elif fan %}
+        <span>{{ fan['first_name'][0] }}</span>
+        {% else %}
+        <span>?</span>
+        {% endif %}
+      </a>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="fan-flash">
+    {% for category, message in messages %}
+    <div class="fan-flash-item fan-flash-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <main class="fan-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <nav class="fan-bottom-nav">
+    <a href="{{ url_for('fanhub.fan_dashboard') }}"><span class="ficon">&#127968;</span>Home</a>
+    <a href="{{ url_for('fanhub.fan_card') }}"><span class="ficon">&#128179;</span>Card</a>
+    <a href="{{ url_for('fanhub.fan_membership') }}"><span class="ficon">&#10070;</span>Member</a>
+    <a href="{{ url_for('fanhub.fan_fixtures') }}"><span class="ficon">&#9917;</span>Fixtures</a>
+    <a href="{{ url_for('fanhub.fan_settings') }}"><span class="ficon">&#9881;</span>More</a>
+  </nav>
+</body>
+</html>

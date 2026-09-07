@@ -1,0 +1,52 @@
+{% extends "fanhub_admin_base.html" %}
+{% block title %}Fan Hub - Admin | Ekhaya Nexus{% endblock %}
+{% block fanhub_content %}
+<div class="page-header-inner" style="margin-bottom:18px">
+  <h1 class="page-title">Fan Hub &middot; Admin / CEO</h1>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a class="btn btn-gold" href="{{ url_for('fanhub.admin_fanhub_packages') }}">Packages</a>
+    <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub_fans') }}">Fans</a>
+    <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub_payments') }}">Payments</a>
+    <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub_reports') }}">Reports</a>
+    <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub_audit') }}">Audit Log</a>
+    <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub_settings') }}">Settings</a>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card"><span class="stat-label">Registered Fans</span><span class="stat-value">{{ fs['total'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Active Members</span><span class="stat-value">{{ ms['active'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Expired Memberships</span><span class="stat-value">{{ ms['expired'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Pending Payments</span><span class="stat-value">{{ ps['pending'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">New Registrations</span><span class="stat-value">{{ fs['total'] }}</span></div>
+  <div class="stat-card"><span class="stat-label">Membership Revenue</span><span class="stat-value">{{ '%.0f'|format(ps['revenue']) }} MWK</span></div>
+</div>
+
+<div class="card" style="margin-top:22px">
+  <h3 class="card-title">Active payment gateway: <b>{{ active_provider }}</b></h3>
+  <p>Membership activates only when a payment is verified as SUCCESSFUL by the gateway. 
+  {% if active_provider == 'sandbox' %}<em>(Sandbox / test gateway — switch to PayChangu in Settings to take live payments.)</em>{% endif %}</p>
+</div>
+
+<h2 class="section-title" style="margin-top:28px">Recent payments</h2>
+<div class="table-wrap">
+  <table class="data-table">
+    <thead><tr><th>Fan</th><th>Member No.</th><th>Package</th><th>Amount</th><th>Status</th><th>Reference</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for p in recent %}
+      <tr>
+        <td>{{ p['first_name'] }} {{ p['last_name'] }}</td>
+        <td>{{ p['member_number'] }}</td>
+        <td>{{ p['package_name'] or '—' }}</td>
+        <td class="num">{{ '%.0f'|format(p['amount']) }}</td>
+        <td><span class="status-badge status-{{ 'active' if p['status']=='SUCCESSFUL' else 'injured' if p['status']=='FAILED' else 'inactive' }}">{{ p['status'] }}</span></td>
+        <td>{{ p['reference'] }}</td>
+        <td>{{ p['created_at'] }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" style="text-align:center;color:#aaa;padding:24px">No payments yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

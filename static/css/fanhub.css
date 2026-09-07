@@ -1,0 +1,215 @@
+/* ============================================================
+   Ekhaya FC Fan Hub — white & gold, mobile-first
+   ============================================================ */
+:root {
+  --gold: #c4a64c;
+  --gold-bright: #d9bc6a;
+  --gold-dark: #8f7433;
+  --ink: #161513;
+  --paper: #ffffff;
+  --cream: #faf7ef;
+  --grey: #77736a;
+  --line: #e9e3d4;
+  --green: #1f7a4d;
+  --red: #b23a2e;
+  --amber: #b07418;
+}
+
+* { box-sizing: border-box; }
+
+body.fan-body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  min-height: 100vh;
+}
+
+a { color: var(--gold-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- Header ---------- */
+.fan-header {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--paper);
+  border-bottom: 3px solid var(--gold);
+}
+.fan-brand { display: flex; align-items: center; gap: 10px; }
+.fan-crest { width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--line); }
+.fan-brand-name { font-family: "Oswald", sans-serif; font-size: 18px; font-weight: 700; letter-spacing: .5px; color: var(--ink); }
+.fan-brand-name em { display: block; font-style: normal; font-size: 10px; color: var(--gold-dark); letter-spacing: 2px; }
+.fan-header-right { display: flex; align-items: center; gap: 12px; }
+.fan-bell { position: relative; font-size: 20px; }
+.bell-dot { position: absolute; top: -6px; right: -8px; background: var(--gold); color: #fff; font-size: 10px; font-weight: 700; border-radius: 99px; padding: 0 5px; }
+.fan-avatar { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); display: grid; place-items: center; background: var(--cream); color: var(--gold-dark); font-weight: 700; }
+.fan-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.fan-avatar span { font-size: 15px; }
+
+/* ---------- Flash ---------- */
+.fan-flash { padding: 0 14px; }
+.fan-flash-item { margin: 10px 0 0; padding: 12px 14px; border-radius: 10px; font-size: 14px; border: 1px solid var(--line); background: var(--cream); }
+.fan-flash-success { border-color: #cfe7d8; background: #eef8f2; color: #1f7a4d; }
+.fan-flash-error { border-color: #f0cec8; background: #fdf0ee; color: #b23a2e; }
+.fan-flash-info { border-color: #e7ddc2; background: #faf6ea; color: #8f7433; }
+
+/* ---------- Main ---------- */
+.fan-main { padding: 16px 14px 90px; max-width: 640px; margin: 0 auto; }
+
+.fan-hello-kicker { font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; color: var(--gold-dark); margin: 0; }
+.fan-hello-name { font-family: "Oswald", sans-serif; font-size: 30px; margin: 2px 0; }
+.fan-hello-meta { color: var(--grey); font-size: 13px; margin: 0; }
+
+/* ---------- Membership card banner ---------- */
+.fan-m-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 18px 0;
+  background: linear-gradient(135deg, #fff, var(--cream));
+  box-shadow: 0 6px 18px rgba(143,116,51,.10);
+}
+.fan-m-card-status { font-family: "Oswald", sans-serif; font-size: 12px; letter-spacing: 2px; color: var(--grey); text-transform: uppercase; margin-bottom: 8px; }
+.fan-m-card-status.active { color: var(--green); }
+.fan-m-card-status.pending, .fan-m-card-status.expired { color: var(--amber); }
+.fan-m-card-body { display: flex; gap: 14px; align-items: center; }
+.fan-m-card-photo { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: var(--gold); color: #fff; font-size: 26px; font-weight: 700; }
+.fan-m-card-photo img { width: 100%; height: 100%; object-fit: cover; }
+.fan-m-card-name { font-family: "Oswald", sans-serif; font-size: 20px; }
+.fan-m-card-no { color: var(--gold-dark); font-size: 12px; letter-spacing: 1px; }
+.fan-m-card-valid { color: var(--grey); font-size: 12px; margin-top: 2px; }
+.fan-m-card-cta { margin: 4px 0 0; color: var(--grey); font-size: 14px; }
+.fan-m-card-link { display: block; margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--gold-dark); }
+.fan-m-card-link.gold { color: var(--gold-dark); }
+
+/* ---------- Quick grid ---------- */
+.fan-quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.fan-quick {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 14px;
+  padding: 14px 6px; text-align: center; font-size: 12px; color: var(--ink); font-weight: 600;
+}
+.fan-quick:active { transform: scale(.97); }
+.fan-quick-ic { display: block; font-size: 22px; margin-bottom: 4px; }
+.unread-pill { background: var(--gold); color: #fff; border-radius: 99px; font-size: 10px; padding: 0 5px; }
+
+/* ---------- Sections ---------- */
+.fan-section { margin-top: 24px; }
+.fan-section-title { font-family: "Oswald", sans-serif; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--gold); padding-bottom: 6px; margin: 0 0 12px; }
+.fan-section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; gap: 10px; flex-wrap: wrap; }
+.fan-page-title { font-family: "Oswald", sans-serif; font-size: 28px; margin: 0; }
+.fan-member-no { font-family: "Oswald", sans-serif; color: var(--gold-dark); letter-spacing: 1px; font-size: 13px; }
+
+.fan-announce, .fan-news-item, .fan-news-full, .fan-history-item, .fan-benefit-card {
+  border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; background: #fff;
+}
+.fan-announce h3, .fan-news-item h3, .fan-news-full h3 { margin: 0 0 4px; font-size: 16px; }
+.fan-announce p, .fan-news-item p, .fan-news-full p { margin: 0 0 4px; color: var(--grey); font-size: 14px; }
+.fan-date { font-size: 11px; color: #b3aa95; }
+.fan-muted { color: var(--grey); font-size: 14px; }
+
+.fan-benefit { padding: 8px 0; font-size: 14px; }
+.fan-benefit-card { display: flex; gap: 12px; align-items: flex-start; }
+.fan-benefit-tick { color: var(--green); font-weight: 700; }
+
+/* ---------- Cards / lists ---------- */
+.fan-card { border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 16px; background: #fff; }
+.fan-sub { font-family: "Oswald", sans-serif; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 10px; }
+
+.fan-list-item { display: flex; justify-content: space-between; gap: 10px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.fan-list-item.unread { border-color: var(--gold); background: #fdfaf1; }
+.fan-list-main { display: flex; flex-direction: column; }
+.fan-list-title { font-weight: 600; font-size: 14px; }
+.fan-list-sub { color: var(--grey); font-size: 12px; }
+.fan-list-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.fan-list-amount { font-weight: 700; font-size: 15px; }
+
+/* ---------- Tags ---------- */
+.tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; border-radius: 99px; padding: 2px 8px; }
+.tag-active, .tag-successful, .tag-success { background: #e2f2e9; color: #1f7a4d; }
+.tag-expired, .tag-failed, .tag-error { background: #fbe6e3; color: #b23a2e; }
+.tag-pending, .tag-inactive { background: #f6eedd; color: #8f7433; }
+
+/* ---------- Plans ---------- */
+.fan-plans { display: grid; gap: 14px; }
+.fan-plan { border: 1px solid var(--line); border-radius: 16px; padding: 18px; text-align: center; background: #fff; }
+.fan-plan.is-active { border-color: var(--gold); box-shadow: 0 6px 18px rgba(143,116,51,.15); }
+.fan-plan-name { font-family: "Oswald", sans-serif; font-size: 22px; margin: 0; }
+.fan-plan-price { font-family: "Oswald", sans-serif; font-size: 30px; color: var(--gold-dark); }
+.fan-plan-per { color: var(--grey); font-size: 12px; margin-bottom: 8px; }
+.fan-plan-desc { color: var(--grey); font-size: 13px; }
+.fan-plan-perks { list-style: none; padding: 0; margin: 8px 0 14px; font-size: 13px; color: var(--ink); }
+.fan-plan-perks li::before { content: "\2713  "; color: var(--green); font-weight: 700; }
+
+/* ---------- Buttons ---------- */
+.fan-btn { display: inline-block; width: 100%; padding: 13px; border-radius: 12px; font-family: "Oswald", sans-serif; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: none; }
+.fan-btn-gold { background: linear-gradient(180deg, var(--gold-bright), var(--gold-dark)); color: #fff; }
+.fan-btn-gold:active { transform: scale(.99); }
+.fan-btn-outline { background: transparent; color: var(--gold-dark); border: 1px solid var(--gold); }
+.fan-btn-disabled { background: #eee; color: #aaa; cursor: not-allowed; }
+
+/* ---------- Forms ---------- */
+.fan-form label { display: block; font-size: 12px; font-weight: 600; color: var(--grey); text-transform: uppercase; letter-spacing: .5px; margin: 12px 0 4px; }
+.fan-form input, .fan-form select {
+  width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--line);
+  font-size: 15px; background: #fff; color: var(--ink); outline: none;
+}
+.fan-form input:focus, .fan-form select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,166,76,.15); }
+.fan-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fan-details { margin-top: 10px; }
+.fan-details summary { font-size: 13px; cursor: pointer; color: var(--gold-dark); font-weight: 600; }
+.fan-gateway { border: 1px dashed var(--line); border-radius: 10px; padding: 12px; margin-top: 10px; background: var(--cream); }
+
+/* ---------- Auth (login/register) ---------- */
+.fan-auth { background: var(--paper); }
+.fan-auth-wrap { min-height: 88vh; display: flex; align-items: center; justify-content: center; padding: 20px 14px; }
+.fan-auth-card { width: 100%; max-width: 440px; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 28px 22px; box-shadow: 0 14px 40px rgba(143,116,51,.12); }
+.fan-auth-reg { max-width: 520px; }
+.fan-auth-crest { width: 72px; height: 72px; border-radius: 16px; display: block; margin: 0 auto 12px; border: 2px solid var(--gold); }
+.fan-auth-title { font-family: "Oswald", sans-serif; text-align: center; font-size: 26px; letter-spacing: 2px; margin: 0; }
+.fan-auth-sub { text-align: center; color: var(--grey); font-size: 14px; margin: 2px 0 12px; }
+.fan-auth-alt { text-align: center; font-size: 13px; color: var(--grey); margin-top: 14px; }
+
+/* ---------- Card page ---------- */
+.fan-card-preview { text-align: center; margin: 10px 0; }
+.fan-card-img { width: 100%; max-width: 480px; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+.fan-card-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.fan-card-meta > div { border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: var(--cream); font-size: 13px; }
+
+.fan-checkout-summary { max-width: 360px; margin: 0 auto 20px; }
+.fan-empty { text-align: center; padding: 30px 10px; color: var(--grey); }
+
+/* ---------- Fixtures ---------- */
+.fan-fixture { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
+.fan-fixture.upcoming { background: var(--cream); }
+.fan-fixture.played { background: #fff; }
+.fan-fixture-teams { font-family: "Oswald", sans-serif; font-size: 17px; }
+.fan-fixture-meta { color: var(--grey); font-size: 12px; }
+.fan-fixture-mw { color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ---------- Verification (staff) ---------- */
+.fan-verify-result { margin-top: 14px; padding: 12px; border-radius: 10px; font-size: 14px; }
+.fan-verify-result.ok { background: #e2f2e9; color: #1f7a4d; border: 1px solid #cfe7d8; }
+.fan-verify-result.bad { background: #fbe6e3; color: #b23a2e; border: 1px solid #f0cec8; }
+.fan-verify-card { text-align: left; margin-top: 16px; border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: #fff; }
+
+/* ---------- Menu list ---------- */
+.fan-menu-list { display: flex; flex-direction: column; gap: 10px; }
+.fan-menu-list a { display: block; border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: #fff; font-weight: 600; }
+
+/* ---------- Bottom nav ---------- */
+.fan-bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: rgba(255,255,255,.96); border-top: 3px solid var(--gold);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+}
+.fan-bottom-nav a { text-align: center; font-size: 10px; font-weight: 600; color: var(--grey); }
+.fan-bottom-nav a .ficon { display: block; font-size: 20px; margin-bottom: 2px; }
+.fan-bottom-nav a:active { color: var(--gold-dark); }
+
+/* ---------- Misc responsive ---------- */
+@media (max-width: 400px) {
+  .fan-quick-grid { grid-template-columns: repeat(3, 1fr); }
+  .fan-form-row { grid-template-columns: 1fr; }
+}

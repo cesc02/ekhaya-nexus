@@ -1,0 +1,41 @@
+{% extends "fan_base.html" %}
+{% block title %}Checkout - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Checkout</h1>
+</div>
+
+<div class="fan-checkout">
+  <div class="fan-plan fan-checkout-summary">
+    <h3 class="fan-plan-name">{{ package['name'] }}</h3>
+    <div class="fan-plan-price">
+      {% if package['price_mwk'] == 0 %}FREE{% else %}MWK {{ '%.0f'|format(package['price_mwk']) }}{% endif %}
+    </div>
+    <div class="fan-plan-per">{{ package['duration_days'] }} days</div>
+  </div>
+
+  <form method="POST" action="{{ url_for('fanhub.fan_pay') }}" class="fan-form fan-card">
+    <input type="hidden" name="package_id" value="{{ package['id'] }}">
+    <input type="hidden" name="provider" value="{{ provider.id }}">
+
+    <label>Mobile Money number to pay from</label>
+    <input type="text" name="phone" value="{{ fan['phone'] or '' }}" placeholder="+265..." required>
+
+    <label>Gateway</label>
+    <div class="fan-gateway">
+      {% if provider.id == 'sandbox' %}
+      <p><strong>{{ provider_name }}</strong></p>
+      <p class="fan-muted small">This is a test gateway for development. No real money moves.
+      When a live gateway (PayChangu etc.) is enabled with merchant credentials, payments go
+      through the real provider and are verified automatically.</p>
+      {% else %}
+      <p><strong>{{ provider_name }}</strong></p>
+      <p class="fan-muted small">You will be prompted to approve the payment on your phone.</p>
+      {% endif %}
+    </div>
+
+    <p class="fan-muted small">Reference: <code>{{ reference }}</code></p>
+    <button class="fan-btn fan-btn-gold" type="submit">{% if package['price_mwk']==0 %}Activate Free Membership{% else %}Pay {{ '%.0f'|format(package['price_mwk']) }} MWK{% endif %}</button>
+  </form>
+</div>
+{% endblock %}

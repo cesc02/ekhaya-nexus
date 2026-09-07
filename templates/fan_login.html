@@ -1,0 +1,23 @@
+{% extends "fan_base.html" %}
+{% block title %}Fan Login - Ekhaya FC{% endblock %}
+{% block body_class %}fan-auth{% endblock %}
+{% block content %}
+<div class="fan-auth-wrap">
+  <div class="fan-auth-card">
+    <img class="fan-auth-crest" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC">
+    <h1 class="fan-auth-title">FAN LOGIN</h1>
+    <p class="fan-auth-sub">Sign in to your Ekhaya FC Fan Hub</p>
+    <form method="POST" class="fan-form">
+      <label>Email</label>
+      <input type="email" name="email" required autofocus>
+      <label>Password</label>
+      <input type="password" name="password" required>
+      <button class="fan-btn fan-btn-gold" type="submit">Sign In</button>
+    </form>
+    <p class="fan-auth-alt">New supporter?
+      <a href="{{ url_for('fanhub.fan_register') }}">Create an account</a>
+    </p>
+    <p class="fan-auth-alt"><a href="{{ url_for('team_select') }}">&larr; Back to main</a></p>
+  </div>
+</div>
+{% endblock %}

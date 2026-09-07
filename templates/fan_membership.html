@@ -1,0 +1,61 @@
+{% extends "fan_base.html" %}
+{% block title %}Membership - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Membership</h1>
+</div>
+
+{% if current %}
+<div class="fan-m-card">
+  <div class="fan-m-card-status {{ memb_status|lower }}">{{ memb_status }}</div>
+  <div class="fan-m-card-body">
+    <div class="fan-m-card-info">
+      <div class="fan-m-card-name">{{ current['package_name'] or 'Membership' }}</div>
+      <div class="fan-m-card-no">Member No. {{ fan['member_number'] }}</div>
+      <div class="fan-m-card-valid">Valid {{ current['start_date'] }} &rarr; {{ current['expiry_date'] }}</div>
+    </div>
+  </div>
+</div>
+{% else %}
+<p class="fan-muted">You are not a member yet. Choose a package below to get started.</p>
+{% endif %}
+
+<h2 class="fan-section-title">Choose your package</h2>
+<div class="fan-plans">
+  {% for p in packages %}
+  <div class="fan-plan {% if active and active['package_id'] == p['id'] %}is-active{% endif %}">
+    <h3 class="fan-plan-name">{{ p['name'] }}</h3>
+    <div class="fan-plan-price">
+      {% if p['price_mwk'] == 0 %}FREE{% else %}MWK {{ '%.0f'|format(p['price_mwk']) }}{% endif %}
+    </div>
+    <div class="fan-plan-per">per {{ p['duration_days'] }} days</div>
+    <p class="fan-plan-desc">{{ p['description'] or '' }}</p>
+    {% if p['benefits'] %}
+    <ul class="fan-plan-perks">
+      {% for b in p['benefits'].split(',') %}<li>{{ b|trim }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if active and active['package_id'] == p['id'] %}
+    <button class="fan-btn fan-btn-disabled" disabled>Current Plan</button>
+    {% else %}
+    <form method="POST" action="{{ url_for('fanhub.fan_subscribe', package_id=p['id']) }}">
+      <button class="fan-btn fan-btn-gold" type="submit">Subscribe</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+{% if history %}
+<div class="fan-section">
+  <h2 class="fan-section-title">Membership history</h2>
+  {% for m in history %}
+  <div class="fan-history-item">
+    <span>{{ m['package_name'] or 'Membership' }}</span>
+    <span class="tag tag-{{ m['status']|lower }}">{{ m['status'] }}</span>
+    <span class="fan-date">{{ m['start_date'] }} &rarr; {{ m['expiry_date'] }}</span>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

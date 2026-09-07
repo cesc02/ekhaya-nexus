@@ -1,0 +1,19 @@
+{% extends "fan_base.html" %}
+{% block title %}Fan Benefits - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Fan Benefits</h1>
+</div>
+
+{% for b in benefits %}
+<div class="fan-benefit-card">
+  <span class="fan-benefit-tick">&#10003;</span>
+  <div>
+    <strong>{{ b['name'] }}</strong>
+    {% if b['description'] %}<p>{{ b['description'] }}</p>{% endif %}
+  </div>
+</div>
+{% else %}
+<p class="fan-muted">Benefits coming soon.</p>
+{% endfor %}
+{% endblock %}

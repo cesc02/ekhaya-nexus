@@ -1,0 +1,24 @@
+{% extends "fan_base.html" %}
+{% block title %}Notifications - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Notifications</h1>
+  {% if unread %}<span class="tag tag-pending">{{ unread }} new</span>{% endif %}
+</div>
+
+{% if notifications %}
+<div class="fan-list">
+  {% for n in notifications %}
+  <div class="fan-list-item {{ 'unread' if not n['read'] else '' }}">
+    <div class="fan-list-main">
+      <span class="fan-list-title">{{ n['title'] }}</span>
+      {% if n['body'] %}<span class="fan-list-sub">{{ n['body'] }}</span>{% endif %}
+    </div>
+    <div class="fan-list-side"><span class="fan-date">{{ n['created_at'] }}</span></div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="fan-muted">No notifications yet.</p>
+{% endif %}
+{% endblock %}

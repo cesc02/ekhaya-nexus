@@ -1,0 +1,22 @@
+{% extends "fan_base.html" %}
+{% block title %}Settings - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Account Settings</h1>
+</div>
+
+<div class="fan-menu-list">
+  <a href="{{ url_for('fanhub.fan_profile') }}">&#128100; Edit profile</a>
+  <a href="{{ url_for('fanhub.fan_card') }}">&#128179; My membership card</a>
+  <a href="{{ url_for('fanhub.fan_payments') }}">&#128176; Payment history</a>
+  <a href="{{ url_for('fanhub.fan_notifications') }}">&#128276; Notifications</a>
+  <a href="{{ url_for('fanhub.fan_benefits') }}">&#127873; Fan benefits</a>
+  <a href="{{ url_for('fanhub.fan_logout') }}">&#8614; Log out</a>
+</div>
+
+<div class="fan-card">
+  <p class="fan-muted">Member number assigned at registration:
+  <strong>{{ fan['member_number'] }}</strong>. Keep it private &mdash; it is your official
+  Ekhaya FC supporter ID.</p>
+</div>
+{% endblock %}

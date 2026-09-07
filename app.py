@@ -23,12 +23,20 @@ from database import (
     get_performance_physical, seed_reference_performance,
     seed_performance_data, seed_competitions,
     get_player_medical, add_medical_record, update_medical_record, delete_medical_record, get_team_medical_summary,
+    add_fan, get_all_fans, get_fan_by_id, update_fan, delete_fan,
+    get_fan_stats, seed_fans,
     get_connection,
 )
 
 app = Flask(__name__)
-app.secret_key = "ekhaya-nexus-secret-key-change-in-production"
+app.secret_key = os.environ.get("SECRET_KEY", "ekhaya-nexus-secret-key-change-in-production")
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["PERMANENT_SESSION_LIFETIME"] = 60 * 60 * 24 * 7
+
+from fanhub import bp as fanhub_bp
+app.register_blueprint(fanhub_bp)
 
 PLAYER_PHOTO_DIR = os.path.join(app.root_path, "static", "img", "players")
 os.makedirs(PLAYER_PHOTO_DIR, exist_ok=True)
@@ -45,6 +53,28 @@ seed_real_rosters()
 seed_performance_data()
 seed_competitions()
 seed_reference_performance()
+seed_fans()
+
+# Fan Hub seed data (idempotent): packages, settings, content.
+import membership_db as mdb
+if not mdb.get_packages(active_only=False):
+    mdb.add_package("Basic Fan", 0, 0, 365, "Free supporter membership",
+                    "News & fixtures", 1)
+    mdb.add_package("Silver", 1, 20000, 365, "Silver supporter package",
+                    "News, discounted match tickets", 1)
+    mdb.add_package("Gold", 2, 50000, 365, "Gold supporter package",
+                    "Priority tickets, exclusive content", 1)
+    mdb.add_package("Premium", 3, 100000, 365, "Premium supporter package",
+                    "VIP access, meet & greets, gifts", 1)
+mdb.set_setting("active_payment_provider", "sandbox")
+mdb.set_setting("sandbox_auto_success", "1")
+if not mdb.get_news(active_only=True):
+    mdb.add_news("Ekhaya FC back in action", "The squad returns to training ahead of the next matchweek.")
+    mdb.add_announcement("Welcome to the Fan Hub", "Thank you for supporting Ekhaya FC.")
+if not mdb.get_benefits(active_only=True):
+    mdb.add_benefit("Match-day discounts", "Members save on ticket prices.")
+    mdb.add_benefit("Exclusive news", "Early access to club announcements.")
+    mdb.add_benefit("Fan events", "Invitations to supporter gatherings.")
 
 
 def admin_required(f):
@@ -111,6 +141,27 @@ def admin_dashboard():
 def team_select():
     teams = get_all_teams()
     return render_template("team_select.html", teams=teams)
+
+
+@app.route("/fans/join", methods=["GET", "POST"])
+def fans_join():
+    """Public membership signup form."""
+    if request.method == "POST":
+        add_fan(
+            request.form.get("first_name", "").strip(),
+            request.form.get("last_name", "").strip(),
+            email=request.form.get("email", "").strip() or None,
+            phone=request.form.get("phone", "").strip() or None,
+            city=request.form.get("city", "").strip() or None,
+            membership_tier=request.form.get("membership_tier", "Fan"),
+            membership_status="Active",
+            joined_date=request.form.get("joined_date", "").strip() or None,
+            source="Web",
+            notes=None,
+        )
+        flash("Welcome to the Ekhaya FC family! Your membership request has been received.", "success")
+        return redirect(url_for("fans_join"))
+    return render_template("fans_join.html")
 
 
 @app.route("/team/<int:team_id>")
@@ -829,6 +880,75 @@ def fixtures(team_id):
                            fixtures=matchweeks, ekhaya_fixtures=ekhaya_fixtures,
                            all_fixtures=all_fixtures, selected_mw=mw,
                            ekhaya_played=ekhaya_played)
+
+
+@app.route("/admin/fans")
+@admin_required
+def admin_fans():
+    search = request.args.get("q", "").strip()
+    status = request.args.get("status", "").strip()
+    tier = request.args.get("tier", "").strip()
+    fans = get_all_fans(search=search or None, status=status or None,
+                        tier=tier or None)
+    stats = get_fan_stats()
+    return render_template("admin_fans.html", fans=fans, stats=stats,
+                           search=search, status=status, tier=tier,
+                           current_user=session.get("admin_username"))
+
+
+@app.route("/admin/fans/add", methods=["GET", "POST"])
+@admin_required
+def admin_add_fan():
+    if request.method == "POST":
+        add_fan(
+            request.form.get("first_name", "").strip(),
+            request.form.get("last_name", "").strip(),
+            email=request.form.get("email", "").strip() or None,
+            phone=request.form.get("phone", "").strip() or None,
+            city=request.form.get("city", "").strip() or None,
+            membership_tier=request.form.get("membership_tier", "Fan"),
+            membership_status=request.form.get("membership_status", "Active"),
+            joined_date=request.form.get("joined_date", "").strip() or None,
+            source=request.form.get("source", "Admin"),
+            notes=request.form.get("notes", "").strip() or None,
+        )
+        flash("Fan added!", "success")
+        return redirect(url_for("admin_fans"))
+    return render_template("admin_fan_form.html", fan=None,
+                           current_user=session.get("admin_username"))
+
+
+@app.route("/admin/fans/<int:fan_id>/edit", methods=["GET", "POST"])
+@admin_required
+def admin_edit_fan(fan_id):
+    fan = get_fan_by_id(fan_id)
+    if fan is None:
+        abort(404)
+    if request.method == "POST":
+        update_fan(
+            fan_id,
+            request.form.get("first_name", "").strip(),
+            request.form.get("last_name", "").strip(),
+            email=request.form.get("email", "").strip() or None,
+            phone=request.form.get("phone", "").strip() or None,
+            city=request.form.get("city", "").strip() or None,
+            membership_tier=request.form.get("membership_tier", "Fan"),
+            membership_status=request.form.get("membership_status", "Active"),
+            joined_date=request.form.get("joined_date", "").strip() or None,
+            notes=request.form.get("notes", "").strip() or None,
+        )
+        flash("Fan updated!", "success")
+        return redirect(url_for("admin_fans"))
+    return render_template("admin_fan_form.html", fan=fan,
+                           current_user=session.get("admin_username"))
+
+
+@app.route("/admin/fans/<int:fan_id>/delete", methods=["POST"])
+@admin_required
+def admin_delete_fan(fan_id):
+    delete_fan(fan_id)
+    flash("Fan removed.", "info")
+    return redirect(url_for("admin_fans"))
 
 
 @app.route("/admin/players")

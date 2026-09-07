@@ -1,0 +1,27 @@
+{% extends "fan_base.html" %}
+{% block title %}Payments - Ekhaya FC{% endblock %}
+{% block content %}
+<div class="fan-section-head">
+  <h1 class="fan-page-title">Payment History</h1>
+</div>
+
+{% if payments %}
+<div class="fan-list">
+  {% for p in payments %}
+  <div class="fan-list-item">
+    <div class="fan-list-main">
+      <span class="fan-list-title">{{ p['package_name'] or 'Membership' }}</span>
+      <span class="fan-list-sub">{{ p['reference'] or '' }} &middot; {{ p['provider'] or '' }}</span>
+    </div>
+    <div class="fan-list-side">
+      <span class="fan-list-amount">{{ '%.0f'|format(p['amount']) }} MWK</span>
+      <span class="tag tag-{{ p['status']|lower }}">{{ p['status'] }}</span>
+      <span class="fan-date">{{ p['created_at'] }}</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="fan-muted">No payments yet. <a href="{{ url_for('fanhub.fan_membership') }}">Subscribe</a> to become a member.</p>
+{% endif %}
+{% endblock %}

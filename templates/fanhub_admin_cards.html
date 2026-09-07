@@ -1,0 +1,28 @@
+{% extends "fanhub_admin_base.html" %}
+{% block title %}Cards - Fan Hub | Ekhaya Nexus{% endblock %}
+{% block fanhub_content %}
+<div class="page-header-inner" style="margin-bottom:16px">
+  <h1 class="page-title">Membership Cards</h1>
+  <a class="btn btn-outline" href="{{ url_for('fanhub.admin_fanhub') }}">&larr; Hub</a>
+</div>
+
+<div class="table-wrap">
+  <table class="data-table">
+    <thead><tr><th>Member</th><th>Card #</th><th>Package</th><th>Status</th><th>Generated</th><th></th></tr></thead>
+    <tbody>
+      {% for c in cards %}
+      <tr>
+        <td>{{ c['first_name'] }} {{ c['last_name'] }} ({{ c['member_number'] }})</td>
+        <td>{{ c['card_number'] }}</td>
+        <td>{{ c['package_name'] or 'FAN' }}</td>
+        <td><span class="status-badge status-{{ 'active' if c['membership_status']=='ACTIVE' else 'inactive' }}">{{ c['membership_status'] or '—' }}</span></td>
+        <td>{{ c['generated_at'] }}</td>
+        <td><a class="btn btn-outline" style="padding:4px 10px" href="{{ url_for('fanhub.fan_card_png', card_id=c['id']) }}" target="_blank">View</a></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" style="text-align:center;padding:24px;color:#aaa">No cards issued yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
