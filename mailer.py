@@ -23,6 +23,7 @@ free Mailtrap inbox and paste its credentials into the admin settings page.
 import os
 import re
 import smtplib
+import sys
 from email.message import EmailMessage
 
 from membership_db import get_setting
@@ -65,11 +66,14 @@ def send_email(to_email, subject, body_text, body_html=None):
 
     if not is_configured():
         # ---- DEV mode: log so the flow is testable without an inbox ----
+        # stdout is block-buffered when redirected to a file, so flush
+        # immediately or the OTP never reaches the console / log.
         print("\n[mailer:DEV] ==================================================")
         print("[mailer:DEV] To:      %s" % to_email)
         print("[mailer:DEV] Subject: %s" % subject)
         print("[mailer:DEV] Body:    %s" % body_text)
         print("[mailer:DEV] ==================================================\n")
+        sys.stdout.flush()
         return True, "logged-to-console (no SMTP configured)"
 
     host = _cfg("mailer_host", "MAILER_HOST")
