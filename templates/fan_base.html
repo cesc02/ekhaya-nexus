@@ -40,6 +40,12 @@
   {% endif %}
   {% endwith %}
 
+  {% if fan is defined and fan and not fan['is_verified'] %}
+  <div class="fan-flash">
+    <a class="fan-flash-item fan-flash-info" style="display:block" href="{{ url_for('fanhub.fan_verify') }}">&#9993; Verify your email to activate your account &rarr;</a>
+  </div>
+  {% endif %}
+
   <main class="fan-main">
     {% block content %}{% endblock %}
   </main>

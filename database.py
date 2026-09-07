@@ -365,10 +365,24 @@ def init_db():
             emergency_phone TEXT,
             is_active INTEGER DEFAULT 1,
             is_verified INTEGER DEFAULT 0,
+            otp_code TEXT,
+            otp_expires_at TEXT,
+            otp_attempts INTEGER DEFAULT 0,
+            email_verified_at TEXT,
             created_at TEXT,
             last_login TEXT
         )
     """)
+
+    # Backwards compatible: add OTP columns to an existing fan_members table.
+    fmcols = [r[1] for r in cur.execute(
+        "PRAGMA table_info(fan_members)").fetchall()]
+    for col, ctype in (("otp_code", "TEXT"), ("otp_expires_at", "TEXT"),
+                       ("otp_attempts", "INTEGER"),
+                       ("email_verified_at", "TEXT")):
+        if col not in fmcols:
+            cur.execute("ALTER TABLE fan_members ADD COLUMN %s %s"
+                        % (col, ctype))
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS fan_memberships (

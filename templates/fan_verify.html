@@ -1,0 +1,26 @@
+{% extends "fan_base.html" %}
+{% block title %}Verify Email - Ekhaya FC{% endblock %}
+{% block body_class %}fan-auth{% endblock %}
+{% block content %}
+<div class="fan-auth-wrap">
+  <div class="fan-auth-card fan-auth-reg">
+    <img class="fan-auth-crest" src="{{ url_for('static', filename='img/crest.png') }}" alt="Ekhaya FC">
+    <h1 class="fan-auth-title">Verify Your Email</h1>
+    <p class="fan-auth-sub">We sent a 6-digit code to <b>{{ fan['email'] }}</b>.<br>Enter it to activate your Ekhaya FC account.</p>
+
+    <form method="POST" action="{{ url_for('fanhub.fan_verify') }}" class="fan-form">
+      <label>Verification code</label>
+      <input type="text" name="otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6"
+             placeholder="000000" autocomplete="one-time-code" autofocus required>
+      <button class="fan-btn fan-btn-gold" type="submit" style="margin-top:14px">Verify &amp; Activate</button>
+    </form>
+
+    <form method="POST" action="{{ url_for('fanhub.fan_verify') }}" class="fan-auth-alt">
+      <input type="hidden" name="action" value="resend">
+      <button type="submit" class="fan-btn fan-btn-outline" style="width:100%;margin-top:14px">Resend code</button>
+    </form>
+
+    <p class="fan-auth-sub" style="margin-top:12px">The code expires in 10 minutes.</p>
+  </div>
+</div>
+{% endblock %}

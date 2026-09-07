@@ -22,6 +22,7 @@ from database import (get_connection, get_all_teams, get_all_fixtures,
                       get_standings, check_admin)
 import membership_db as mdb
 import payment_provider as pp
+import mailer
 
 bp = Blueprint("fanhub", __name__, url_prefix=None)
 
@@ -119,8 +120,9 @@ def fan_register():
         errs = []
         if not first or not last:
             errs.append("First and last name are required.")
-        if "@" not in email or "." not in email:
-            errs.append("A valid email is required.")
+        if not mailer.valid_email(email):
+            errs.append("A valid email is required (it is used to verify "
+                        "your account).")
         if len(password) < 6:
             errs.append("Password must be at least 6 characters.")
         if password != confirm:
@@ -147,13 +149,100 @@ def fan_register():
                   "New fan registration: %s (%s)" % (email, number),
                   actor_type="fan")
         mdb.add_notification(fid, "Welcome to Ekhaya FC Fan Hub",
-                             "Your membership number is %s. Welcome aboard!"
-                             % number)
+                             "Your membership number is %s. Please verify "
+                             "your email to activate your account." % number)
+
+        code = _generate_otp()
+        mdb.set_otp(fid, code)
+        ok, info = mailer.send_otp(email, code)
+        if not ok:
+            # Email can't be delivered yet — still let them try via a fresh
+            # resend, but log the problem.
+            print("[mailer:ERROR] signing up %s: %s" % (email, info))
+
         session.clear()
-        flash("Registration successful! Your member number is %s. "
-              "Please log in." % number, "success")
-        return redirect(url_for("fanhub.fan_login"))
+        session["verify_fan_id"] = fid
+        flash("Registration successful! We sent a 6-digit verification code "
+              "to %s. Enter it to activate your account. (Delivery: %s)"
+              % (email, mailer.configured_mode()), "info")
+        return redirect(url_for("fanhub.fan_verify"))
     return render_template("fan_register.html", teams=teams, form={})
+
+
+@bp.route("/fan/verify", methods=["GET", "POST"])
+def fan_verify():
+    fan_id = session.get("verify_fan_id")
+    if not fan_id:
+        return redirect(url_for("fanhub.fan_login"))
+    fan = mdb.get_fan_by_id(fan_id)
+    if not fan:
+        session.pop("verify_fan_id", None)
+        return redirect(url_for("fanhub.fan_login"))
+    if fan["is_verified"]:
+        session["fan_id"] = fan_id
+        session["fan_name"] = fan["first_name"]
+        session.pop("verify_fan_id", None)
+        mdb.audit(fan["email"], "FAN_VERIFIED", "Fan verified email",
+                  actor_type="fan")
+        flash("Your email is verified. Welcome to the Fan Hub!", "success")
+        return redirect(url_for("fanhub.fan_dashboard"))
+    if request.method == "POST":
+        if request.form.get("action") == "resend":
+            if not _rate_limited("otp_resend_%s" % fan_id, limit=3, window=300):
+                flash("Too many resend requests. Please wait a few minutes.",
+                      "error")
+                return render_template("fan_verify.html", fan=fan,
+                                       **_fan_context(fan))
+            code = _generate_otp()
+            mdb.set_otp(fan_id, code)
+            ok, info = mailer.send_otp(fan["email"], code)
+            if not ok:
+                print("[mailer:ERROR] resend OTP %s: %s" % (fan["email"], info))
+            flash("A new verification code was sent. (Delivery: %s)"
+                  % mailer.configured_mode(), "info")
+            return render_template("fan_verify.html", fan=fan,
+                                   **_fan_context(fan))
+
+        entered = request.form.get("otp", "").strip()
+        state = mdb.get_fan_otp_state(fan_id)
+        if state and state["code"] and state["code"] == entered:
+            if _otp_expired(state["expires_at"]):
+                flash("That code has expired. Request a new one.", "error")
+            else:
+                mdb.mark_email_verified(fan_id)
+                session["fan_id"] = fan_id
+                session["fan_name"] = fan["first_name"]
+                session.pop("verify_fan_id", None)
+                mdb.audit(fan["email"], "FAN_VERIFIED",
+                          "Fan verified email with OTP", actor_type="fan")
+                flash("Email verified! Your account is now active.", "success")
+                return redirect(url_for("fanhub.fan_dashboard"))
+        else:
+            mdb.bump_otp_attempt(fan_id)
+            attempts = mdb.get_fan_otp_state(fan_id)["attempts"]
+            if attempts >= 6:
+                mdb.clear_otp(fan_id)
+                flash("Too many incorrect attempts. Request a new code and "
+                      "try again.", "error")
+            else:
+                flash("That code is incorrect. Attempts left: %d."
+                      % (6 - attempts), "error")
+    return render_template("fan_verify.html", fan=fan, **_fan_context(fan))
+
+
+def _generate_otp():
+    import secrets
+    return "%06d" % secrets.randbelow(1000000)
+
+
+def _otp_expired(expires_at):
+    if not expires_at:
+        return True
+    try:
+        return datetime.strptime(str(expires_at), "%Y-%m-%d %H:%M:%S") < \
+            datetime.utcnow()
+    except ValueError:
+        return True
 
 
 @bp.route("/fan/login", methods=["GET", "POST"])
@@ -170,6 +259,10 @@ def fan_login():
         fan = mdb.get_fan_by_email(email)
         if fan and check_password_hash(fan["password_hash"], password) \
                 and fan["is_active"]:
+            if not fan["is_verified"]:
+                session["verify_fan_id"] = fan["id"]
+                flash("Please verify your email before logging in.", "info")
+                return redirect(url_for("fanhub.fan_verify"))
             session.permanent = True
             session["fan_id"] = fan["id"]
             session["fan_name"] = fan["first_name"]
@@ -965,6 +1058,7 @@ def admin_fanhub_settings():
     return render_template("fanhub_admin_settings.html", settings=settings,
                            providers=pp.list_providers(),
                            active_provider=pp.get_active_provider(),
+                           mailer_mode=mailer.configured_mode(),
                            current_user=session.get("admin_username"))
 
 

@@ -33,4 +33,23 @@
     <button class="btn btn-gold" type="submit">Save Settings</button>
   </form>
 </div>
+
+<div class="form-section" style="margin-top:24px">
+  <h2 class="section-title" style="margin-bottom:6px">Email delivery (registration OTP)</h2>
+  <p style="color:#888;font-size:13px;margin-bottom:12px">Current mode: <b>{{ mailer_mode }}</b>.
+  Paste your SMTP credentials here (e.g. a free Mailtrap inbox) to enable real emails.
+  While unconfigured, OTP codes are logged to the server console so you can test locally.</p>
+  <form method="POST" class="app-form">
+    <div class="form-grid">
+      <div class="form-group"><label>Mailer from email</label><input type="text" name="mailer_from_email" value="{{ settings.get('mailer_from_email','') }}" placeholder="no-reply@ekhaya-fc.local"></div>
+      <div class="form-group"><label>Mailer from name</label><input type="text" name="mailer_from_name" value="{{ settings.get('mailer_from_name','Ekhaya FC') }}"></div>
+      <div class="form-group"><label>SMTP host</label><input type="text" name="mailer_host" value="{{ settings.get('mailer_host','') }}" placeholder="sandbox.smtp.mailtrap.io"></div>
+      <div class="form-group"><label>SMTP port</label><input type="number" name="mailer_port" value="{{ settings.get('mailer_port','587') }}"></div>
+      <div class="form-group"><label>SMTP username</label><input type="text" name="mailer_username" value="{{ settings.get('mailer_username','') }}"></div>
+      <div class="form-group"><label>SMTP password / key</label><input type="password" name="mailer_password" value="{{ settings.get('mailer_password','') }}"></div>
+      <div class="form-group"><label>SMTP TLS (1 = STARTTLS)</label><input type="text" name="mailer_use_tls" value="{{ settings.get('mailer_use_tls','1') }}"></div>
+    </div>
+    <button class="btn btn-gold" type="submit">Save Mailer Settings</button>
+  </form>
+</div>
 {% endblock %}

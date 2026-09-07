@@ -152,7 +152,7 @@ def create_fan_member(first_name, last_name, dob, gender, phone, email,
              district, password_hash, favourite_team,
              emergency_name, emergency_phone, is_active, is_verified,
              created_at)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,1,1,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,1,0,?)
     """, (member_number, first_name, last_name, dob, gender, phone, email,
           district, password_hash, favourite_team, emergency_name,
           emergency_phone, now()))
@@ -244,6 +244,61 @@ def touch_login(fan_id):
                  (now(), fan_id))
     conn.commit()
     conn.close()
+
+
+# ---------------------------------------------------------------------------
+# Email OTP verification
+# ---------------------------------------------------------------------------
+def set_otp(fan_id, code, ttl_minutes=10):
+    """Store a one-time password for a fan, with attempt counter reset."""
+    from datetime import datetime as _dt
+    exp = (_dt.utcnow() + timedelta(minutes=ttl_minutes)).strftime(
+        "%Y-%m-%d %H:%M:%S")
+    conn = get_connection()
+    conn.execute("""
+        UPDATE fan_members SET otp_code=?, otp_expires_at=?, otp_attempts=0
+        WHERE id=?
+    """, (code, exp, fan_id))
+    conn.commit()
+    conn.close()
+
+
+def clear_otp(fan_id):
+    conn = get_connection()
+    conn.execute("""
+        UPDATE fan_members SET otp_code=NULL, otp_expires_at=NULL,
+            otp_attempts=0 WHERE id=?
+    """, (fan_id,))
+    conn.commit()
+    conn.close()
+
+
+def mark_email_verified(fan_id):
+    conn = get_connection()
+    conn.execute("""
+        UPDATE fan_members SET is_verified=1, email_verified_at=?, otp_code=NULL,
+            otp_expires_at=NULL, otp_attempts=0 WHERE id=?
+    """, (now(), fan_id))
+    conn.commit()
+    conn.close()
+
+
+def bump_otp_attempt(fan_id):
+    conn = get_connection()
+    conn.execute("UPDATE fan_members SET otp_attempts = "
+                 "COALESCE(otp_attempts,0) + 1 WHERE id=?", (fan_id,))
+    conn.commit()
+    conn.close()
+
+
+def get_fan_otp_state(fan_id):
+    """Return dict with the fan's stored OTP code, expiry, and attempt count."""
+    fan = get_fan_by_id(fan_id)
+    if not fan:
+        return None
+    return {"code": fan["otp_code"], "expires_at": fan["otp_expires_at"],
+            "attempts": fan["otp_attempts"] or 0,
+            "verified": bool(fan["is_verified"])}
 
 
 # ---------------------------------------------------------------------------
