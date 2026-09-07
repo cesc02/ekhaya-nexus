@@ -15,14 +15,14 @@ def run():
     conn = get_connection()
     cur = conn.cursor()
 
-    # Wipe existing players for teams 1, 2, 3
+    # Clear child rows first (some FKs lack ON DELETE CASCADE, and wiped
+    # players are re-created with new ids), then wipe players for teams 1-3.
+    for table in ("player_medical", "player_stats",
+                  "performance_player_stats", "performance_physical",
+                  "performance_minutes"):
+        cur.execute("DELETE FROM %s" % table)
     for tid in [1, 2, 3]:
         cur.execute("DELETE FROM players WHERE team_id = ?", (tid,))
-    # Clear rows referencing removed players (new ids are re-created below).
-    for table in ("performance_player_stats", "performance_physical",
-                  "performance_minutes", "player_stats"):
-        cur.execute("DELETE FROM %s WHERE player_id NOT IN "
-                    "(SELECT id FROM players)" % table)
 
     # --- FIRST TEAM (team_id=1) from Excel ---
     first_team = [
